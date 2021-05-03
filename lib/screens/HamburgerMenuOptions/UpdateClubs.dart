@@ -39,13 +39,32 @@ class _UpdateClubsState extends State<UpdateClubs> {
           IconButton(
             icon: Icon(Icons.info_outline),
             onPressed: () {
-              return alert(context,
-                content: Container(
-                  child: Text(
-                    'Long press the subject name to delete',
-                  ),
-                ),
-              );
+              return showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Text(
+                        'Long press the subject name to delete',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Ok',
+                            style: TextStyle(
+                              color: Color(0xff588297),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
             },
           ),
         ],

@@ -214,6 +214,7 @@ class PecSocialState extends State<PecSocial> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            scrollable: true,
             backgroundColor: Colors.white,
             content: Column(
               mainAxisSize: MainAxisSize.min,

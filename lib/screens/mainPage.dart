@@ -124,13 +124,49 @@ class MainPageState extends State<MainPage> {
                         print(auth);
                         if (auth == 1) {
                           return AlertDialog(
-                            title: Text(
-                              'Notifications',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff235790),
-                                fontWeight: FontWeight.bold,
-                              ),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Notifications',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color(0xff235790),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.info_outline, color: Color(0xff235790),),
+                                  onPressed: () {
+                                    return showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            content: Text(
+                                              'Long press the club name to delete',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  'Ok',
+                                                  style: TextStyle(
+                                                    color: Color(0xff588297),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                  },
+                                ),
+                              ],
                             ),
                             content: Container(
                               height: double.maxFinite,
@@ -164,8 +200,15 @@ class MainPageState extends State<MainPage> {
                                             children: [
                                               Container(height: 10),
                                               Text(
-                                                'Title: ' +
-                                                    notificationsList[index]
+                                                'Title: ',
+                                                style: TextStyle(
+                                                  color: Color(0xff235790),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                notificationsList[index]
                                                         .title,
                                                 style: TextStyle(
                                                   color: Color(0xff235790),
@@ -179,6 +222,15 @@ class MainPageState extends State<MainPage> {
                                                 style: TextStyle(
                                                   color: Color(0xff235790),
                                                   fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                notificationsList[index]
+                                                        .description,
+                                                style: TextStyle(
+                                                  color: Color(0xff235790),
+                                                  fontSize: 16,
                                                 ),
                                               ),
                                               Text(
@@ -188,11 +240,29 @@ class MainPageState extends State<MainPage> {
                                                 style: TextStyle(
                                                   color: Color(0xff235790),
                                                   fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                notificationsList[index]
+                                                        .date,
+                                                style: TextStyle(
+                                                  color: Color(0xff235790),
+                                                  fontSize: 16,
                                                 ),
                                               ),
                                               Text(
                                                 'Time: ' +
                                                     notificationsList[index]
+                                                        .time,
+                                                style: TextStyle(
+                                                  color: Color(0xff235790),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                notificationsList[index]
                                                         .time,
                                                 style: TextStyle(
                                                   color: Color(0xff235790),

@@ -18,7 +18,6 @@ class AddSubjects extends StatefulWidget {
 
 class _AddSubjectsState extends State<AddSubjects> {
   String searchForSubject;
-  double subjectHeight = 50;
 
   List<String> subsList = [];
   List<String> selectedSubsList = [];
@@ -144,11 +143,6 @@ class _AddSubjectsState extends State<AddSubjects> {
         scrollDirection: Axis.vertical,
         //shrinkWrap: true,
         itemBuilder: (context, index) {
-          if (subsList[index].length > 40) {
-            subjectHeight = 70;
-          } else {
-            subjectHeight = 50;
-          }
           if (searchForSubject == '') {
             subsList.clear();
             codesList.clear();
@@ -178,7 +172,6 @@ class _AddSubjectsState extends State<AddSubjects> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Color(0xffCADBE4),
                 ),
-                height: subjectHeight,
                 child: Center(
                   child: Text(
                     subsList[index] + '\n' + codesList[index],

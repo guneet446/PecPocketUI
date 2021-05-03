@@ -155,7 +155,6 @@ class SignUp2State extends State<SignUp2> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Color(0xffCADBE4),
                 ),
-                height: 50,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

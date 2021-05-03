@@ -158,7 +158,6 @@ class AddClubsState extends State<AddClubs> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Color(0xffCADBE4),
                 ),
-                height: 30,
                 child: Center(
                   child: Text(
                     clubslist[index],

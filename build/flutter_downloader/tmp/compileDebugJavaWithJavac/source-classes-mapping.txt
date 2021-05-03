@@ -11,15 +11,15 @@ vn/hunghd/flutterdownloader/FlutterDownloaderPlugin.java
  vn.hunghd.flutterdownloader.FlutterDownloaderPlugin
 vn/hunghd/flutterdownloader/DownloadTask.java
  vn.hunghd.flutterdownloader.DownloadTask
-vn/hunghd/flutterdownloader/DownloadedFileProvider.java
- vn.hunghd.flutterdownloader.DownloadedFileProvider
-vn/hunghd/flutterdownloader/DownloadStatus.java
- vn.hunghd.flutterdownloader.DownloadStatus
-vn/hunghd/flutterdownloader/IntentUtils.java
- vn.hunghd.flutterdownloader.IntentUtils
 vn/hunghd/flutterdownloader/DownloadWorker.java
  vn.hunghd.flutterdownloader.DownloadWorker
  vn.hunghd.flutterdownloader.DownloadWorker$1
  vn.hunghd.flutterdownloader.DownloadWorker$2
+vn/hunghd/flutterdownloader/DownloadedFileProvider.java
+ vn.hunghd.flutterdownloader.DownloadedFileProvider
+vn/hunghd/flutterdownloader/IntentUtils.java
+ vn.hunghd.flutterdownloader.IntentUtils
+vn/hunghd/flutterdownloader/DownloadStatus.java
+ vn.hunghd.flutterdownloader.DownloadStatus
 vn/hunghd/flutterdownloader/FlutterDownloaderInitializer.java
  vn.hunghd.flutterdownloader.FlutterDownloaderInitializer

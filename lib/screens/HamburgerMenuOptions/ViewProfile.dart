@@ -195,7 +195,6 @@ class ViewProfileState extends State<ViewProfile> {
     var profileData = Social.fromJson(json.decode(response.body));
 
     setState(() {
-      print(profileData.insta);
       name = profileData.name;
       sid = profileData.sid.toString();
       branch = profileData.branch;
@@ -205,6 +204,10 @@ class ViewProfileState extends State<ViewProfile> {
       insta = profileData.insta.toString() == 'null'
           ? 'no instagram handle'
           : profileData.insta;
+      if (clubsList.length == 0) {
+        clubs = 'Not part of any clubs';
+      } else
+        clubs = clubs.substring(1, clubs.length - 1);
     });
   }
 }

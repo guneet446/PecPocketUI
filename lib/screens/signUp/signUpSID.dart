@@ -67,10 +67,10 @@ class SignUp1State extends State<SignUp1> {
             children: [
               new TextSpan(
                 text: 'Login Now',
-                style: TextStyle(
-                    color: Color(0xffE28F22)
-                ),
-                recognizer: new TapGestureRecognizer()..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context) => Login())),
+                style: TextStyle(color: Color(0xffE28F22)),
+                recognizer: new TapGestureRecognizer()
+                  ..onTap = () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login())),
               )
             ]),
       ),
@@ -81,13 +81,13 @@ class SignUp1State extends State<SignUp1> {
     return Padding(
       padding: const EdgeInsets.only(top: 100, bottom: 30),
       child: ElevatedButton(
-          onPressed: validateSID,
-          child: Text(
-              'Get Started!',
-          ),
+        onPressed: validateSID,
+        child: Text(
+          'Get Started!',
+        ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
+            (Set<MaterialState> states) {
               return Color(0xffE28F22); // Use the component's default.
             },
           ),
@@ -116,7 +116,7 @@ class SignUp1State extends State<SignUp1> {
       await emailTransport.send(envelope);
       var response = await get(Uri.parse('${global.url}/super/$sid'));
       StudentData studentData =
-      StudentData.fromJson(json.decode(response.body));
+          StudentData.fromJson(json.decode(response.body));
 
       setState(() {
         global.sid = sid;
@@ -124,9 +124,17 @@ class SignUp1State extends State<SignUp1> {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SignUpEmail()));
       });
+    } else if (body[14] == '2') {
+      setState(() {
+        print(body);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('SID already signed up')));
+      });
     } else {
       setState(() {
         print(body);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Not a valid PEC SID')));
       });
     }
   }

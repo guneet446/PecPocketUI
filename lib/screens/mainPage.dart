@@ -57,6 +57,7 @@ class MainPageState extends State<MainPage> {
 
   Widget build(context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: CustomReminderView(),
         appBar: AppBar(

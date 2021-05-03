@@ -36,15 +36,14 @@ class StudyMaterial0State extends State<StudyMaterial0> {
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Study Material', style: TextStyle( color: Color(0xffCADBE4), fontSize: 28,),),
-        backgroundColor: Color(0xff588297),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () async {},
+        title: Text(
+          'Study Material',
+          style: TextStyle(
+            color: Color(0xffCADBE4),
+            fontSize: 28,
           ),
-          IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
-        ],
+        ),
+        backgroundColor: Color(0xff588297),
       ),
       bottomNavigationBar: bottomAppBar(),
       body: Container(
@@ -55,56 +54,60 @@ class StudyMaterial0State extends State<StudyMaterial0> {
             crossAxisCount: 2,
             mainAxisExtent: 150,
           ),
-          itemBuilder: (BuildContext context, int index){
+          itemBuilder: (BuildContext context, int index) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                  child: Image.asset(
+                    child: Image.asset(
                       'assets/study_material_folder.png',
-                    scale: 0.8,
-                  ),
-                  onTap: () async {
-                    var response = await get(Uri.parse(
-                        '${global
-                            .url}/subject/search?query=${subjectsList[index]}'));
-                    var rb = response.body;
+                      scale: 0.8,
+                    ),
+                    onTap: () async {
+                      var response = await get(Uri.parse(
+                          '${global.url}/subject/search?query=${subjectsList[index]}'));
+                      var rb = response.body;
 
-                    var list = json.decode(rb) as List;
+                      var list = json.decode(rb) as List;
 
-                    List<Subjects> mySubjects =
-                    list.map((i) => Subjects.fromJson(i)).toList();
+                      List<Subjects> mySubjects =
+                          list.map((i) => Subjects.fromJson(i)).toList();
 
-                    var userHelper = UserDatabase.instance;
-                    var userData = await userHelper.getAllUsers();
-                    setState(() {
-                      uploadSubject0 = mySubjects[0].subCode;
-                      uploadSubject = mySubjects[0].subCode;
-                      if (uploadsList0.length != 0) {
-                        uploadsList0.clear();
-                      }
-                      if (uploadsList.length != 0) {
-                        uploadsList.clear();
-                      }
-                      if (userData[0].auth == 0) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SubjectStudyMaterial(index: index,)));
-                      } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SubjectStudyMaterial1(index: index,)));
-                      }
-                    },);
-                  }
-                ),
+                      var userHelper = UserDatabase.instance;
+                      var userData = await userHelper.getAllUsers();
+                      setState(
+                        () {
+                          uploadSubject0 = mySubjects[0].subCode;
+                          uploadSubject = mySubjects[0].subCode;
+                          if (uploadsList0.length != 0) {
+                            uploadsList0.clear();
+                          }
+                          if (uploadsList.length != 0) {
+                            uploadsList.clear();
+                          }
+                          if (userData[0].auth == 0) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SubjectStudyMaterial(
+                                          index: index,
+                                        )));
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SubjectStudyMaterial1(
+                                          index: index,
+                                        )));
+                          }
+                        },
+                      );
+                    }),
                 Container(
                   child: Text(
-                      subjectsList[index],
+                    subjectsList[index],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,

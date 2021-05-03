@@ -99,10 +99,7 @@ class _AvatarChoiceState extends State<AvatarChoice> {
           Avatar avatar = Avatar(id: 0, avatar: selectedAvatar);
           await avatarHelper.deleteTable();
           await avatarHelper.addAvatar(avatar);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MainPage()),
-          );
+          Navigator.pop(context);
         },
       ),
       body: Container(

@@ -39,7 +39,7 @@ class SignUp3State extends State<SignUp3> {
               onPressed: () {
                 return showDialog(
                     context: context,
-                    builder: (context){
+                    builder: (context) {
                       return AlertDialog(
                         content: Text(
                           'Long press the club name to delete',
@@ -50,7 +50,7 @@ class SignUp3State extends State<SignUp3> {
                         ),
                         actions: [
                           TextButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -62,8 +62,7 @@ class SignUp3State extends State<SignUp3> {
                           ),
                         ],
                       );
-                    }
-                );
+                    });
               },
             ),
           ],
@@ -213,7 +212,7 @@ class SignUp3State extends State<SignUp3> {
 
   confirmClubsButton() {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.center,
       child: ElevatedButton(
           onPressed: () {
             var clubHelper = ClubDatabase.instance;

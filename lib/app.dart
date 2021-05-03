@@ -1,4 +1,5 @@
 import 'package:fend/EntryPoint.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AddSubjects.dart';
 import 'package:fend/screens/login_screen.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/screens/signUp/SignUpClubs.dart';

@@ -36,7 +36,7 @@ class _SettingsState extends State<Settings> {
       'Add Clubs'; //Change to Edit clubs if clubs have been added already
   String subjectsOption = 'Add Subjects';
   String instagramHandle;
-
+  String newPassword = '';
   @override
   void initState() {
     super.initState();
@@ -306,7 +306,7 @@ class _SettingsState extends State<Settings> {
                   builder: (context) {
                     return AlertDialog(
                       title: Text(
-                        'Enter New Password',
+                        'Enter Current Password followed by the new password',
                         style: TextStyle(
                           color: Color(0xff235790),
                         ),
@@ -320,20 +320,28 @@ class _SettingsState extends State<Settings> {
                               confirmPassword = value;
                             },
                           ),
+                          TextField(
+                            obscureText: true,
+                            onChanged: (String value) {
+                              newPassword = value;
+                            },
+                          ),
                           TextButton(
                               onPressed: () async {
                                 var userHelper = UserDatabase.instance;
                                 var userData = await userHelper.getAllUsers();
                                 setState(() {
-                                  userHelper.deleteUser(userData[0].sid);
-                                  User user = new User(
-                                      id: 0,
-                                      sid: userData[0].sid,
-                                      password: confirmPassword,
-                                      auth: userData[0].auth,
-                                      login: 1);
-                                  userHelper.addUser(user);
-                                  Navigator.pop(context);
+                                  if (userData[0].password == confirmPassword) {
+                                    userHelper.deleteTable();
+                                    User user = new User(
+                                        id: 0,
+                                        sid: userData[0].sid,
+                                        password: newPassword,
+                                        auth: userData[0].auth,
+                                        login: 1);
+                                    userHelper.addUser(user);
+                                    Navigator.pop(context);
+                                  }
                                 });
                               },
                               child: Text(

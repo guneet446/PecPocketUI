@@ -4,6 +4,9 @@ import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:fend/models/student_json.dart';
+import 'package:fend/screens/HamburgerMenu.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AddClubs.dart';
+import 'package:fend/screens/HamburgerMenuOptions/EditSubjects.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -42,7 +45,7 @@ class _AddSubjectsState extends State<AddSubjects> {
               onPressed: () {
                 return showDialog(
                     context: context,
-                    builder: (context){
+                    builder: (context) {
                       return AlertDialog(
                         content: Text(
                           'Long press the subject name to delete',
@@ -53,7 +56,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                         ),
                         actions: [
                           TextButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -65,8 +68,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                           ),
                         ],
                       );
-                    }
-                );
+                    });
               },
             ),
           ],
@@ -142,16 +144,31 @@ class _AddSubjectsState extends State<AddSubjects> {
         scrollDirection: Axis.vertical,
         //shrinkWrap: true,
         itemBuilder: (context, index) {
-          if(subsList[index].length > 40) {
+          if (subsList[index].length > 40) {
             subjectHeight = 70;
-          }
-          else {
+          } else {
             subjectHeight = 50;
+          }
+          if (searchForSubject == '') {
+            subsList.clear();
+            codesList.clear();
           }
           return GestureDetector(
             onTap: () {
               setState(() {
-                selectedSubsList.add(subsList[index]);
+                int flag = 0;
+                for (int i = 0; i < selectedSubsList.length; i++) {
+                  if (subsList[index] == selectedSubsList[i]) {
+                    flag = 1;
+                    break;
+                  }
+                }
+                if (flag == 0) {
+                  selectedSubsList.add(subsList[index]);
+                  selectedCodesList.add(codesList[index]);
+                } else
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('${subsList[index]} already added')));
               });
             },
             child: Padding(
@@ -164,7 +181,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                 height: subjectHeight,
                 child: Center(
                   child: Text(
-                    subsList[index] + '\n' +codesList[index],
+                    subsList[index] + '\n' + codesList[index],
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -193,6 +210,7 @@ class _AddSubjectsState extends State<AddSubjects> {
             onLongPress: () {
               setState(() {
                 selectedSubsList.removeAt(index);
+                selectedCodesList.removeAt(index);
               });
             },
             child: Padding(
@@ -210,7 +228,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                         text: '  ' +
                             selectedSubsList[index] +
                             ' ' +
-                            codesList[index],
+                            selectedCodesList[index],
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -229,7 +247,7 @@ class _AddSubjectsState extends State<AddSubjects> {
 
   confirmSubjectsButton() {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.center,
       child: ElevatedButton(
           onPressed: () async {
             var subjectHelper = SubjectDatabase.instance;
@@ -237,8 +255,8 @@ class _AddSubjectsState extends State<AddSubjects> {
               Subject subject = Subject(id: i, subject: selectedSubsList[i]);
               subjectHelper.addSubject(subject);
             }
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MainPage()));
+
+            Navigator.pop(context);
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color>(

@@ -17,11 +17,15 @@ class EditSubjects extends StatefulWidget {
 List<String> currentSubjects = [];
 
 class _EditSubjectsState extends State<EditSubjects> {
+  void initState() {
+    super.initState();
+  }
+
   String subtitle = 'YOUR SUBJECTS';
 
   @override
   Widget build(BuildContext context) {
-    if(currentSubjects.length == 0) {
+    if (currentSubjects.length == 0) {
       setState(() {
         subtitle = 'CHOOSE YOUR SUBJECTS';
       });
@@ -41,7 +45,8 @@ class _EditSubjectsState extends State<EditSubjects> {
           IconButton(
             icon: Icon(Icons.info_outline),
             onPressed: () {
-              return alert(context,
+              return alert(
+                context,
                 content: Container(
                   child: Text(
                     'Long press the subject name to delete',
@@ -80,27 +85,27 @@ class _EditSubjectsState extends State<EditSubjects> {
                     });
                   },
                   child: Padding(
-                      padding: EdgeInsets.fromLTRB(20, 15, 0, 0),
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            WidgetSpan(
-                              child: Icon(
-                                Icons.circle,
-                                color: Color(0xff588297),
-                              ),
+                    padding: EdgeInsets.fromLTRB(20, 15, 0, 0),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          WidgetSpan(
+                            child: Icon(
+                              Icons.circle,
+                              color: Color(0xff588297),
                             ),
-                            TextSpan(
-                              text: '  ' + currentSubjects[index],
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                              ),
+                          ),
+                          TextSpan(
+                            text: '  ' + currentSubjects[index],
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
                   ),
                 );
               }),
@@ -116,7 +121,7 @@ class _EditSubjectsState extends State<EditSubjects> {
               child: Text('Add Subject'),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
+                  (Set<MaterialState> states) {
                     return Color(0xffE28F22); // Use the component's default.
                   },
                 ),
@@ -126,5 +131,16 @@ class _EditSubjectsState extends State<EditSubjects> {
         ],
       )),
     );
+  }
+
+  void updateCurrentSubjects() async {
+    var subjectHelper = SubjectDatabase.instance;
+    var databaseSubjects = await subjectHelper.getAllSubjects();
+    setState(() {
+      currentSubjects.clear();
+      for (int i = 0; i < databaseSubjects.length; i++) {
+        currentSubjects.add(databaseSubjects[i].subject);
+      }
+    });
   }
 }

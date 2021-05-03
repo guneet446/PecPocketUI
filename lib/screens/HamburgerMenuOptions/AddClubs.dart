@@ -45,7 +45,7 @@ class AddClubsState extends State<AddClubs> {
               onPressed: () {
                 return showDialog(
                     context: context,
-                    builder: (context){
+                    builder: (context) {
                       return AlertDialog(
                         content: Text(
                           'Long press the club name to delete',
@@ -56,7 +56,7 @@ class AddClubsState extends State<AddClubs> {
                         ),
                         actions: [
                           TextButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -68,8 +68,7 @@ class AddClubsState extends State<AddClubs> {
                           ),
                         ],
                       );
-                    }
-                );
+                    });
               },
             ),
           ],
@@ -223,7 +222,7 @@ class AddClubsState extends State<AddClubs> {
 
   confirmClubsButton() {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.center,
       child: ElevatedButton(
           onPressed: () {
             var clubHelper = ClubDatabase.instance;
@@ -235,8 +234,7 @@ class AddClubsState extends State<AddClubs> {
               clubHelper.addClub(club);
             }
             setState(() {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => MainPage()));
+              Navigator.pop(context);
             });
           },
           style: ButtonStyle(

@@ -41,7 +41,7 @@ class SignUp2State extends State<SignUp2> {
               onPressed: () {
                 return showDialog(
                     context: context,
-                    builder: (context){
+                    builder: (context) {
                       return AlertDialog(
                         content: Text(
                           'Long press the subject name to delete',
@@ -52,7 +52,7 @@ class SignUp2State extends State<SignUp2> {
                         ),
                         actions: [
                           TextButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -64,8 +64,7 @@ class SignUp2State extends State<SignUp2> {
                           ),
                         ],
                       );
-                    }
-                );
+                    });
               },
             ),
           ],
@@ -196,7 +195,19 @@ class SignUp2State extends State<SignUp2> {
           return GestureDetector(
             onLongPress: () {
               setState(() {
-                selectedSubsList.removeAt(index);
+                int flag = 0;
+                for (int i = 0; i < selectedSubsList.length; i++) {
+                  if (subsList[index] == selectedSubsList[i]) {
+                    flag = 1;
+                    break;
+                  }
+                }
+                if (flag == 0) {
+                  selectedSubsList.add(subsList[index]);
+                  selectedCodesList.add(codesList[index]);
+                } else
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('${subsList[index]} already added')));
               });
             },
             child: Padding(
@@ -214,7 +225,7 @@ class SignUp2State extends State<SignUp2> {
                         text: '  ' +
                             selectedSubsList[index] +
                             ' ' +
-                            codesList[index],
+                            selectedCodesList[index],
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -233,7 +244,7 @@ class SignUp2State extends State<SignUp2> {
 
   confirmSubjectsButton() {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.center,
       child: ElevatedButton(
           onPressed: () async {
             var subjectHelper = SubjectDatabase.instance;

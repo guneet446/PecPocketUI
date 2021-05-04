@@ -72,7 +72,9 @@ class UploadNotificationState extends State<UploadNotification> {
                   });
                 },
               ),
-              Container(height: 20,),
+              Container(
+                height: 20,
+              ),
               uploadButton(),
             ],
           ),
@@ -83,11 +85,11 @@ class UploadNotificationState extends State<UploadNotification> {
 
   uploadButton() {
     return ElevatedButton(
-        onPressed: uploadNotification,
-        child: Text('Upload'),
+      onPressed: uploadNotification,
+      child: Text('Upload'),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
+          (Set<MaterialState> states) {
             return Color(0xffE28F22); // Use the component's default.
           },
         ),
@@ -108,7 +110,14 @@ class UploadNotificationState extends State<UploadNotification> {
     var response = await post(Uri.parse('${global.url}/noti/19103098'),
         headers: headers, body: json);
     setState(() {
-      print(response.body);
+      print(response.body.length);
     });
+    if (response.body.length == 18) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Notification Uploaded')));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Check date and time format')));
+    }
   }
 }

@@ -9,6 +9,7 @@ import 'package:fend/Databases/customFoldersDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/NotiClass.dart';
+import 'package:fend/classes/Reminder.dart';
 
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/classes/user.dart';
@@ -136,7 +137,10 @@ class MainPageState extends State<MainPage> {
                                   ),
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.info_outline, color: Color(0xff235790),),
+                                  icon: Icon(
+                                    Icons.info_outline,
+                                    color: Color(0xff235790),
+                                  ),
                                   onPressed: () {
                                     return showDialog(
                                         context: context,
@@ -171,112 +175,27 @@ class MainPageState extends State<MainPage> {
                             content: Container(
                               height: double.maxFinite,
                               width: double.maxFinite,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Scaffold(
-                                                  body: CustomReminderAddNew(),
-                                                )));
-                                  });
-                                },
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: notificationsList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Container(
-                                        color: Color(0xffCADBE4),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(height: 10),
-                                              Text(
-                                                'Title: ',
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                notificationsList[index]
-                                                        .title,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Description: ' +
-                                                    notificationsList[index]
-                                                        .description,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                notificationsList[index]
-                                                        .description,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Date: ' +
-                                                    notificationsList[index]
-                                                        .date,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                notificationsList[index]
-                                                        .date,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Time: ' +
-                                                    notificationsList[index]
-                                                        .time,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                notificationsList[index]
-                                                        .time,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Container(height: 10),
-                                            ],
-                                          ),
-                                        ),
+                              child: ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onLongPress: () async {
+                                      print(notificationsList[index].title +
+                                          notificationsList[index].description);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Text(notificationsList[index].title),
+                                          Text(notificationsList[index]
+                                              .description),
+                                          Text(notificationsList[index].date),
+                                          Text(notificationsList[index].time),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  );
+                                },
+                                itemCount: notificationsList.length,
                               ),
                             ),
                           );
@@ -293,77 +212,67 @@ class MainPageState extends State<MainPage> {
                             content: Container(
                               height: double.maxFinite,
                               width: double.maxFinite,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CustomReminderAddNew()));
-                                  });
-                                },
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: notificationsList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Container(
-                                        color: Color(0xffCADBE4),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(height: 10),
-                                              Text(
-                                                'Title: ' +
-                                                    notificationsList[index]
-                                                        .title,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Description: ' +
-                                                    notificationsList[index]
-                                                        .description,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Date: ' +
-                                                    notificationsList[index]
-                                                        .date,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Time: ' +
-                                                    notificationsList[index]
-                                                        .time,
-                                                style: TextStyle(
-                                                  color: Color(0xff235790),
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              Container(height: 10),
-                                            ],
-                                          ),
-                                        ),
+                              child: ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onLongPress: () {
+                                      String reminderDescription =
+                                          notificationsList[index].title +
+                                              ' ' +
+                                              notificationsList[index]
+                                                  .description;
+                                      List<String> dateList =
+                                          notificationsList[index]
+                                              .date
+                                              .split('-');
+                                      List<String> timeList =
+                                          notificationsList[index]
+                                              .time
+                                              .split(':');
+                                      DateTime notificationDateTime =
+                                          new DateTime(
+                                        int.parse(dateList[2]),
+                                        int.parse(dateList[1]),
+                                        int.parse(dateList[0]),
+                                        int.parse(timeList[0]),
+                                        int.parse(timeList[1]),
+                                      );
+
+                                      customReminders.add(CustomReminderDetails(
+                                          0,
+                                          reminderDescription,
+                                          notificationDateTime,
+                                          true));
+
+                                      var reminderHelper =
+                                          ReminderDatabase.instance;
+                                      Reminder reminder = Reminder(
+                                        id: 0,
+                                        description: reminderDescription,
+                                        year: int.parse(dateList[2]),
+                                        month: int.parse(dateList[1]),
+                                        day: int.parse(dateList[0]),
+                                        hour: int.parse(timeList[0]),
+                                        minute: int.parse(timeList[1]),
+                                        getNotified: true,
+                                      );
+
+                                      reminderHelper.create(reminder);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Text(notificationsList[index].title),
+                                          Text(notificationsList[index]
+                                              .description),
+                                          Text(notificationsList[index].date),
+                                          Text(notificationsList[index].time),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  );
+                                },
+                                itemCount: notificationsList.length,
                               ),
                             ),
                             actions: [
@@ -376,6 +285,17 @@ class MainPageState extends State<MainPage> {
                                                 UploadNotification()));
                                   },
                                   child: Icon(Icons.add)),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MainPage()));
+                                  },
+                                  child: Text(
+                                    'Okay',
+                                    style: TextStyle(fontSize: 17.5),
+                                  ))
                             ],
                           );
                         }
@@ -398,7 +318,7 @@ class MainPageState extends State<MainPage> {
   void updateReminder() async {
     var reminderHelper = ReminderDatabase.instance;
     var databaseReminder = await reminderHelper.getAllReminders();
-    print(databaseReminder.length);
+    print('reminder count ${databaseReminder.length}');
     customReminders.clear();
     for (int i = 0; i < databaseReminder.length; i++) {
       DateTime dateTime = new DateTime(

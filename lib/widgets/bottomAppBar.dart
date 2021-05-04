@@ -126,11 +126,11 @@ class bottomAppBarState extends State<bottomAppBar> {
       if (sizeAttendance == 0) {
         for (int i = 0; i < databaseAttendances.length; i++) {
           SubjectAttendanceDetails subjectAttendanceDetails =
-          SubjectAttendanceDetails(
-              databaseAttendances[i].subject,
-              databaseAttendances[i].subtitle,
-              databaseAttendances[i].classesAttended,
-              databaseAttendances[i].totalClasses);
+              SubjectAttendanceDetails(
+                  databaseAttendances[i].subject,
+                  databaseAttendances[i].subtitle,
+                  databaseAttendances[i].classesAttended,
+                  databaseAttendances[i].totalClasses);
 
           subjects.add(subjectAttendanceDetails);
         }
@@ -164,21 +164,38 @@ class bottomAppBarState extends State<bottomAppBar> {
       icon: Icon(Icons.calendar_today_outlined),
       iconSize: 30.0,
       color: Color(0xffCADBE4),
-      onPressed: () async{
+      onPressed: () async {
         var timetableHelper = TimetableDatabase.instance;
         var databaseTimetables = await timetableHelper.getAllTimetables();
         var subjectHelper = SubjectDatabase.instance;
-        var databaseSubjects= await subjectHelper.getAllSubjects();
+        var databaseSubjects = await subjectHelper.getAllSubjects();
         setState(() {
-          for(int i = 0; i < databaseTimetables.length; i ++) {
-            DateTime from_dt = DateTime(databaseTimetables[i].startYear, databaseTimetables[i].startMonth, databaseTimetables[i].startDay, databaseTimetables[i].startHour, databaseTimetables[i].startMinute);
-            DateTime till_dt = DateTime(databaseTimetables[i].endYear, databaseTimetables[i].endMonth, databaseTimetables[i].endDay, databaseTimetables[i].endHour, databaseTimetables[i].endMinute);
-            meetings.add(Meeting(databaseTimetables[i].title, from_dt, till_dt, colors[i], false, 'FREQ=DAILY;INTERVAL=${databaseTimetables[i].interval}'));
+          meetings.clear();
+          for (int i = 0; i < databaseTimetables.length; i++) {
+            DateTime from_dt = DateTime(
+                databaseTimetables[i].startYear,
+                databaseTimetables[i].startMonth,
+                databaseTimetables[i].startDay,
+                databaseTimetables[i].startHour,
+                databaseTimetables[i].startMinute);
+            DateTime till_dt = DateTime(
+                databaseTimetables[i].endYear,
+                databaseTimetables[i].endMonth,
+                databaseTimetables[i].endDay,
+                databaseTimetables[i].endHour,
+                databaseTimetables[i].endMinute);
+            meetings.add(Meeting(
+                databaseTimetables[i].title,
+                from_dt,
+                till_dt,
+                colors[i],
+                false,
+                'FREQ=DAILY;INTERVAL=${databaseTimetables[i].interval}'));
           }
         });
-        if(timetableSubjectsList.length == 1) {
+        if (timetableSubjectsList.length == 1) {
           setState(() {
-            for(int i = 0; i < databaseSubjects.length; i ++) {
+            for (int i = 0; i < databaseSubjects.length; i++) {
               timetableSubjectsList.add(databaseSubjects[i].subject);
             }
           });

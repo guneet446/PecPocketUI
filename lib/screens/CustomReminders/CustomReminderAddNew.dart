@@ -57,13 +57,15 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
             selectedDate = await _selectDate(context);
             setState(() {
               toAdd = 1;
+              print('toAdd $toAdd');
             });
             selectedTime = await _selectTime(context);
             setState(() {
               toAdd = 2;
+              print('toAdd $toAdd');
             });
+
             var reminderHelper = ReminderDatabase.instance;
-            var databaseReminders = await reminderHelper.getAllReminders();
 
             if (toAdd == 2) {
               Reminder reminder = Reminder(
@@ -83,7 +85,7 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                   selectedTime.hour,
                   selectedTime.minute);
               customReminders.add(CustomReminderDetails(
-                  0, userDescription, selectedDateTime, getNotif));
+                  uid, userDescription, selectedDateTime, getNotif));
               setState(() {
                 reminderHelper.create(reminder);
               });

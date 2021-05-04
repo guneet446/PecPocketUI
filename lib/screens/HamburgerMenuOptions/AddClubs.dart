@@ -126,14 +126,21 @@ class AddClubsState extends State<AddClubs> {
 
     List<Clubs> myClubs = list.map((i) => Clubs.fromJson(i)).toList();
 
-    setState(() {
-      clubslist.clear();
-      clubCodesList.clear();
-      for (int i = 0; i < myClubs.length; i++) {
-        clubslist.add(myClubs[i].club);
-        clubCodesList.add(myClubs[i].clubCode);
-      }
-    });
+    if (searchForClub.length == 0) {
+      setState(() {
+        clubslist.clear();
+        clubCodesList.clear();
+      });
+    } else {
+      setState(() {
+        clubslist.clear();
+        clubCodesList.clear();
+        for (int i = 0; i < myClubs.length; i++) {
+          clubslist.add(myClubs[i].club);
+          clubCodesList.add(myClubs[i].clubCode);
+        }
+      });
+    }
   }
 
   clubsList(context) {

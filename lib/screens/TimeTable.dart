@@ -62,7 +62,9 @@ class _TimeTableState extends State<TimeTable> {
         backgroundColor: Color(0xff588297),
         actions: [
           PopupMenuButton(
-            child: Icon(Icons.add,),
+            child: Icon(
+              Icons.add,
+            ),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 1,
@@ -177,7 +179,7 @@ class _TimeTableState extends State<TimeTable> {
 
                   Timetable timetable = Timetable(
                     id: 0,
-                    title: '$titleSubject $titleSubtitle',
+                    title: myController.text,
                     startYear: from_dt.year,
                     startMonth: from_dt.month,
                     startDay: from_dt.day,
@@ -204,32 +206,31 @@ class _TimeTableState extends State<TimeTable> {
             icon: Icon(Icons.info_outline),
             onPressed: () {
               return showDialog(
-                context: context,
-                builder: (context){
-                return AlertDialog(
-                  content: Text(
-                'Long press the appointment to delete',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                ),
-                  actions: [
-                    TextButton(
-                        onPressed: (){
-                          Navigator.pop(context);
-                        },
-                        child: Text(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Text(
+                        'Long press the appointment to delete',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
                             'Ok',
-                          style: TextStyle(
-                            color: Color(0xff588297),
+                            style: TextStyle(
+                              color: Color(0xff588297),
+                            ),
                           ),
                         ),
-                    ),
-                  ],
-              );
-              }
-              );
+                      ],
+                    );
+                  });
             },
           ),
         ],
@@ -256,69 +257,66 @@ class _TimeTableState extends State<TimeTable> {
     return showDialog(
         context: context,
         builder: (context) {
-          return StatefulBuilder(
-              builder: (context, setState) {
-                return AlertDialog(
-                  title: Text('Subject'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      DropdownButton<String>(
-                        value: subject,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        isExpanded: true,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            subject = newValue;
-                            titleSubject = newValue.toString();
-                          });
-                        },
-                        items: timetableSubjectsList
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value, child: Text(value));
-                        }).toList(),
-                      ),
-                      DropdownButton<String>(
-                        value: subtitle,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: Color(0xffE28F22),
-                        ),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            subtitle = newValue;
-                            titleSubtitle = newValue;
-                          });
-                          //_setSubject(newValue);
-                        },
-                        items: timetableSubtitlesList
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Submit',
-                            style: TextStyle(
-                                color: Color(0xff235790), fontSize: 16)),
-                      ),
-                    ],
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Subject'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButton<String>(
+                    value: subject,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 24,
+                    isExpanded: true,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        subject = newValue;
+                        titleSubject = newValue.toString();
+                      });
+                    },
+                    items: timetableSubjectsList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                          value: value, child: Text(value));
+                    }).toList(),
                   ),
-                );
-              }
-          );
-        }
-        );
+                  DropdownButton<String>(
+                    value: subtitle,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 24,
+                    elevation: 16,
+                    underline: Container(
+                      height: 2,
+                      color: Color(0xffE28F22),
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        subtitle = newValue;
+                        titleSubtitle = newValue;
+                      });
+                      //_setSubject(newValue);
+                    },
+                    items: timetableSubtitlesList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Submit',
+                        style:
+                            TextStyle(color: Color(0xff235790), fontSize: 16)),
+                  ),
+                ],
+              ),
+            );
+          });
+        });
   }
 
   selectDay() {
@@ -405,13 +403,13 @@ class _TimeTableState extends State<TimeTable> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Subject"),
+            title: Text("Meeting Description"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
                   controller: myController,
-                  decoration: InputDecoration(labelText: 'Subject'),
+                  decoration: InputDecoration(labelText: 'Title'),
                   validator: (val) {
                     return val.isEmpty ? 'Enter the subject name' : null;
                   },

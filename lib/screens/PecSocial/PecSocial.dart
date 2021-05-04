@@ -123,29 +123,34 @@ class PecSocialState extends State<PecSocial> {
   }
 
   search() async {
-    var response =
-        await get(Uri.parse('${global.url}/social?query=$searchFor'));
-    SocialList studentList = SocialList.fromJson(json.decode(response.body));
-    setState(() {
+    if (searchFor.length == 0) {
       socialListName.clear();
       socialListSid.clear();
-      socialListBranch.clear();
-      socialListYear.clear();
-      socialListSemester.clear();
-      socialListInsta.clear();
-      socialListClubs.clear();
-      //socialListClubs.clear();
-      for (int i = 0; i < studentList.social.length; i++) {
-        socialListName.add(studentList.social[i].name);
-        socialListSid.add(studentList.social[i].sid);
-        socialListBranch.add(studentList.social[i].branch);
-        socialListYear.add(studentList.social[i].year);
-        socialListSemester.add(studentList.social[i].semester);
-        socialListInsta.add(studentList.social[i].insta);
-        socialListClubs.add(studentList.social[i].clubs);
-        //socialListClubs.add(studentList.social[i].clubs);
-      }
-    });
+    } else {
+      var response =
+          await get(Uri.parse('${global.url}/social?query=$searchFor'));
+      SocialList studentList = SocialList.fromJson(json.decode(response.body));
+      setState(() {
+        socialListName.clear();
+        socialListSid.clear();
+        socialListBranch.clear();
+        socialListYear.clear();
+        socialListSemester.clear();
+        socialListInsta.clear();
+        socialListClubs.clear();
+        //socialListClubs.clear();
+        for (int i = 0; i < studentList.social.length; i++) {
+          socialListName.add(studentList.social[i].name);
+          socialListSid.add(studentList.social[i].sid);
+          socialListBranch.add(studentList.social[i].branch);
+          socialListYear.add(studentList.social[i].year);
+          socialListSemester.add(studentList.social[i].semester);
+          socialListInsta.add(studentList.social[i].insta);
+          socialListClubs.add(studentList.social[i].clubs);
+          //socialListClubs.add(studentList.social[i].clubs);
+        }
+      });
+    }
   }
 
   studentsList(context) {

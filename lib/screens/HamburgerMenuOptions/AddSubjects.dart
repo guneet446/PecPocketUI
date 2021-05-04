@@ -126,14 +126,21 @@ class _AddSubjectsState extends State<AddSubjects> {
 
     List<Subjects> mySubjects = list.map((i) => Subjects.fromJson(i)).toList();
 
-    setState(() {
-      subsList.clear();
-      codesList.clear();
-      for (int i = 0; i < mySubjects.length; i++) {
-        subsList.add(mySubjects[i].subject);
-        codesList.add(mySubjects[i].subCode);
-      }
-    });
+    if (searchForSubject.length == 0) {
+      setState(() {
+        subsList.clear();
+        codesList.clear();
+      });
+    } else {
+      setState(() {
+        subsList.clear();
+        codesList.clear();
+        for (int i = 0; i < mySubjects.length; i++) {
+          subsList.add(mySubjects[i].subject);
+          codesList.add(mySubjects[i].subCode);
+        }
+      });
+    }
   }
 
   subjectsList(context) {

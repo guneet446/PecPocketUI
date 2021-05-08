@@ -84,13 +84,13 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        Material(
+                        Opacity(
                           child: Image.asset(
                             'assets/folder.png',
                             scale: 0.8,
                             color: Color(backgroundColor),
                           ),
-                          //elevation: 10,
+                          opacity: 0.85,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
@@ -131,16 +131,7 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                           if (uploadsList.length != 0) {
                             uploadsList.clear();
                           }
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SubjectStudyMaterial1(
-                                index: index,
-                                subjectColor: backgroundColor,
-                              ),
-                            ),
-                          );
-                          /*if (userData[0].auth == 0) {
+                          if (userData[0].auth == 0) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -158,7 +149,7 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                                         ),
                                 ),
                             );
-                          }*/
+                          }
                         },
                       );
                     });

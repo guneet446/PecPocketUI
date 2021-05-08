@@ -188,7 +188,7 @@ class bottomAppBarState extends State<bottomAppBar> {
                 databaseTimetables[i].title,
                 from_dt,
                 till_dt,
-                colors[i],
+                Color(colorChoices[i]),
                 false,
                 'FREQ=DAILY;INTERVAL=${databaseTimetables[i].interval}'));
           }

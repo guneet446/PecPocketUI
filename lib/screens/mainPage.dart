@@ -11,6 +11,7 @@ import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
 import 'package:fend/screens/TimeTable.dart';
 import 'package:fend/screens/uploadNotification.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
+import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
@@ -104,7 +105,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      color: colors[index],
+                                      color: Color(colorChoices[index]),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   height: 100,
@@ -206,7 +207,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      color: colors[index],
+                                      color: Color(colorChoices[index]),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   height: 100,

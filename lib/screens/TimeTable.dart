@@ -2,6 +2,7 @@ import 'package:alert_dialog/alert_dialog.dart';
 import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/TimetableDB.dart';
 import 'package:fend/classes/Timetable.dart';
+import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -16,18 +17,6 @@ class TimeTable extends StatefulWidget {
 }
 
 List<Meeting> meetings = <Meeting>[];
-List<Color> colors = [
-  Color(0xffD9B6A9),
-  Color(0xffFF9990),
-  Color(0xff9ED2C0),
-  Color(0xffC2DEE5),
-  Color(0xffDCC0EC),
-  Color(0xffE8C6AE),
-  Color(0xffB2829D),
-  Color(0xff55AAB2),
-  Color(0xffABA68E),
-  Color(0xffD3D896),
-];
 
 List<String> timetableSubjectsList = ['Subjects'];
 List<String> timetableSubtitlesList = ['Lecture', 'Tutorial', 'Lab'];
@@ -119,7 +108,7 @@ class _TimeTableState extends State<TimeTable> {
                   }
                   ttHelper.addTimetable(timetable);
                   meetings.add(Meeting(timetable.title, from_dt, till_dt,
-                      colors[i], false, 'FREQ=DAILY;INTERVAL=7'));
+                      Color(colorChoices[i]), false, 'FREQ=DAILY;INTERVAL=7'));
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => TimeTable()));
                 });
@@ -156,8 +145,13 @@ class _TimeTableState extends State<TimeTable> {
                   );
 
                   ttHelper.addTimetable(timetable);
-                  meetings.add(Meeting(timetable.title, from_dt, till_dt,
-                      colors[0], false, 'FREQ=DAILY;INTERVAL=365'));
+                  meetings.add(Meeting(
+                      timetable.title,
+                      from_dt,
+                      till_dt,
+                      Color(colorChoices[0]),
+                      false,
+                      'FREQ=DAILY;INTERVAL=365'));
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => TimeTable()));
                 });
@@ -194,8 +188,13 @@ class _TimeTableState extends State<TimeTable> {
                   );
 
                   ttHelper.addTimetable(timetable);
-                  meetings.add(Meeting(myController.text, from_dt, till_dt,
-                      colors[0], false, 'FREQ=DAILY;INTERVAL=365'));
+                  meetings.add(Meeting(
+                      myController.text,
+                      from_dt,
+                      till_dt,
+                      Color(colorChoices[0]),
+                      false,
+                      'FREQ=DAILY;INTERVAL=365'));
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => TimeTable()));
                 });

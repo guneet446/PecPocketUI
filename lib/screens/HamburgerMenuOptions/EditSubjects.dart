@@ -3,6 +3,7 @@ import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AddSubjects.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../HamburgerMenu.dart';
 
@@ -32,18 +33,21 @@ class _EditSubjectsState extends State<EditSubjects> {
     }
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            color: Color(0xffCADBE4),
-            fontSize: 32,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
           ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: Color(0xff588297),
+        centerTitle: true,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: Icon(Icons.info_outline),
+            color: Colors.black,
             onPressed: () {
               return showDialog(
                   context: context,
@@ -75,79 +79,83 @@ class _EditSubjectsState extends State<EditSubjects> {
           ),
         ],
       ),
-      body: Container(
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 40, 0, 30),
-            child: Text(
-              subtitle,
-              style: TextStyle(
-                fontSize: 24,
-                color: Color(0xff235790),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          new ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: currentSubjects.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onLongPress: () {
-                    var dbHelper = SubjectDatabase.instance;
-                    dbHelper.deleteSubject(currentSubjects[index]);
-                    setState(() {
-                      currentSubjects.removeAt(index);
-                    });
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 15, 0, 0),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          WidgetSpan(
-                            child: Icon(
-                              Icons.circle,
-                              color: Color(0xff588297),
-                            ),
-                          ),
-                          TextSpan(
-                            text: '  ' + currentSubjects[index],
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }),
-          Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddSubjects()));
-                });
-              },
-              child: Text('Add Subject'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    return Color(0xffE28F22); // Use the component's default.
-                  },
+      body: Center(
+        child: Container(
+            child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 40, 0, 30),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Color(0xff235790),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ),
-        ],
-      )),
+            Center(
+              child: new ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: currentSubjects.length,
+                  itemBuilder: (context, index) {
+                    return Center(
+                      child: GestureDetector(
+                          onLongPress: () {
+                            var dbHelper = SubjectDatabase.instance;
+                            dbHelper.deleteSubject(currentSubjects[index]);
+                            setState(() {
+                              currentSubjects.removeAt(index);
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 40,
+                                width: 350,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    currentSubjects[index],
+                                    style: GoogleFonts.exo2(
+                                        textStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    );
+                  }),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AddSubjects()));
+                  });
+                },
+                child: Text('Add Subjects'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      return Color(0xffE28F22); // Use the component's default.
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )),
+      ),
     );
   }
 

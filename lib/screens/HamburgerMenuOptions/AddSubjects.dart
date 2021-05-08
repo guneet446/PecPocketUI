@@ -6,41 +6,46 @@ import 'package:fend/globals.dart' as global;
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AddClubs.dart';
-import 'package:fend/screens/HamburgerMenuOptions/EditSubjects.dart';
 import 'package:fend/screens/mainPage.dart';
+import 'package:fend/widgets/attendanceCard.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+import 'dart:math';
 
 class AddSubjects extends StatefulWidget {
   @override
   _AddSubjectsState createState() => _AddSubjectsState();
 }
 
+List<String> selectedSubsList = [];
+List<String> selectedCodesList = [];
+
 class _AddSubjectsState extends State<AddSubjects> {
   String searchForSubject;
 
   List<String> subsList = [];
-  List<String> selectedSubsList = [];
+
   List<String> codesList = [];
-  List<String> selectedCodesList = [];
 
   Widget build(context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Add Subjects',
-            style: TextStyle(
-              color: Color(0xffCADBE4),
-              fontSize: 32,
-            ),
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
           ),
-          backgroundColor: Color(0xff588297),
           actions: [
             IconButton(
-              icon: Icon(Icons.info_outline),
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.black,
+              ),
               onPressed: () {
                 return showDialog(
                     context: context,
@@ -77,36 +82,40 @@ class _AddSubjectsState extends State<AddSubjects> {
           child: Form(
             child: ListView(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(),
+                Container(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(),
+                      ),
+                      hintText: 'Enter Subject Name',
                     ),
-                    hintText: 'Enter Subject Name',
+                    onChanged: (String value) {
+                      setState(() {
+                        searchForSubject = value;
+                        subject();
+                      });
+                    },
                   ),
-                  onChanged: (String value) {
-                    setState(() {
-                      searchForSubject = value;
-                      subject();
-                    });
-                  },
                 ),
+                SizedBox(height: 10),
                 //dropDownList(),
                 subjectsList(context),
                 Container(
-                  height: 25,
+                  height: 20,
                 ),
-                Center(
-                  child: Text(
-                    'SELECTED SUBJECTS',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Color(0xff235790),
-                      fontWeight: FontWeight.bold,
+
+                Text(
+                  'Your Subjects',
+                  style: GoogleFonts.exo2(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
                 selectedSubjectsList(context),
                 confirmSubjectsButton(),
               ],
@@ -145,7 +154,7 @@ class _AddSubjectsState extends State<AddSubjects> {
 
   subjectsList(context) {
     return Container(
-      height: 200,
+      height: 280,
       child: new ListView.builder(
         scrollDirection: Axis.vertical,
         //shrinkWrap: true,
@@ -165,32 +174,60 @@ class _AddSubjectsState extends State<AddSubjects> {
                   }
                 }
                 if (flag == 0) {
-                  selectedSubsList.add(subsList[index]);
-                  selectedCodesList.add(codesList[index]);
+                  selectedSubsList.insert(
+                      0, subsList[index].replaceAll(' ', '\n'));
+                  selectedCodesList.insert(0, codesList[index]);
                 } else
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text('${subsList[index]} already added')));
               });
             },
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(15, 5, 15, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xffCADBE4),
-                ),
-                child: Center(
-                  child: Text(
-                    subsList[index] + '\n' + codesList[index],
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff588297),
-                    ),
-                    textAlign: TextAlign.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 350,
+                  height: 60,
+                  padding: EdgeInsets.only(left: 20, top: 10),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 2,
+                          offset: Offset(1, 1)),
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        subsList[index],
+                        style: GoogleFonts.exo2(
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        codesList[index],
+                        style: GoogleFonts.exo2(
+                          textStyle: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
-              ),
+                SizedBox(height: 10),
+              ],
             ),
           );
         },
@@ -201,43 +238,57 @@ class _AddSubjectsState extends State<AddSubjects> {
 
   selectedSubjectsList(context) {
     return Container(
-      height: 200,
+      height: 130,
       child: new ListView.builder(
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return GestureDetector(
-            onLongPress: () {
-              setState(() {
-                selectedSubsList.removeAt(index);
-                selectedCodesList.removeAt(index);
-              });
-            },
-            child: Padding(
-                padding: EdgeInsets.fromLTRB(30, 15, 15, 0),
-                child: RichText(
-                  text: TextSpan(
+          return Row(
+            children: [
+              GestureDetector(
+                onLongPress: () {
+                  setState(() {
+                    selectedSubsList.removeAt(index);
+                    selectedCodesList.removeAt(index);
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    color: Color(getRandomElement(colorChoices)),
+                  ),
+                  width: 115,
+                  child: Column(
                     children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.circle,
-                          color: Color(0xff588297),
+                      SizedBox(height: 10),
+                      Center(
+                        child: Text(
+                          selectedSubsList[index],
+                          style: GoogleFonts.exo2(
+                              color: Colors.white,
+                              fontSize: selectedSubsList[index].length > 30
+                                  ? 12
+                                  : 15),
                         ),
                       ),
-                      TextSpan(
-                        text: '  ' +
-                            selectedSubsList[index] +
-                            ' ' +
-                            selectedCodesList[index],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
+                      SizedBox(height: 20),
+                      Center(
+                        child: Text(
+                          selectedCodesList[index],
+                          style: GoogleFonts.exo2(
+                            textStyle:
+                                TextStyle(color: Colors.white, fontSize: 20),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                )),
+                ),
+              ),
+              SizedBox(width: 10)
+            ],
           );
         },
         itemCount: selectedSubsList.length,
@@ -267,5 +318,11 @@ class _AddSubjectsState extends State<AddSubjects> {
           ),
           child: Text('Confirm Subjects')),
     );
+  }
+
+  int getRandomElement(List<int> colorChoices) {
+    final random = new Random();
+    var i = random.nextInt(colorChoices.length);
+    return colorChoices[i];
   }
 }

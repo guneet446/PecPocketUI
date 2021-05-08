@@ -20,8 +20,9 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import 'CustomFolder.dart';
+import 'HamburgerMenuOptions/AddSubjects.dart';
 import 'HamburgerMenuOptions/AvatarChoice.dart';
-import 'HamburgerMenuOptions/EditSubjects.dart';
+
 import 'HamburgerMenuOptions/UpdateClubs.dart';
 import 'HamburgerMenuOptions/ViewProfile.dart';
 import 'login_screen.dart';
@@ -65,27 +66,15 @@ class _SettingsState extends State<Settings> {
               onTap: () async {
                 var subjectHelper = SubjectDatabase.instance;
                 List<Subject> subjects = await subjectHelper.getAllSubjects();
-
+                selectedSubsList.clear();
+                selectedCodesList.clear();
+                for (int i = 0; i < subjects.length; i++) {
+                  selectedSubsList.add(subjects[i].subject);
+                  selectedCodesList.add('');
+                }
                 setState(() {
-                  if (currentSubjects.length == 0) {
-                    for (int i = 0; i < subjects.length; i++) {
-                      currentSubjects.add(subjects[i].subject);
-                    }
-                  } else {
-                    currentSubjects.clear();
-                    if (currentSubjects.length == 0) {
-                      for (int i = 0; i < subjects.length; i++) {
-                        currentSubjects.add(subjects[i].subject);
-                      }
-                    }
-                  }
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditSubjects(
-                                title: subjectsOption,
-                              )));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddSubjects()));
                 });
               },
             ),

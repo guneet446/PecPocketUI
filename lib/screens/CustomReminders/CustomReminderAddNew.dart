@@ -1,4 +1,5 @@
 import 'package:fend/Databases/remindersDB.dart';
+import 'package:fend/EntryPoint.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/Reminder.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
@@ -219,7 +220,7 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
             // }
 
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MainPage()));
+                context, MaterialPageRoute(builder: (context) => EntryPoint()));
           },
         ),
       ],

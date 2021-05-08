@@ -23,10 +23,8 @@ String subjectName = "Subject";
 String subtitle = "Type";
 
 class _AttendanceState extends State<Attendance> {
-
   void initState() {
     super.initState();
-    ready();
   }
 
   @override
@@ -81,20 +79,20 @@ class _AttendanceState extends State<Attendance> {
             primary: false,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-              itemCount: subjects.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.95,
-                  //crossAxisSpacing: 30,
-                  //mainAxisSpacing: 30,
-                ),
-                itemBuilder: (context, index) {
-                  return AttendanceCard(
-                    subject: subjects[index],
-                    index: index,
-                  );
-                },
+            itemCount: subjects.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.95,
+              //crossAxisSpacing: 30,
+              //mainAxisSpacing: 30,
             ),
+            itemBuilder: (context, index) {
+              return AttendanceCard(
+                subject: subjects[index],
+                index: index,
+              );
+            },
+          ),
         ],
       ),
     );
@@ -108,79 +106,76 @@ class _AttendanceState extends State<Attendance> {
     return showDialog(
         context: context,
         builder: (context) {
-          return StatefulBuilder(
-              builder: (context, setState) {
-                return AlertDialog(
-                  title: Text("Subject"),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // for dropdown to open in correct direction go to dropdown.dart and set selectedItemOffset to -40
-                      DropdownButton<String>(
-                        value: subjectName,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 35,
-                        elevation: 16,
-                        //style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Color(0xffE28F22),
-                        ),
-                        isExpanded: true,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            print("Changed");
-                            subjectName = newValue;
-                          });
-                          //_setSubject(newValue);
-                        },
-                        items:
-                        subjectList.map<DropdownMenuItem<String>>((
-                            String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-
-                      DropdownButton<String>(
-                        value: subtitle,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 35,
-                        elevation: 16,
-                        underline: Container(
-                          height: 2,
-                          color: Color(0xffE28F22),
-                        ),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            subtitle = newValue;
-                          });
-                        },
-                        items: subtitleList
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {});
-                          Navigator.pop(context);
-                          _setSubject();
-                        },
-                        child: Text('Submit',
-                            style: TextStyle(color: Color(0xff235790),
-                                fontSize: 16)),
-                      ),
-                    ],
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: Text("Subject"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // for dropdown to open in correct direction go to dropdown.dart and set selectedItemOffset to -40
+                  DropdownButton<String>(
+                    value: subjectName,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 35,
+                    elevation: 16,
+                    //style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Color(0xffE28F22),
+                    ),
+                    isExpanded: true,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        print("Changed");
+                        subjectName = newValue;
+                      });
+                      //_setSubject(newValue);
+                    },
+                    items: subjectList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
-                );
-              }
-          );
+
+                  DropdownButton<String>(
+                    value: subtitle,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 35,
+                    elevation: 16,
+                    underline: Container(
+                      height: 2,
+                      color: Color(0xffE28F22),
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        subtitle = newValue;
+                      });
+                    },
+                    items: subtitleList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {});
+                      Navigator.pop(context);
+                      _setSubject();
+                    },
+                    child: Text('Submit',
+                        style:
+                            TextStyle(color: Color(0xff235790), fontSize: 16)),
+                  ),
+                ],
+              ),
+            );
+          });
         });
   }
 
@@ -206,6 +201,4 @@ class _AttendanceState extends State<Attendance> {
       attendanceHelper.addAttendance(attendances);
     });
   }
-
-  void ready() async {}
 }

@@ -16,8 +16,29 @@ class AttendanceCard extends StatefulWidget {
   @override
   _AttendanceCardState createState() => _AttendanceCardState();
 }
+
 //List<int> colorChoices = [0xff7BA399, 0xffF07F83, 0XffFECE48, 0xffDE6A66, 0xff813CA3, 0xff9A275A, 0xffD97F30, 0xff484F70, 0xff2F3737, 0xff23356C];
-List<int> colorChoices = [0xff7BA399, 0xffF07F83, 0XffFECE48, 0xffDE6A66, 0xff813CA3, 0xff9A275A, 0xffD97F30, 0xff484F70, 0xff2F3737, 0xff23356C, 0xffF5CAC3, 0xffBDB8B0, 0xff9F7F7F, 0xff91C2C4, 0xff84A59D, 0xffE47A77, 0xff6C96C6, 0xff868998, 0xffD47090];
+List<int> colorChoices = [
+  0xff7BA399,
+  0xffF07F83,
+  0XffFECE48,
+  0xffDE6A66,
+  0xff813CA3,
+  0xff9A275A,
+  0xffD97F30,
+  0xff484F70,
+  0xff2F3737,
+  0xff23356C,
+  0xffF5CAC3,
+  0xffBDB8B0,
+  0xff9F7F7F,
+  0xff91C2C4,
+  0xff84A59D,
+  0xffE47A77,
+  0xff6C96C6,
+  0xff868998,
+  0xffD47090
+];
 
 class _AttendanceCardState extends State<AttendanceCard> {
   @override
@@ -29,7 +50,11 @@ class _AttendanceCardState extends State<AttendanceCard> {
   @override
   Widget build(BuildContext context) {
     int backgroundColor = colorChoices[(widget.index + 1) % 19];
-    List<ChartData> chartData = [ChartData('Attended', widget.subject.percentage, Color(0xffffffff)), ChartData('Not attended', (100 - widget.subject.percentage), Color(backgroundColor))];
+    List<ChartData> chartData = [
+      ChartData('Attended', widget.subject.percentage, Color(0xffffffff)),
+      ChartData('Not attended', (100 - widget.subject.percentage),
+          Color(backgroundColor))
+    ];
     return Card(
       margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
       color: Color(backgroundColor),
@@ -47,38 +72,39 @@ class _AttendanceCardState extends State<AttendanceCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  height: 85,
-                  width: 85,
-                  child: Center(
-                    child: SfCircularChart(
+                    height: 85,
+                    width: 85,
+                    child: Center(
+                      child: SfCircularChart(
                         annotations: <CircularChartAnnotation>[
                           CircularChartAnnotation(
-                              widget: Container(
-                                  child: Text(
-                                  (widget.subject.percentage.round()).toString() + "%",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                  ),
+                            widget: Container(
+                              child: Text(
+                                (widget.subject.percentage.round()).toString() +
+                                    "%",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                            ),
                           ),
                         ],
                         series: <CircularSeries>[
                           DoughnutSeries<ChartData, String>(
-                              dataSource: chartData,
-                              pointColorMapper:(ChartData data,  _) => data.chartColor,
-                              xValueMapper: (ChartData data, _) => data.title,
-                              yValueMapper: (ChartData data, _) => data.perc,
+                            dataSource: chartData,
+                            pointColorMapper: (ChartData data, _) =>
+                                data.chartColor,
+                            xValueMapper: (ChartData data, _) => data.title,
+                            yValueMapper: (ChartData data, _) => data.perc,
                             radius: '100%',
                             innerRadius: '85%',
                             opacity: 0.8,
                           ),
                         ],
-                    ),
-                  )
-                ),
+                      ),
+                    )),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -97,7 +123,8 @@ class _AttendanceCardState extends State<AttendanceCard> {
                             widget.subject.attended += 1;
                             widget.subject.total += 1;
                             widget.subject.percentage =
-                                (widget.subject.attended / widget.subject.total) *
+                                (widget.subject.attended /
+                                        widget.subject.total) *
                                     100;
                             if (widget.subject.percentage == 100) {
                               widget.subject.percentage = 99.99;
@@ -134,7 +161,8 @@ class _AttendanceCardState extends State<AttendanceCard> {
                           setState(() {
                             widget.subject.total += 1;
                             widget.subject.percentage =
-                                (widget.subject.attended / widget.subject.total) *
+                                (widget.subject.attended /
+                                        widget.subject.total) *
                                     100;
                             if (widget.subject.percentage == 100) {
                               widget.subject.percentage = 99.99;
@@ -182,7 +210,8 @@ class _AttendanceCardState extends State<AttendanceCard> {
                                         child: Text(
                                           "Edit",
                                           style: TextStyle(
-                                              color: Color(0xff235790), fontSize: 16),
+                                              color: Color(0xff235790),
+                                              fontSize: 16),
                                         )),
                                     TextButton(
                                         onPressed: () {
@@ -192,7 +221,8 @@ class _AttendanceCardState extends State<AttendanceCard> {
                                         child: Text(
                                           "Delete",
                                           style: TextStyle(
-                                              color: Color(0xff235790), fontSize: 16),
+                                              color: Color(0xff235790),
+                                              fontSize: 16),
                                         )),
                                   ],
                                 );
@@ -220,9 +250,7 @@ class _AttendanceCardState extends State<AttendanceCard> {
               ),
             ),
             Text(
-              widget.subject.subjectName +
-                  '\n' +
-                  widget.subject.subtitle,
+              widget.subject.subjectName + '\n' + widget.subject.subtitle,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -232,7 +260,7 @@ class _AttendanceCardState extends State<AttendanceCard> {
             Text(
               widget.subject.status,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 11,
                 color: Colors.white,
               ),
             ),

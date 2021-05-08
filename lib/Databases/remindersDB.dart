@@ -13,7 +13,7 @@ class ReminderDatabase {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _intiDB('reminders7.db');
+    _database = await _intiDB('reminders8.db');
     return _database;
   }
 

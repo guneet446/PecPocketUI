@@ -16,7 +16,7 @@ class CustomRemindersDatabase {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _initDB('customReminders1.db');
+    _database = await _initDB('customReminders2.db');
     return _database;
   }
 

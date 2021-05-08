@@ -1,35 +1,20 @@
 import 'dart:convert';
-import 'package:alert_dialog/alert_dialog.dart';
-import 'package:fend/Databases/AttendanceDB.dart';
-import 'package:fend/Databases/ClubsDB.dart';
-import 'package:fend/Databases/SubjectsDB.dart';
-import 'package:fend/Databases/TimetableDB.dart';
+import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:fend/Databases/UserDB.dart';
-import 'package:fend/Databases/customFoldersDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/NotiClass.dart';
 import 'package:fend/classes/Reminder.dart';
-
-import 'package:fend/classes/subjects.dart';
-import 'package:fend/classes/user.dart';
 import 'package:fend/models/Notifications.dart';
-import 'package:fend/models/student_json.dart';
-import 'package:fend/screens/CustomFolder.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderAddNew.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
-
-import 'package:fend/screens/login_screen.dart';
-import 'package:fend/screens/signUp/SignUpPassword.dart';
-import 'package:fend/screens/signUp/signUpSID.dart';
+import 'package:fend/screens/TimeTable.dart';
 import 'package:fend/screens/uploadNotification.dart';
-
-import 'package:fend/models/Notifications.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
-
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 
 class MainPage extends StatefulWidget {
@@ -39,14 +24,27 @@ class MainPage extends StatefulWidget {
 }
 
 int auth;
+int reminderLength = customReminders.length;
+List<String> mainPageReminders = ['', '', ''];
+List<String> mainPageReminderStartTimes = ['', '', ''];
+List<String> mainPageReminderEndTimes = ['', '', ''];
+List<String> mainPageReminderDescriptions = ['', '', ''];
 
-class MainPageState extends State<MainPage> {
+class MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  AnimationController animationController;
+  bool isPlaying = false;
+  @override
   void initState() {
     super.initState();
     updateReminder();
     getAuth();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
   }
 
+  var key = GlobalKey<ScaffoldState>();
   String deletePassword;
   List notifications = [
     'Enter a new notification?',
@@ -55,24 +53,248 @@ class MainPageState extends State<MainPage> {
     'Notification3'
   ];
   List<NotiClass> notificationsList = [];
-
+  @override
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: CustomReminderView(),
-        appBar: AppBar(
-          title: Text(
-            "Home",
-            style: TextStyle(
-              color: Color(0xffCADBE4),
-              fontSize: 32,
+        key: key,
+        body: DraggableBottomSheet(
+          backgroundWidget: Scaffold(
+            body: Container(
+              color: Colors.teal,
+              child: Image(
+                image: AssetImage(
+                    'assets/illustrations/illustrations/signup- Back in Town.png'),
+                height: 250,
+              ),
             ),
           ),
-          backgroundColor: Color(0xff588297),
+          previewChild: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: 40,
+                  height: 6,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(16)),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: customReminders.length > 3
+                          ? 3
+                          : customReminders.length,
+                      itemBuilder: (context, index) {
+                        reminderLength = customReminders.length;
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: colors[index],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  height: 100,
+                                  width: 4,
+                                ),
+                                SizedBox(
+                                  height: 100,
+                                  width: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          mainPageReminderStartTimes[index],
+                                          style: GoogleFonts.exo2(),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          height: 1,
+                                          width: 290,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      mainPageReminders[index],
+                                      style: GoogleFonts.exo2(
+                                          textStyle: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      width: 325,
+                                      child: Text(
+                                        mainPageReminderDescriptions[index],
+                                        style: GoogleFonts.exo2(),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          mainPageReminderEndTimes[index],
+                                          style: GoogleFonts.exo2(),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          height: 1,
+                                          width: 290,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 25,
+                            )
+                          ],
+                        );
+                      }),
+                ),
+              ],
+            ),
+          ),
+          expandedChild: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: 40,
+                  height: 6,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(16)),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: reminderLength,
+                      itemBuilder: (context, index) {
+                        reminderLength = customReminders.length;
+                        return Column(
+                          children: [
+                            SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: colors[index],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  height: 100,
+                                  width: 4,
+                                ),
+                                SizedBox(
+                                  height: 100,
+                                  width: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          mainPageReminderStartTimes[index],
+                                          style: GoogleFonts.exo2(),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          height: 1,
+                                          width: 290,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      mainPageReminders[index],
+                                      style: GoogleFonts.exo2(
+                                          textStyle: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Container(
+                                      width: 325,
+                                      child: Text(
+                                        mainPageReminderDescriptions[index],
+                                        style: GoogleFonts.exo2(),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          mainPageReminderEndTimes[index],
+                                          style: GoogleFonts.exo2(),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          height: 1,
+                                          width: 290,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            )
+                          ],
+                        );
+                      }),
+                ),
+              ],
+            ),
+          ),
+          minExtent: 400,
+          maxExtent: MediaQuery.of(context).size.height * 1,
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: AnimatedIcon(
+              color: Colors.black,
+              icon: AnimatedIcons.menu_close,
+              progress: animationController,
+            ),
+            onPressed: () => handleOnPressed(),
+          ),
           actions: [
             IconButton(
-                icon: Icon(Icons.add),
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.black,
+                ),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -83,6 +305,7 @@ class MainPageState extends State<MainPage> {
             IconButton(
                 icon: Icon(
                   Icons.notifications,
+                  color: Colors.black,
                 ),
                 onPressed: () async {
                   var response =
@@ -309,17 +532,15 @@ class MainPageState extends State<MainPage> {
     );
   }
 
-  setupNotifications() {}
-
-  goToCustomFolders() {
-    setState(() {});
-  }
-
   void updateReminder() async {
     var reminderHelper = ReminderDatabase.instance;
     var databaseReminder = await reminderHelper.getAllReminders();
     print('reminder count ${databaseReminder.length}');
     customReminders.clear();
+    mainPageReminders.clear();
+    mainPageReminderDescriptions.clear();
+    mainPageReminderStartTimes.clear();
+    mainPageReminderEndTimes.clear();
     for (int i = 0; i < databaseReminder.length; i++) {
       DateTime dateTime = new DateTime(
           databaseReminder[i].year,
@@ -332,7 +553,17 @@ class MainPageState extends State<MainPage> {
           databaseReminder[i].description,
           dateTime,
           databaseReminder[i].getNotified));
+
+      mainPageReminders.add('Reminder ${i + 1}');
+      mainPageReminderDescriptions.add(databaseReminder[i].description);
+      mainPageReminderStartTimes.add('${databaseReminder[i].hour}' +
+          ':' +
+          '${databaseReminder[i].minute}');
+      mainPageReminderEndTimes.add('${databaseReminder[i].hour}' +
+          ':' +
+          '${databaseReminder[i].minute}');
     }
+    reminderLength = customReminders.length;
   }
 
   Future<int> getAuth() async {
@@ -340,5 +571,16 @@ class MainPageState extends State<MainPage> {
     var databaseUsers = await userHelper.getAllUsers();
     int userAuth = databaseUsers[0].auth;
     auth = userAuth;
+  }
+
+  handleOnPressed() async {
+    if (!isPlaying) {
+      await animationController.forward();
+      key.currentState?.openDrawer();
+      animationController.reverse();
+    }
+    setState(() {
+      print(isPlaying);
+    });
   }
 }

@@ -14,7 +14,7 @@ class ClubDatabase {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _initDB('Clubs4.db');
+    _database = await _initDB('Clubs5.db');
     return _database;
   }
 

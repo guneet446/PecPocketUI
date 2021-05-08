@@ -24,6 +24,21 @@ class StudyMaterial0 extends StatefulWidget {
 }
 
 List<String> subjectsList = [];
+List<int> colorChoices = [
+  0XffFECE48,
+  0xff813CA3,
+  0xff9A275A,
+  0xffD97F30,
+  0xff484F70,
+  0xff2F3737,
+  0xff23356C,
+  0xffBDB8B0,
+  0xff9F7F7F,
+  0xff91C2C4,
+  0xff84A59D,
+  0xffE47A77,
+  0xff6C96C6
+];
 
 class StudyMaterial0State extends State<StudyMaterial0> {
   void initState() {
@@ -35,35 +50,64 @@ class StudyMaterial0State extends State<StudyMaterial0> {
   final picker = ImagePicker();
   Widget build(context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Study Material',
-          style: TextStyle(
-            color: Color(0xffCADBE4),
-            fontSize: 28,
-          ),
-        ),
-        backgroundColor: Color(0xff588297),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       bottomNavigationBar: bottomAppBar(),
-      body: Container(
-        padding: EdgeInsets.all(12.0),
-        child: GridView.builder(
-          itemCount: subjectsList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisExtent: 150,
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Study Material',
+              style: TextStyle(
+                fontSize: 28,
+              ),
+            ),
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                    child: Image.asset(
-                      'assets/study_material_folder.png',
-                      scale: 0.8,
+          Container(
+            padding: EdgeInsets.all(12.0),
+            child: GridView.builder(
+              shrinkWrap: true,
+              primary: false,
+              itemCount: subjectsList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisExtent: 150,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                int backgroundColor = colorChoices[(index + 1) % 13];
+                return GestureDetector(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Material(
+                          child: Image.asset(
+                            'assets/folder.png',
+                            scale: 0.8,
+                            color: Color(backgroundColor),
+                          ),
+                          //elevation: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              'CSN 102 \n' + subjectsList[index], //add correct subject code here
+                              //textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     onTap: () async {
                       var response = await get(Uri.parse(
@@ -87,12 +131,22 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                           if (uploadsList.length != 0) {
                             uploadsList.clear();
                           }
-                          if (userData[0].auth == 0) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SubjectStudyMaterial1(
+                                index: index,
+                                subjectColor: backgroundColor,
+                              ),
+                            ),
+                          );
+                          /*if (userData[0].auth == 0) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SubjectStudyMaterial(
                                           index: index,
+                                          subjectColor: backgroundColor,
                                         )));
                           } else {
                             Navigator.push(
@@ -100,24 +154,18 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                                 MaterialPageRoute(
                                     builder: (context) => SubjectStudyMaterial1(
                                           index: index,
-                                        )));
-                          }
+                                          subjectColor: backgroundColor,
+                                        ),
+                                ),
+                            );
+                          }*/
                         },
                       );
-                    }),
-                Container(
-                  child: Text(
-                    subjectsList[index],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+                    });
+              },
+            ),
+          ),
+        ],
       ),
       drawer: Settings(),
     );

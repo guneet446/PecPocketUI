@@ -117,7 +117,7 @@
         <entry key="fl_chart">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/fl_chart-0.35.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/fl_chart-0.36.0/lib" />
             </list>
           </value>
         </entry>
@@ -443,10 +443,17 @@
             </list>
           </value>
         </entry>
+        <entry key="syncfusion_flutter_charts">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-19.1.59/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="syncfusion_flutter_core">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.1.58/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.1.59/lib" />
             </list>
           </value>
         </entry>
@@ -539,7 +546,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/ffi-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/file-6.1.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/fl_chart-0.35.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/fl_chart-0.36.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.6.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_email_sender-5.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.1/lib" />
@@ -582,7 +589,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_calendar-19.1.58/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.1.58/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-19.1.59/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.1.59/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_datepicker-19.1.58-beta/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/synchronized-3.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib" />

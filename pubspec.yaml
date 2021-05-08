@@ -28,7 +28,7 @@ dependencies:
   dio: ^4.0.0
   dropdown_search: ^0.5.0
   email_validator: ^2.0.1
-  fl_chart: ^0.35.0
+  fl_chart: ^0.36.0
   flutter_downloader: ^1.6.0
   flutter_email_sender: ^5.0.0
   http: ^0.13.1
@@ -43,6 +43,7 @@ dependencies:
   sqflite: ^2.0.0+3
   syncfusion_flutter_calendar: ^19.1.58
   weekday_selector: ^1.0.0
+  syncfusion_flutter_charts: ^19.1.59
 
 dev_dependencies:
   flutter_test:
@@ -106,7 +107,9 @@ flutter:
     - assets/049-man.png
     - assets/050-woman.png
     - assets/instagram_logo.png
-    - assets/study_material_folder.png
-    - assets/study_material_file.png
     - assets/bg1.png
     - assets/bg2.png
+    - assets/folder.png
+    - assets/image.png
+    - assets/pdf-file.png
+    - assets/study_material.png

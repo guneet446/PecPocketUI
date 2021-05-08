@@ -18,7 +18,8 @@ import '../HamburgerMenu.dart';
 
 class SubjectStudyMaterial extends StatefulWidget {
   int index;
-  SubjectStudyMaterial({this.index});
+  int subjectColor;
+  SubjectStudyMaterial({this.index, this.subjectColor});
 
   @override
   _SubjectStudyMaterialState createState() => _SubjectStudyMaterialState();
@@ -26,7 +27,8 @@ class SubjectStudyMaterial extends StatefulWidget {
 
 List<String> uploadsList0 = [];
 String uploadSubject0 = '';
-String pageDescription = '\nLong press the file icon to download the resource you need';
+String fileIcon = 'assets/image.png';
+bool isEmpty = false;
 
 class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
   void downloadFile(String nameFile) async {
@@ -70,84 +72,144 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Study Material', style: TextStyle( color: Color(0xffCADBE4), fontSize: 28,),),
-        backgroundColor: Color(0xff588297),
-      ),
-      drawer: Settings(),
-      bottomNavigationBar: bottomAppBar(),
-      body: Column(
-        children: [
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Subject: ${subjectsList[widget.index]}',
+    if(!isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        bottomNavigationBar: bottomAppBar(),
+        body: Column(
+          children: [
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Study Material/${subjectsList[widget.index]}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      '\nLong press the file icon to download the resource you need',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
+                child: GridView.builder(
+                  itemCount: uploadsList0.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisExtent: 150,
+                    crossAxisSpacing: 15,
+                  ),
+                  itemBuilder: (BuildContext context, int index){
+                    if(uploadsList0[index].substring(uploadsList0[index].length - 3) == 'pdf') {
+                      fileIcon = 'assets/pdf-file.png';
+                    }
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          child: Material(
+                            child: Image.asset(
+                              fileIcon,
+                              color: Color(widget.subjectColor),
+                              height: 70,
+                            ),
+                            //elevation: 10,
+                          ),
+                          onLongPress: () {
+                            setState(() {
+                              downloadFile(uploadsList0[index]);
+                            });
+                          },
+                        ),
+                        Container(
+                          child: Text(
+                            uploadsList0[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    else {
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        bottomNavigationBar: bottomAppBar(),
+        body:
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 160, left: 10, right: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Study Material/${subjectsList[widget.index]}',
                     style: TextStyle(
-                      color: Color(0xff235790),
+                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    pageDescription,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
-              child: GridView.builder(
-                itemCount: uploadsList0.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisExtent: 150,
-                  crossAxisSpacing: 15,
                 ),
-                itemBuilder: (BuildContext context, int index){
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        child: Image.asset(
-                          'assets/study_material_file.png',
-                        ),
-                        onLongPress: () {
-                          setState(() {
-                            downloadFile(uploadsList0[index]);
-                          });
-                        },
-                      ),
-                      Container(
-                        child: Text(
-                          uploadsList0[index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
               ),
-            ),
+              Image.asset(
+                'assets/study_material.png',
+                scale: 1.4,
+              ),
+              Container(height: 20,),
+              Text(
+                'Looks like there is no study material available\nAsk your CR to Upload!',
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+      );
+    }
   }
 
   showUploads() async {
@@ -155,9 +217,6 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
         await get(Uri.parse('${global.url}/getuploads/$uploadSubject0'));
     Uploads uploads = Uploads.fromJson(json.decode(response.body));
     setState(() {
-      if(uploads.uploads.isEmpty) {
-        pageDescription = '\nNo study material available for this subject! Ask your CR to upload resources';
-      }
       if (uploadsList0.length == 0) {
         for (int i = 0; i < uploads.uploads.length; i++) {
           uploadsList0.add(uploads.uploads[i].toString());

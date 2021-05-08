@@ -34,19 +34,14 @@ class _AttendanceState extends State<Attendance> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Attendance',
-          style: TextStyle(
-            color: Color(0xffCADBE4),
-            fontSize: 32,
-          ),
-        ),
-        backgroundColor: Color(0xff588297),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
         actions: [
           TextButton(
             child: Icon(
               Icons.add,
-              color: Colors.white,
+              color: Colors.black,
             ),
             onPressed: () {
               _getSubject(context);
@@ -56,13 +51,51 @@ class _AttendanceState extends State<Attendance> {
       ),
       drawer: Settings(),
       bottomNavigationBar: bottomAppBar(),
-      body: ListView.builder(
-        itemCount: subjects.length,
-        itemBuilder: (context, index) {
-          return AttendanceCard(
-            subject: subjects[index],
-          );
-        },
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        children: [
+          Container(
+            //height: 40,
+            padding: EdgeInsets.fromLTRB(25, 10, 25, 15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Attendance',
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                ),
+                Text(
+                  'Overall Attendance.....',
+                ),
+              ],
+            ),
+          ),
+          GridView.builder(
+            primary: false,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+              itemCount: subjects.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.95,
+                  //crossAxisSpacing: 30,
+                  //mainAxisSpacing: 30,
+                ),
+                itemBuilder: (context, index) {
+                  return AttendanceCard(
+                    subject: subjects[index],
+                    index: index,
+                  );
+                },
+            ),
+        ],
       ),
     );
   }
@@ -116,7 +149,6 @@ class _AttendanceState extends State<Attendance> {
                         icon: const Icon(Icons.arrow_drop_down),
                         iconSize: 35,
                         elevation: 16,
-                        //style: const TextStyle(color: Colors.deepPurple),
                         underline: Container(
                           height: 2,
                           color: Color(0xffE28F22),
@@ -125,7 +157,6 @@ class _AttendanceState extends State<Attendance> {
                           setState(() {
                             subtitle = newValue;
                           });
-                          //_setSubject(newValue);
                         },
                         items: subtitleList
                             .map<DropdownMenuItem<String>>((String value) {

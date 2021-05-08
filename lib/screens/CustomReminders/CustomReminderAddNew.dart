@@ -11,6 +11,8 @@ class CustomReminderAddNew extends StatefulWidget {
 }
 
 class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
   final myController = TextEditingController();
   DateTime selectedDate;
   TimeOfDay selectedTime;
@@ -19,12 +21,128 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
   bool getNotif = true;
   int uid = 0;
   int toAdd = 0;
+
   void initState() {
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    //date time input under progress
+    /*return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff0B7A75),
+        elevation: 0,
+      ),
+      body: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 250,
+            width: double.infinity,
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+            color: Color(0xff0B7A75),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "Set Reminder",
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                ),
+                TextFormField(
+                  controller: titleController,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'TITLE',
+                    labelStyle: TextStyle(
+                      color: Color(0x95ffffff),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2),
+                    ),
+                  ),
+                  validator: (val) {
+                    return val.isEmpty ? 'Enter the title of the task' : null;
+                  },
+                ),
+                TextFormField(
+                  controller: descriptionController,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'DESCRIPTION',
+                    labelStyle: TextStyle(
+                      color: Color(0x95ffffff),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2),
+                    ),
+                  ),
+                  validator: (val) {
+                    return val.isEmpty ? 'Enter the description of the task' : null;
+                  },
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'DATE',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  selectedDate.day.toString(),
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 300,
+            child: SwitchListTile(
+              title: Text("Get Notified"),
+              activeColor: Color(0xff0B7A75),
+              value: getNotif,
+              onChanged: (newValue) {
+                setState(() {
+                  getNotif = newValue;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    ); */
     return AlertDialog(
       title: Text("Set Reminder"),
       content: TextFormField(

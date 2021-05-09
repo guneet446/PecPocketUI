@@ -302,7 +302,11 @@ class _AddSubjectsState extends State<AddSubjects> {
       child: ElevatedButton(
           onPressed: () async {
             var subjectHelper = SubjectDatabase.instance;
-            for (int i = 0; i < selectedSubsList.length; i++) {
+            var databaseSubjects = await subjectHelper.getAllSubjects();
+            int initialSubjectsLength = databaseSubjects.length;
+            for (int i = 0;
+                i < selectedSubsList.length - initialSubjectsLength;
+                i++) {
               Subject subject = Subject(id: i, subject: selectedSubsList[i]);
               subjectHelper.addSubject(subject);
             }

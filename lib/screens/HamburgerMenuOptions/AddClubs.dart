@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:alert_dialog/alert_dialog.dart';
 import 'package:fend/Databases/ClubsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/classes/Clubs.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/mainPage.dart';
+import 'package:fend/widgets/attendanceCard.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' show Response, get, post;
 import 'package:http/http.dart' as http;
 
@@ -19,12 +22,14 @@ class AddClubs extends StatefulWidget {
   }
 }
 
+List<String> clubslist = [];
+List<String> clubCodesList = [];
+List<String> selectedclubsList = [];
+List<String> selectedclubCodesList = [];
+
 class AddClubsState extends State<AddClubs> {
   String searchForClub;
-  List<String> clubslist = [];
-  List<String> clubCodesList = [];
-  List<String> selectedclubsList = [];
-  List<String> selectedclubCodesList = [];
+
   Widget build(context) {
     return MaterialApp(
       home: Scaffold(
@@ -98,14 +103,14 @@ class AddClubsState extends State<AddClubs> {
               Container(
                 margin: EdgeInsets.only(top: 10.0),
               ),
-              Center(
-                child: Text(
-                  'SELECTED CLUBS',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Color(0xff235790),
-                    fontWeight: FontWeight.bold,
-                  ),
+
+              Text(
+                'Your Clubs',
+                style: GoogleFonts.exo2(
+                  textStyle: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               selectedClubsList(context),
@@ -151,32 +156,45 @@ class AddClubsState extends State<AddClubs> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedclubsList.add(clubslist[index]);
-                selectedclubCodesList.add(clubCodesList[index]);
-              });
-            },
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xffCADBE4),
-                ),
-                child: Center(
-                  child: Text(
-                    clubslist[index],
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff588297),
+          return Column(
+            children: [
+              SizedBox(height: 7.5),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedclubsList.insert(0, clubslist[index]);
+                    selectedclubCodesList.insert(0, clubCodesList[index]);
+                  });
+                },
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+                  child: Container(
+                    height: 35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(7.5)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            color: Colors.grey,
+                            offset: Offset(1, 1))
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        clubslist[index],
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff588297),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            ],
           );
         },
         itemCount: clubslist.length,
@@ -186,39 +204,47 @@ class AddClubsState extends State<AddClubs> {
 
   selectedClubsList(context) {
     return Container(
-      height: 200,
+      height: 130,
       child: new ListView.builder(
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return GestureDetector(
-            onLongPress: () {
-              setState(() {
-                selectedclubsList.removeAt(index);
-              });
-            },
-            child: Padding(
-                padding: EdgeInsets.fromLTRB(70, 15, 0, 0),
-                child: RichText(
-                  text: TextSpan(
+          return Row(
+            children: [
+              GestureDetector(
+                onLongPress: () {
+                  setState(() {
+                    selectedclubsList.removeAt(index);
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    color: Color(getRandomElement(colorChoices)),
+                  ),
+                  width: 115,
+                  child: Column(
                     children: [
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.circle,
-                          color: Color(0xff588297),
+                      SizedBox(height: 50),
+                      Center(
+                        child: Text(
+                          selectedclubsList[index],
+                          style: GoogleFonts.exo2(
+                              color: Colors.white,
+                              fontSize: selectedclubsList[index].length > 30
+                                  ? 12
+                                  : 15),
                         ),
                       ),
-                      TextSpan(
-                        text: '  ' + selectedclubsList[index],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                        ),
-                      ),
+                      SizedBox(height: 20),
                     ],
                   ),
-                )),
+                ),
+              ),
+              SizedBox(width: 10)
+            ],
           );
         },
         itemCount: selectedclubsList.length,
@@ -230,9 +256,13 @@ class AddClubsState extends State<AddClubs> {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             var clubHelper = ClubDatabase.instance;
-            for (int i = 0; i < selectedclubsList.length; i++) {
+            List<Club> databaseClubs = await clubHelper.getAllClubs();
+            int initialClubLength = databaseClubs.length;
+            for (int i = 0;
+                i < selectedclubsList.length - initialClubLength;
+                i++) {
               Club club = Club(
                   id: 0,
                   club: selectedclubsList[i],
@@ -252,5 +282,11 @@ class AddClubsState extends State<AddClubs> {
           ),
           child: Text('Confirm Clubs')),
     );
+  }
+
+  int getRandomElement(List<int> colorChoices) {
+    final random = new Random();
+    var i = random.nextInt(colorChoices.length);
+    return colorChoices[i];
   }
 }

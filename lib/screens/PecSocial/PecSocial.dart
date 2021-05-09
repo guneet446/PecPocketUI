@@ -274,15 +274,6 @@ class _PecSocialState extends State<PecSocial>
           ],
         ),
       ),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'PecSocial',
-          style: TextStyle(
-            color: Color(0xff0B7A75),
-          ),
-        ),
-      ),
       bottomNavigationBar: bottomAppBar(),
     );
   }

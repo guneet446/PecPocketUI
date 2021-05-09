@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
+import 'package:fend/Databases/AvatarDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
@@ -8,7 +9,7 @@ import 'package:fend/classes/Reminder.dart';
 import 'package:fend/models/Notifications.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderAddNew.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
-import 'package:fend/screens/TimeTable.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
 import 'package:fend/screens/uploadNotification.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/widgets/attendanceCard.dart';
@@ -24,6 +25,7 @@ class MainPage extends StatefulWidget {
   }
 }
 
+String selectedAvatar = 'assets/neutral_guy.png';
 int auth;
 int reminderLength = customReminders.length;
 List<String> mainPageReminders = ['', '', ''];
@@ -39,6 +41,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     super.initState();
     updateReminder();
     getAuth();
+
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -291,6 +294,25 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             onPressed: () => handleOnPressed(),
           ),
           actions: [
+            GestureDetector(
+                child: Container(
+                  child: Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(selectedAvatar),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  print(selectedAvatar);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AvatarChoice()));
+                }),
             IconButton(
                 icon: Icon(
                   Icons.add,
@@ -583,5 +605,12 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     setState(() {
       print(isPlaying);
     });
+  }
+
+  void getAvatar() async {
+    var avatarHelper = AvatarDatabase.instance;
+    var databaseAvatar = await avatarHelper.getAllavatar();
+    selectedAvatar = databaseAvatar[0].avatar;
+    print(databaseAvatar.length);
   }
 }

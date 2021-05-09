@@ -18,13 +18,11 @@ import 'package:fend/models/student_json.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
 import 'CustomFolder.dart';
+import 'HamburgerMenuOptions/AddClubs.dart';
 import 'HamburgerMenuOptions/AddSubjects.dart';
 import 'HamburgerMenuOptions/AvatarChoice.dart';
 
-import 'HamburgerMenuOptions/UpdateClubs.dart';
-import 'HamburgerMenuOptions/ViewProfile.dart';
 import 'login_screen.dart';
 
 class Settings extends StatefulWidget {
@@ -151,23 +149,15 @@ class _SettingsState extends State<Settings> {
               onTap: () async {
                 var clubHelper = ClubDatabase.instance;
                 List<Club> clubs = await clubHelper.getAllClubs();
+                selectedclubsList.clear();
+                for (int i = 0; i < clubs.length; i++) {
+                  selectedclubsList.add(clubs[i].club);
+                }
                 setState(() {
-                  if (currentClubs.length == 0) {
-                    for (int i = 0; i < clubs.length; i++) {
-                      currentClubs.add(clubs[i].club);
-                    }
-                  } else {
-                    currentClubs.clear();
-                    if (currentClubs.length == 0) {
-                      for (int i = 0; i < clubs.length; i++) {
-                        currentClubs.add(clubs[i].club);
-                      }
-                    }
-                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UpdateClubs(
+                          builder: (context) => AddClubs(
                                 title: clubsOption,
                               )));
                 });
@@ -437,8 +427,5 @@ class _SettingsState extends State<Settings> {
   void getAvatar() async {
     var avatarHelper = AvatarDatabase.instance;
     var databaseAvatar = await avatarHelper.getAllavatar();
-    setState(() {
-      selectedAvatar = databaseAvatar[0].avatar;
-    });
   }
 }

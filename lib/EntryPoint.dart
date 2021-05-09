@@ -6,6 +6,7 @@ import 'package:fend/screens/mainPage.dart';
 import 'package:fend/screens/signUp/signUpSID.dart';
 import 'package:flutter/material.dart';
 
+import 'Databases/AvatarDB.dart';
 import 'classes/CustomReminderDetails.dart';
 
 class EntryPoint extends StatefulWidget {
@@ -20,6 +21,7 @@ class _EntryPointState extends State<EntryPoint> {
     super.initState();
     checkLogin();
     updateReminders();
+    getAvatar();
   }
 
   @override
@@ -64,5 +66,12 @@ class _EntryPointState extends State<EntryPoint> {
           dateTime,
           databaseReminder[i].getNotified));
     }
+  }
+
+  void getAvatar() async {
+    var avatarHelper = AvatarDatabase.instance;
+    var databaseAvatar = await avatarHelper.getAllavatar();
+    selectedAvatar = databaseAvatar[0].avatar;
+    print(databaseAvatar.length);
   }
 }

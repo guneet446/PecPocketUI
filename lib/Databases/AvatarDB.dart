@@ -13,7 +13,7 @@ class AvatarDatabase {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _initDB('Avatar3.db');
+    _database = await _initDB('Avatar5.db');
     return _database;
   }
 

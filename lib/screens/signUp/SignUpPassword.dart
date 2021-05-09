@@ -90,7 +90,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
       print(gotUser[0].auth);
       setState(() {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUp2()));
+            context, MaterialPageRoute(builder: (context) => SignUpSubjects()));
       });
     } else {
       setState(() {

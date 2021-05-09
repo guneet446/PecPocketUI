@@ -5,6 +5,7 @@ import 'package:fend/screens/login_screen.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/screens/signUp/signUpSID.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'Databases/AvatarDB.dart';
 import 'classes/CustomReminderDetails.dart';
@@ -19,6 +20,11 @@ int login;
 class _EntryPointState extends State<EntryPoint> {
   void initState() {
     super.initState();
+    final systemTheme = SystemUiOverlayStyle.light.copyWith(
+      systemNavigationBarColor: Color(0xffF0f2f5),
+      systemNavigationBarIconBrightness: Brightness.light,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemTheme);
     checkLogin();
     updateReminders();
     getAvatar();
@@ -37,7 +43,7 @@ class _EntryPointState extends State<EntryPoint> {
     setState(() {
       if (count == 0) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUp1()));
+            context, MaterialPageRoute(builder: (context) => SignUp()));
       } else if (user[0].login == 1) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MainPage()));

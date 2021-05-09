@@ -1,96 +1,205 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:fend/globals.dart' as global;
+import 'package:fend/Databases/UserDB.dart';
+import 'package:fend/classes/user.dart';
 import 'package:fend/models/student_json.dart';
-import 'package:fend/screens/signUp/SignUpEmail.dart';
-import 'package:fend/screens/signUp/SignUpSubjects.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AddSubjects.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' show get;
+import 'package:http/http.dart';
 import 'package:mailer2/mailer.dart';
 
 import '../login_screen.dart';
 
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
 var rng = new Random();
 int otp = 100000 + rng.nextInt(999999 - 100000);
 
-class SignUp1 extends StatefulWidget {
-  createState() {
-    return SignUp1State();
-  }
-}
-
-class SignUp1State extends State<SignUp1> {
+class _SignUpState extends State<SignUp> {
   String sid;
+  String response;
+  String password;
+  String confirmPassword;
+  bool sidCheck = false;
+  bool otpCheck = false;
+  final formKey = GlobalKey<FormState>();
 
-  Widget build(context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.lightBlueAccent,
       body: ListView(
         children: [
-          Image.asset('assets/bg2.png'),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
-            child: Column(
-              children: [
-                sidField(),
-                getStartedButton(),
-                toLogin(),
-              ],
+          Image.asset(
+            'assets/signup.png',
+            height: 220,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height - 245,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(55), topRight: Radius.circular(55)),
+              color: Colors.white,
+            ),
+            child: Form(
+              key: formKey,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    sidField(),
+                    otpField(),
+                    passwordField(),
+                    confirmPasswordField(),
+                    toRegister(),
+                    submitButton(),
+                  ],
+                ),
+              ),
             ),
           ),
-          Image.asset('assets/bg1.png'),
         ],
       ),
     );
   }
 
   sidField() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelText: 'SID',
+            ),
+            onChanged: (String value) {
+              setState(() {
+                sid = value;
+              });
+            },
+          ),
+        ),
+        Container(
+          width: 30,
+          child: IconButton(
+            onPressed: validateSID,
+            icon: Icon(
+              Icons.check_circle,
+              color: Color(0xff272727),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  otpField() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          child: TextFormField(
+            enabled: sidCheck,
+            decoration: InputDecoration(
+              labelText: 'OTP',
+            ),
+            onChanged: (String value) {
+              setState(() {
+                response = value;
+              });
+            },
+          ),
+        ),
+        Container(
+          width: 30,
+          child: IconButton(
+            onPressed: validateUser,
+            icon: Icon(
+              Icons.check_circle,
+              color: Color(0xff272727),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  passwordField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Enter your SID'),
+      enabled: otpCheck,
+      obscureText: true,
+      decoration: InputDecoration(
+        labelText: 'Password',
+      ),
       onChanged: (String value) {
         setState(() {
-          sid = value;
+          password = value;
         });
       },
     );
   }
 
-  toLogin() {
-    return Center(
-      child: RichText(
-        text: new TextSpan(
-            text: 'Already have an account? ',
-            style: TextStyle(
-              color: Colors.grey,
-            ),
-            children: [
-              new TextSpan(
-                text: 'Login Now',
-                style: TextStyle(color: Color(0xffE28F22)),
-                recognizer: new TapGestureRecognizer()
-                  ..onTap = () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login())),
-              )
-            ]),
+  confirmPasswordField() {
+    return TextFormField(
+      enabled: otpCheck,
+      obscureText: true,
+      decoration: InputDecoration(
+        labelText: 'Confirm Password',
+      ),
+      onChanged: (String value) {
+        setState(() {
+          confirmPassword = value;
+        });
+      },
+    );
+  }
+
+  submitButton() {
+    return ElevatedButton(
+      onPressed: validatePassword,
+      child: Text('Sign Up'),
+      style: ElevatedButton.styleFrom(
+        primary: Color(0xff272727),
+        minimumSize: Size(MediaQuery.of(context).size.width, 45),
+        shape:
+            RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
       ),
     );
   }
 
-  getStartedButton() {
+  toRegister() {
     return Padding(
-      padding: const EdgeInsets.only(top: 100, bottom: 30),
-      child: ElevatedButton(
-        onPressed: validateSID,
-        child: Text(
-          'Get Started!',
-        ),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              return Color(0xffE28F22); // Use the component's default.
-            },
-          ),
+      padding: const EdgeInsets.only(top: 60, bottom: 20),
+      child: Center(
+        child: RichText(
+          text: new TextSpan(
+              text: 'Already have an account? ',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              ),
+              children: [
+                new TextSpan(
+                  text: 'Log In',
+                  style: TextStyle(
+                    color: Color(0xff272727),
+                    decoration: TextDecoration.underline,
+                  ),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () => Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Login())),
+                )
+              ]),
         ),
       ),
     );
@@ -108,7 +217,7 @@ class SignUp1State extends State<SignUp1> {
       var emailTransport = new SmtpTransport(options);
 
       var envelope = new Envelope()
-        ..from = 'kautsdhruv15@gmail.com'
+        ..from = 'pecpocket@gmail.com'
         ..recipients.add('theofficial.kauts@gmail.com')
         ..subject = 'Welcome to PecPocket'
         ..html = '<h3>$otp<h3>\n<p></p>';
@@ -121,8 +230,7 @@ class SignUp1State extends State<SignUp1> {
       setState(() {
         global.sid = sid;
         print(body);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUpEmail()));
+        sidCheck = true;
       });
     } else if (body[14] == '2') {
       setState(() {
@@ -138,9 +246,53 @@ class SignUp1State extends State<SignUp1> {
       });
     }
   }
-}
 
-/*int random(int min, int max) {
-    var rn = new Random();
-    return min + rn.nextInt(max - min);
-  }*/
+  validateUser() {
+    if (response == otp.toString()) {
+      setState(() {
+        otpCheck = true;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('OTP does not match the one sent on your PEC Email')));
+    }
+  }
+
+  validatePassword() async {
+    print(password);
+    print(confirmPassword);
+    print(global.sid);
+    if (password == confirmPassword) {
+      Map<String, String> headers = {"Content-type": "application/json"};
+      String json = '{"SID": ${global.sid}, "Password": "${password}"}';
+
+      var response = await post(Uri.parse('${global.url}/signup'),
+          headers: headers, body: json);
+      print(response.body);
+
+      //global.password = password;
+      var userDBHelper = UserDatabase.instance;
+      User user = User(
+          id: 0,
+          sid: int.parse(global.sid),
+          password: password,
+          auth: int.parse(response.body[12]),
+          login: 1);
+      userDBHelper.addUser(user);
+      var gotUser = await userDBHelper.getAllUsers();
+      print(gotUser[0].auth);
+      setState(() {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    AvatarChoice())); // go to add subjects page
+      });
+    } else {
+      setState(() {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Passwords don't match")));
+      });
+    }
+  }
+}

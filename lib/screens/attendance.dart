@@ -24,14 +24,22 @@ List<String> subtitleList = ['Type', 'Lecture', 'Tutorial', 'Lab'];
 String subjectName = "Subject";
 String subtitle = "Type";
 
-class _AttendanceState extends State<Attendance> {
+class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
+  AnimationController animationController;
+  bool isPlaying = false;
+  var key = GlobalKey<ScaffoldState>();
   void initState() {
     super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       floatingActionButton: FloatingActionButton(
         elevation: 8,
         backgroundColor: Colors.teal,
@@ -48,6 +56,14 @@ class _AttendanceState extends State<Attendance> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          icon: AnimatedIcon(
+            color: Colors.black,
+            icon: AnimatedIcons.menu_close,
+            progress: animationController,
+          ),
+          onPressed: () => handleOnPressed(),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
@@ -215,6 +231,17 @@ class _AttendanceState extends State<Attendance> {
       };
       Attendances attendances = Attendances.fromJson(map);
       attendanceHelper.addAttendance(attendances);
+    });
+  }
+
+  handleOnPressed() async {
+    if (!isPlaying) {
+      await animationController.forward();
+      key.currentState?.openDrawer();
+      animationController.reverse();
+    }
+    setState(() {
+      print(isPlaying);
     });
   }
 }

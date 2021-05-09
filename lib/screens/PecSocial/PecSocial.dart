@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:math';
 import 'package:fend/models/student_json.dart';
+import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
@@ -20,6 +21,9 @@ class PecSocial extends StatefulWidget {
 
 class _PecSocialState extends State<PecSocial>
     with SingleTickerProviderStateMixin {
+  AnimationController animationController;
+  bool isPlaying = false;
+  var key = GlobalKey<ScaffoldState>();
   List<String> avatars = [
     'assets/1.png',
     'assets/2.png',
@@ -85,7 +89,6 @@ class _PecSocialState extends State<PecSocial>
   List<String> sids = [];
   //default index of a first screen
 
-  AnimationController _animationController;
   Animation<double> animation;
   CurvedAnimation curve;
 
@@ -97,15 +100,33 @@ class _PecSocialState extends State<PecSocial>
       systemNavigationBarIconBrightness: Brightness.light,
     );
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       backgroundColor: Colors.grey[100],
       body: Center(
         child: Column(
           children: [
+            SizedBox(height: 20),
+            Row(
+              children: [
+                IconButton(
+                  icon: AnimatedIcon(
+                    color: Colors.black,
+                    icon: AnimatedIcons.menu_close,
+                    progress: animationController,
+                  ),
+                  onPressed: () => handleOnPressed(),
+                ),
+              ],
+            ),
             Container(
               padding: EdgeInsets.only(top: 25, bottom: 20),
               height: 85,
@@ -277,6 +298,7 @@ class _PecSocialState extends State<PecSocial>
         ),
       ),
       bottomNavigationBar: bottomAppBar(),
+      drawer: Settings(),
       floatingActionButton: FloatingActionButton(
         elevation: 8,
         backgroundColor: Colors.teal,
@@ -320,5 +342,16 @@ class _PecSocialState extends State<PecSocial>
     var random = new Random();
     var i = random.nextInt(colors.length);
     return colors[i];
+  }
+
+  handleOnPressed() async {
+    if (!isPlaying) {
+      await animationController.forward();
+      key.currentState?.openDrawer();
+      animationController.reverse();
+    }
+    setState(() {
+      print(isPlaying);
+    });
   }
 }

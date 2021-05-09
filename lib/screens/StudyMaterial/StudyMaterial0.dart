@@ -41,16 +41,25 @@ List<int> colorChoices = [
   0xff6C96C6
 ];
 
-class StudyMaterial0State extends State<StudyMaterial0> {
+class StudyMaterial0State extends State<StudyMaterial0>
+    with TickerProviderStateMixin {
+  AnimationController animationController;
+  bool isPlaying = false;
+  var key = GlobalKey<ScaffoldState>();
   void initState() {
     super.initState();
     //updateSubjectsList();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
   }
 
   File image;
   final picker = ImagePicker();
   Widget build(context) {
     return Scaffold(
+      key: key,
       floatingActionButton: FloatingActionButton(
         elevation: 8,
         backgroundColor: Colors.teal,
@@ -66,23 +75,20 @@ class StudyMaterial0State extends State<StudyMaterial0> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: Colors.white,
+      bottomNavigationBar: bottomAppBar(),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: AnimatedIcon(
+            color: Colors.black,
+            icon: AnimatedIcons.menu_close,
+            progress: animationController,
+          ),
+          onPressed: () => handleOnPressed(),
+        ),
       ),
-      bottomNavigationBar: bottomAppBar(),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Text(
-              'Study Material',
-              style: TextStyle(
-                fontSize: 28,
-              ),
-            ),
-          ),
           Container(
             padding: EdgeInsets.all(12.0),
             child: GridView.builder(
@@ -234,6 +240,17 @@ class StudyMaterial0State extends State<StudyMaterial0> {
     var res = await request.send();
     setState(() {
       print(res);
+    });
+  }
+
+  handleOnPressed() async {
+    if (!isPlaying) {
+      await animationController.forward();
+      key.currentState?.openDrawer();
+      animationController.reverse();
+    }
+    setState(() {
+      print(isPlaying);
     });
   }
 }

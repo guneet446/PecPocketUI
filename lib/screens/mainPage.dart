@@ -85,8 +85,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             body: Container(
               color: Colors.teal,
               child: Image(
-                image: AssetImage(
-                    'assets/illustrations/illustrations/signup- Back in Town.png'),
+                image: AssetImage('assets/custom_reminders.png'),
                 height: 250,
               ),
             ),

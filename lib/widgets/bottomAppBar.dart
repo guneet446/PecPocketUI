@@ -32,7 +32,7 @@ class bottomAppBarState extends State<bottomAppBar> {
     return AnimatedBottomNavigationBar.builder(
       itemCount: iconList.length,
       tabBuilder: (int index, bool isActive) {
-        final color = isActive ? Colors.white : Colors.teal;
+        final color = isActive ? Colors.teal : Colors.teal[200];
         return Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +45,7 @@ class bottomAppBarState extends State<bottomAppBar> {
               const SizedBox(height: 4),
             ]);
       },
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xffF0F2F5),
       activeIndex: bottomNavIndex,
       notchSmoothness: NotchSmoothness.defaultEdge,
       gapLocation: GapLocation.center,

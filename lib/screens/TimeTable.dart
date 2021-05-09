@@ -37,23 +37,39 @@ DateTime till_dt;
 String titleSubject;
 String titleSubtitle;
 
-class _TimeTableState extends State<TimeTable> {
+class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
+  AnimationController animationController;
+  bool isPlaying = false;
+  var key = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Timetable',
-          style: TextStyle(
-            color: Color(0xffCADBE4),
-            fontSize: 32,
+        leading: IconButton(
+          icon: AnimatedIcon(
+            color: Colors.black,
+            icon: AnimatedIcons.menu_close,
+            progress: animationController,
           ),
+          onPressed: () => handleOnPressed(),
         ),
-        backgroundColor: Color(0xff588297),
+        backgroundColor: Colors.white,
         actions: [
           PopupMenuButton(
             child: Icon(
               Icons.add,
+              color: Colors.black,
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
@@ -203,7 +219,10 @@ class _TimeTableState extends State<TimeTable> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.info_outline),
+            icon: Icon(
+              Icons.info_outline,
+              color: Colors.black,
+            ),
             onPressed: () {
               return showDialog(
                   context: context,
@@ -366,9 +385,9 @@ class _TimeTableState extends State<TimeTable> {
         initialTime: initial,
         builder: (BuildContext context, Widget child) {
           /*return MediaQuery(
-                                                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-                                                    child: child,
-                                                    );*/
+                                                              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+                                                              child: child,
+                                                              );*/
           return Theme(
             data: ThemeData.light().copyWith(
               primaryColor: Color(0xff588297),
@@ -472,6 +491,17 @@ class _TimeTableState extends State<TimeTable> {
             ],
           );
         });
+  }
+
+  handleOnPressed() async {
+    if (!isPlaying) {
+      await animationController.forward();
+      key.currentState?.openDrawer();
+      animationController.reverse();
+    }
+    setState(() {
+      print(isPlaying);
+    });
   }
 }
 

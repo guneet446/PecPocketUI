@@ -368,7 +368,7 @@ class _SettingsState extends State<Settings> {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => SignUp1()));
+                                            builder: (context) => SignUp()));
                                   });
                                 } else {
                                   setState(() {

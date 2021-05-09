@@ -5,11 +5,14 @@ import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/NotiClass.dart';
+import 'package:fend/classes/Profile.dart';
 import 'package:fend/classes/Reminder.dart';
 import 'package:fend/models/Notifications.dart';
+import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderAddNew.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
+import 'package:fend/screens/ViewProfile.dart';
 import 'package:fend/screens/uploadNotification.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/widgets/attendanceCard.dart';
@@ -41,6 +44,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     super.initState();
     updateReminder();
     getAuth();
+    updateProfile();
 
     animationController = AnimationController(
       vsync: this,
@@ -337,9 +341,8 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   ),
                 ),
                 onTap: () {
-                  print(selectedAvatar);
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AvatarChoice()));
+                      MaterialPageRoute(builder: (context) => ViewProfile()));
                 }),
             IconButton(
                 icon: Icon(
@@ -632,6 +635,26 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     }
     setState(() {
       print(isPlaying);
+    });
+  }
+
+  void updateProfile() async {
+    var response = await get(Uri.parse('${global.url}/viewprofile/17101001'));
+    Profile profile = Profile.fromJson(json.decode(response.body));
+    setState(() {
+      print('avatar ${profile.avatar}');
+      profileName = profile.name;
+      profileSid = profile.sid.toString();
+      profileClubs = profile.clubs.length == 0
+          ? ' Not in any clubs '
+          : profile.clubs.toString();
+      profileBranch = profile.branch.toString();
+      profileYear = profile.year.toString();
+      profileSemester = profile.semester.toString();
+      profileInsta =
+          profile.insta == null ? 'No instagram handle' : profile.insta;
+      profileAvatar =
+          profile.avatar == null ? profile.avatar : 'assets/neutral_girl.png';
     });
   }
 }

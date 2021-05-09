@@ -175,7 +175,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                 }
                 if (flag == 0) {
                   selectedSubsList.insert(
-                      0, subsList[index].replaceAll(' ', '\n'));
+                      0, subsList[index]);
                   selectedCodesList.insert(0, codesList[index]);
                 } else
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(

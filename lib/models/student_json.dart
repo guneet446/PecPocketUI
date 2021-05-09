@@ -20,7 +20,7 @@ class Subjects {
 
   Subjects.fromJson(Map<String, dynamic> parsedJson) {
     subject = parsedJson['Subject'];
-    subCode = parsedJson['Sub_code'];
+    subCode = parsedJson['Subject_code'];
   }
 }
 

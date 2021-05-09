@@ -5,6 +5,7 @@ import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/models/student_json.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AddSubjects.dart';
 import 'package:fend/screens/StudyMaterial/SubjectStudyMaterial.dart';
 import 'package:fend/screens/StudyMaterial/SubjectStudyMaterial1.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
@@ -25,6 +26,7 @@ class StudyMaterial0 extends StatefulWidget {
 }
 
 List<String> subjectsList = [];
+List<String> studyMaterialCodesList = [];
 List<int> colorChoices = [
   0XffFECE48,
   0xff813CA3,
@@ -119,9 +121,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
                           child: Align(
                             alignment: Alignment.bottomLeft,
                             child: Text(
-                              'CSN 102 \n' +
-                                  subjectsList[
-                                      index], //add correct subject code here
+                              studyMaterialCodesList[index] + '\n' + subjectsList[index],
                               //textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -134,6 +134,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
                       ],
                     ),
                     onTap: () async {
+                      print(subjectsList);
                       var response = await get(Uri.parse(
                           '${global.url}/subject/search?query=${subjectsList[index]}'));
                       var rb = response.body;
@@ -141,7 +142,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
                       var list = json.decode(rb) as List;
 
                       List<Subjects> mySubjects =
-                          list.map((i) => Subjects.fromJson(i)).toList();
+                      list.map((i) => Subjects.fromJson(i)).toList();
 
                       var userHelper = UserDatabase.instance;
                       var userData = await userHelper.getAllUsers();

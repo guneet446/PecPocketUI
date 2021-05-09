@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:fend/Databases/AttendanceDB.dart';
 import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/TimetableDB.dart';
+import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
+import 'package:http/http.dart';
 import '../screens/TimeTable.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/models/subjectAttendanceDetails.dart';
@@ -12,6 +16,7 @@ import 'package:fend/screens/TimeTable.dart';
 import 'package:fend/screens/attendance.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:fend/globals.dart' as global;
 
 // ignore: camel_case_types
 class bottomAppBar extends StatefulWidget {
@@ -73,9 +78,9 @@ class bottomAppBarState extends State<bottomAppBar> {
     );
   }
 
-  goToStudyMaterialPage() {
-    setState(() async {
-      int size = await updateSubjectsList();
+  goToStudyMaterialPage() async {
+    int size = await updateSubjectsList();
+    setState(() {
       print(subjectsList.length);
       if (size != 0) {
         Navigator.push(
@@ -188,6 +193,9 @@ class bottomAppBarState extends State<bottomAppBar> {
     List<Subject> databaseSubjects = await subjectsHelper.getAllSubjects();
     for (int i = 0; i < databaseSubjects.length; i++) {
       subjectsList.add(databaseSubjects[i].subject);
+      var response = await get(Uri.parse('${global.url}/subject/search?query=${databaseSubjects[i].subject}'));
+      Subjects subject = Subjects.fromJson(json.decode(response.body));
+      studyMaterialCodesList.add(subject.subject[i]);
     }
     print(subjectsList.length);
     return subjectsList.length;

@@ -62,6 +62,23 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          elevation: 8,
+          backgroundColor: Colors.teal,
+          child: Icon(
+            Icons.cancel,
+            color: Colors.white,
+            size: 55,
+          ),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return CustomReminderAddNew();
+                });
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         key: key,
         body: DraggableBottomSheet(
           backgroundWidget: Scaffold(
@@ -95,86 +112,98 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 SizedBox(
                   height: 16,
                 ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: customReminders.length > 3
-                          ? 3
-                          : customReminders.length,
-                      itemBuilder: (context, index) {
-                        reminderLength = customReminders.length;
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Color(colorChoices[index]),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  height: 100,
-                                  width: 4,
-                                ),
-                                SizedBox(
-                                  height: 100,
-                                  width: 20,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          mainPageReminderStartTimes[index],
-                                          style: GoogleFonts.exo2(),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Container(
-                                          height: 1,
-                                          width: 290,
-                                          color: Colors.grey,
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      mainPageReminders[index],
-                                      style: GoogleFonts.exo2(
-                                          textStyle: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                    Container(
-                                      width: 325,
-                                      child: Text(
-                                        mainPageReminderDescriptions[index],
-                                        style: GoogleFonts.exo2(),
+                customReminders.length == 0
+                    ? Container(
+                        padding: EdgeInsets.only(top: 150),
+                        child: Text(
+                          'Such Empty, Much Wow',
+                          style: GoogleFonts.exo2(fontSize: 20),
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount: customReminders.length > 3
+                                ? 3
+                                : customReminders.length,
+                            itemBuilder: (context, index) {
+                              reminderLength = customReminders.length;
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(colorChoices[index]),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        height: 100,
+                                        width: 4,
                                       ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          mainPageReminderEndTimes[index],
-                                          style: GoogleFonts.exo2(),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Container(
-                                          height: 1,
-                                          width: 290,
-                                          color: Colors.grey,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 25,
-                            )
-                          ],
-                        );
-                      }),
-                ),
+                                      SizedBox(
+                                        height: 100,
+                                        width: 20,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                mainPageReminderStartTimes[
+                                                    index],
+                                                style: GoogleFonts.exo2(),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Container(
+                                                height: 1,
+                                                width: 290,
+                                                color: Colors.grey,
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            mainPageReminders[index],
+                                            style: GoogleFonts.exo2(
+                                                textStyle: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                            width: 325,
+                                            child: Text(
+                                              mainPageReminderDescriptions[
+                                                  index],
+                                              style: GoogleFonts.exo2(),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                mainPageReminderEndTimes[index],
+                                                style: GoogleFonts.exo2(),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Container(
+                                                height: 1,
+                                                width: 290,
+                                                color: Colors.grey,
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              );
+                            }),
+                      ),
               ],
             ),
           ),
@@ -605,12 +634,5 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     setState(() {
       print(isPlaying);
     });
-  }
-
-  void getAvatar() async {
-    var avatarHelper = AvatarDatabase.instance;
-    var databaseAvatar = await avatarHelper.getAllavatar();
-    selectedAvatar = databaseAvatar[0].avatar;
-    print(databaseAvatar.length);
   }
 }

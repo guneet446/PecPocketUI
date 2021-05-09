@@ -9,6 +9,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 
 import 'HamburgerMenu.dart';
+import 'mainPage.dart';
 
 class TimeTable extends StatefulWidget {
   const TimeTable({Key key}) : super(key: key);
@@ -234,6 +235,20 @@ class _TimeTableState extends State<TimeTable> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 8,
+        backgroundColor: Colors.teal,
+        child: Icon(
+          Icons.home_filled,
+          color: Colors.white,
+          size: 35,
+        ),
+        onPressed: () async {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SfCalendar(
         view: CalendarView.week,
         dataSource: MeetingDataSource(_getDataSource()),

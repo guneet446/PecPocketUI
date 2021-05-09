@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 import 'package:fend/models/student_json.dart';
+import 'package:fend/screens/mainPage.dart';
 import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
@@ -275,6 +277,20 @@ class _PecSocialState extends State<PecSocial>
         ),
       ),
       bottomNavigationBar: bottomAppBar(),
+      floatingActionButton: FloatingActionButton(
+        elevation: 8,
+        backgroundColor: Colors.teal,
+        child: Icon(
+          Icons.home_filled,
+          color: Colors.white,
+          size: 35,
+        ),
+        onPressed: () async {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

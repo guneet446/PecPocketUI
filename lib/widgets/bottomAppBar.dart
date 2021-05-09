@@ -1,41 +1,75 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:fend/Databases/AttendanceDB.dart';
 import 'package:fend/Databases/SubjectsDB.dart';
-
 import 'package:fend/Databases/TimetableDB.dart';
-import 'package:fend/Databases/UserDB.dart';
+import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import '../screens/TimeTable.dart';
-
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/models/subjectAttendanceDetails.dart';
 import 'package:fend/screens/PecSocial/PecSocial.dart';
-
 import 'package:fend/screens/TimeTable.dart';
-
 import 'package:fend/screens/attendance.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class bottomAppBar extends StatefulWidget {
   @override
   bottomAppBarState createState() => bottomAppBarState();
 }
 
+// ignore: camel_case_types
 class bottomAppBarState extends State<bottomAppBar> {
+  final iconList = <IconData>[
+    Icons.class__rounded,
+    Icons.search,
+    Icons.list_alt_rounded,
+    Icons.timelapse_sharp,
+  ];
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: Color(0xff588297),
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          studyMaterial(),
-          pecSocial(),
-          mainpage(),
-          attendance(),
-          timeTable(),
-        ],
-      ),
+    return AnimatedBottomNavigationBar.builder(
+      itemCount: iconList.length,
+      tabBuilder: (int index, bool isActive) {
+        final color = isActive ? Colors.white : Colors.teal;
+        return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                iconList[index],
+                size: 30,
+                color: color,
+              ),
+              const SizedBox(height: 4),
+            ]);
+      },
+      backgroundColor: Colors.black,
+      activeIndex: bottomNavIndex,
+      notchSmoothness: NotchSmoothness.defaultEdge,
+      gapLocation: GapLocation.center,
+      leftCornerRadius: 20,
+      rightCornerRadius: 20,
+      onTap: (index) async {
+        setState(() {
+          bottomNavIndex = index;
+        });
+        switch (bottomNavIndex) {
+          case 0:
+            goToStudyMaterialPage();
+            break;
+          case 1:
+            goToPecSocial();
+            break;
+          case 2:
+            goToAttendance();
+            break;
+          case 3:
+            goToTimeTable();
+            break;
+        }
+      },
     );
   }
 
@@ -159,51 +193,43 @@ class bottomAppBarState extends State<bottomAppBar> {
     return subjectsList.length;
   }
 
-  timeTable() {
-    return IconButton(
-      icon: Icon(Icons.calendar_today_outlined),
-      iconSize: 30.0,
-      color: Color(0xffCADBE4),
-      onPressed: () async {
-        var timetableHelper = TimetableDatabase.instance;
-        var databaseTimetables = await timetableHelper.getAllTimetables();
-        var subjectHelper = SubjectDatabase.instance;
-        var databaseSubjects = await subjectHelper.getAllSubjects();
-        setState(() {
-          meetings.clear();
-          for (int i = 0; i < databaseTimetables.length; i++) {
-            DateTime from_dt = DateTime(
-                databaseTimetables[i].startYear,
-                databaseTimetables[i].startMonth,
-                databaseTimetables[i].startDay,
-                databaseTimetables[i].startHour,
-                databaseTimetables[i].startMinute);
-            DateTime till_dt = DateTime(
-                databaseTimetables[i].endYear,
-                databaseTimetables[i].endMonth,
-                databaseTimetables[i].endDay,
-                databaseTimetables[i].endHour,
-                databaseTimetables[i].endMinute);
-            meetings.add(Meeting(
-                databaseTimetables[i].title,
-                from_dt,
-                till_dt,
-                Color(colorChoices[i]),
-                false,
-                'FREQ=DAILY;INTERVAL=${databaseTimetables[i].interval}'));
-          }
-        });
-        if (timetableSubjectsList.length == 1) {
-          setState(() {
-            for (int i = 0; i < databaseSubjects.length; i++) {
-              timetableSubjectsList.add(databaseSubjects[i].subject);
-            }
-          });
+  goToTimeTable() async {
+    var timetableHelper = TimetableDatabase.instance;
+    var databaseTimetables = await timetableHelper.getAllTimetables();
+    var subjectHelper = SubjectDatabase.instance;
+    var databaseSubjects = await subjectHelper.getAllSubjects();
+    setState(() {
+      meetings.clear();
+      for (int i = 0; i < databaseTimetables.length; i++) {
+        DateTime from_dt = DateTime(
+            databaseTimetables[i].startYear,
+            databaseTimetables[i].startMonth,
+            databaseTimetables[i].startDay,
+            databaseTimetables[i].startHour,
+            databaseTimetables[i].startMinute);
+        DateTime till_dt = DateTime(
+            databaseTimetables[i].endYear,
+            databaseTimetables[i].endMonth,
+            databaseTimetables[i].endDay,
+            databaseTimetables[i].endHour,
+            databaseTimetables[i].endMinute);
+        meetings.add(Meeting(
+            databaseTimetables[i].title,
+            from_dt,
+            till_dt,
+            Color(colorChoices[i]),
+            false,
+            'FREQ=DAILY;INTERVAL=${databaseTimetables[i].interval}'));
+      }
+    });
+    if (timetableSubjectsList.length == 1) {
+      setState(() {
+        for (int i = 0; i < databaseSubjects.length; i++) {
+          timetableSubjectsList.add(databaseSubjects[i].subject);
         }
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TimeTable()));
-      },
-      padding: EdgeInsets.only(left: 50.0),
-    );
+      });
+    }
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TimeTable()));
   }
 }

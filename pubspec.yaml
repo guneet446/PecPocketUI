@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   alert_dialog: ^1.0.0
+  animated_bottom_navigation_bar: ^0.3.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
   draggable_bottom_sheet: ^0.1.2
@@ -174,3 +175,4 @@ flutter:
     - assets/56.png
     - assets/neutral_girl.png
     - assets/neutral_guy.png
+    - assets/Sochin.png

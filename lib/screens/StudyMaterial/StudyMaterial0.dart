@@ -18,6 +18,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart';
 
 import '../HamburgerMenu.dart';
+import '../mainPage.dart';
 
 class StudyMaterial0 extends StatefulWidget {
   StudyMaterial0State createState() => StudyMaterial0State();
@@ -50,6 +51,20 @@ class StudyMaterial0State extends State<StudyMaterial0> {
   final picker = ImagePicker();
   Widget build(context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        elevation: 8,
+        backgroundColor: Colors.teal,
+        child: Icon(
+          Icons.home_filled,
+          color: Colors.white,
+          size: 35,
+        ),
+        onPressed: () async {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -93,11 +108,14 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                           opacity: 0.85,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+                          padding: const EdgeInsets.only(
+                              left: 30, right: 30, bottom: 20),
                           child: Align(
                             alignment: Alignment.bottomLeft,
                             child: Text(
-                              'CSN 102 \n' + subjectsList[index], //add correct subject code here
+                              'CSN 102 \n' +
+                                  subjectsList[
+                                      index], //add correct subject code here
                               //textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -141,13 +159,13 @@ class StudyMaterial0State extends State<StudyMaterial0> {
                                         )));
                           } else {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SubjectStudyMaterial1(
-                                          index: index,
-                                          subjectColor: backgroundColor,
-                                        ),
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SubjectStudyMaterial1(
+                                  index: index,
+                                  subjectColor: backgroundColor,
                                 ),
+                              ),
                             );
                           }
                         },

@@ -11,6 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 
+import 'mainPage.dart';
+
 class Attendance extends StatefulWidget {
   @override
   _AttendanceState createState() => _AttendanceState();
@@ -30,6 +32,20 @@ class _AttendanceState extends State<Attendance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        elevation: 8,
+        backgroundColor: Colors.teal,
+        child: Icon(
+          Icons.home_filled,
+          color: Colors.white,
+          size: 35,
+        ),
+        onPressed: () async {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,

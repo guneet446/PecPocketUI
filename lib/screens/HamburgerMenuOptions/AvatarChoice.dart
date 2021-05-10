@@ -1,10 +1,13 @@
 import 'package:fend/Databases/AvatarDB.dart';
+import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/EntryPoint.dart';
 import 'package:fend/classes/Avatar.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:fend/globals.dart' as global;
 
 class AvatarChoice extends StatelessWidget {
   @override
@@ -201,6 +204,21 @@ class _MyHomePageState extends State<MyHomePage>
                                     color: Colors.teal,
                                   ),
                                   onPressed: () async {
+                                    var databaseHelper = UserDatabase.instance;
+                                    var databaseUser =
+                                        await databaseHelper.getAllUsers();
+                                    var sid = databaseUser[0].sid;
+                                    Map<String, String> headers = {
+                                      "Content-type": "application/json"
+                                    };
+                                    String json =
+                                        '{"SID": $sid, "Avatar": "${avatars[selectedIndex]}"}';
+
+                                    Response response = await post(
+                                        Uri.parse('${global.url}/avatar'),
+                                        headers: headers,
+                                        body: json);
+                                    print(response.body);
                                     selectedAvatar = avatars[index];
                                     var avatarHelper = AvatarDatabase.instance;
                                     Avatar avatar = Avatar(

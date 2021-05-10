@@ -1,5 +1,7 @@
+import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
+import 'package:fend/classes/subjects.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
 import 'package:fend/screens/login_screen.dart';
 import 'package:fend/screens/mainPage.dart';

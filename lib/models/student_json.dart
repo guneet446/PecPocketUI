@@ -41,7 +41,7 @@ class Social {
   int year;
   int semester;
   String insta;
-  List<String> clubs;
+  List<dynamic> clubs;
   Social({
     this.name,
     this.sid,

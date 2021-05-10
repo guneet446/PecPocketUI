@@ -3,6 +3,7 @@ import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:fend/Databases/AvatarDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
+import 'package:fend/EntryPoint.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/NotiClass.dart';
 import 'package:fend/classes/Profile.dart';
@@ -191,9 +192,33 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                               SizedBox(width: 5),
                                               Container(
                                                 height: 1,
-                                                width: 290,
+                                                width: 250,
                                                 color: Colors.grey,
-                                              )
+                                              ),
+                                              IconButton(
+                                                icon:
+                                                    Icon(Icons.cancel_outlined),
+                                                onPressed: () async {
+                                                  var reminderHelper =
+                                                      ReminderDatabase.instance;
+                                                  reminderHelper.deleteReminder(
+                                                      mainPageReminderDescriptions[
+                                                          index]);
+                                                  mainPageReminders
+                                                      .removeAt(index);
+                                                  mainPageReminderDescriptions
+                                                      .removeAt(index);
+                                                  mainPageReminderStartTimes
+                                                      .removeAt(index);
+                                                  mainPageReminderEndTimes
+                                                      .removeAt(index);
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EntryPoint()));
+                                                },
+                                              ),
                                             ],
                                           ),
                                         ],
@@ -639,10 +664,12 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
   }
 
   void updateProfile() async {
-    var response = await get(Uri.parse('${global.url}/viewprofile/17101001'));
+    var userHelper = UserDatabase.instance;
+    var databaseUser = await userHelper.getAllUsers();
+    var sid = databaseUser[0].sid;
+    var response = await get(Uri.parse('${global.url}/viewprofile/$sid'));
     Profile profile = Profile.fromJson(json.decode(response.body));
     setState(() {
-      print('avatar ${profile.avatar}');
       profileName = profile.name;
       profileSid = profile.sid.toString();
       profileClubs = profile.clubs.length == 0
@@ -654,7 +681,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       profileInsta =
           profile.insta == null ? 'No instagram handle' : profile.insta;
       profileAvatar =
-          profile.avatar == null ? profile.avatar : 'assets/neutral_girl.png';
+          profile.avatar == null ? 'assets/neutral_girl.png' : profile.avatar;
     });
   }
 }

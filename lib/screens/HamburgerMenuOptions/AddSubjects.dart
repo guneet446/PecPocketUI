@@ -174,8 +174,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                   }
                 }
                 if (flag == 0) {
-                  selectedSubsList.insert(
-                      0, subsList[index]);
+                  selectedSubsList.insert(0, subsList[index]);
                   selectedCodesList.insert(0, codesList[index]);
                 } else
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -213,16 +212,6 @@ class _AddSubjectsState extends State<AddSubjects> {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 2),
-                      Text(
-                        codesList[index],
-                        style: GoogleFonts.exo2(
-                          textStyle: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
                     ],
                   ),
                 ),
@@ -274,15 +263,6 @@ class _AddSubjectsState extends State<AddSubjects> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Center(
-                        child: Text(
-                          selectedCodesList[index],
-                          style: GoogleFonts.exo2(
-                            textStyle:
-                                TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),

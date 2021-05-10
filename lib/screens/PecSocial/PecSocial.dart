@@ -326,10 +326,12 @@ class _PecSocialState extends State<PecSocial>
       names.clear();
       sids.clear();
       var response =
-          await get(Uri.parse('${global.url}/social?query=$searchFor'));
+          await get(Uri.parse('${global.url}social?query=$searchFor'));
 
       var socialList = SocialList.fromJson(json.decode(response.body));
+
       setState(() {
+        print(socialList.social[0].name);
         for (int i = 0; i < socialList.social.length; i++) {
           names.add(socialList.social[i].name);
           sids.add(socialList.social[i].sid.toString());

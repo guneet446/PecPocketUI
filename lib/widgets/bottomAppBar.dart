@@ -82,7 +82,7 @@ class bottomAppBarState extends State<bottomAppBar> {
     int size = await updateSubjectsList();
     setState(() {
       print(subjectsList.length);
-      if (size != 0) {
+      if (size == 0) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => StudyMaterial0()));
       }
@@ -193,7 +193,8 @@ class bottomAppBarState extends State<bottomAppBar> {
     List<Subject> databaseSubjects = await subjectsHelper.getAllSubjects();
     for (int i = 0; i < databaseSubjects.length; i++) {
       subjectsList.add(databaseSubjects[i].subject);
-      var response = await get(Uri.parse('${global.url}/subject/search?query=${databaseSubjects[i].subject}'));
+      var response = await get(Uri.parse(
+          '${global.url}/subject/search?query=${databaseSubjects[i].subject}'));
       Subjects subject = Subjects.fromJson(json.decode(response.body));
       studyMaterialCodesList.add(subject.subject[i]);
     }

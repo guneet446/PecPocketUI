@@ -1,14 +1,11 @@
-import 'package:alert_dialog/alert_dialog.dart';
-import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/TimetableDB.dart';
 import 'package:fend/classes/Timetable.dart';
-import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:weekday_selector/weekday_selector.dart';
-
 import 'HamburgerMenu.dart';
+import 'StudyMaterial/StudyMaterial0.dart';
 import 'mainPage.dart';
 
 class TimeTable extends StatefulWidget {

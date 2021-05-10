@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:fend/Databases/AvatarDB.dart';
+import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
 import 'package:fend/EntryPoint.dart';
@@ -8,6 +9,7 @@ import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/NotiClass.dart';
 import 'package:fend/classes/Profile.dart';
 import 'package:fend/classes/Reminder.dart';
+import 'package:fend/classes/subjects.dart';
 import 'package:fend/models/Notifications.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderAddNew.dart';
@@ -16,12 +18,13 @@ import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
 import 'package:fend/screens/ViewProfile.dart';
 import 'package:fend/screens/uploadNotification.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
-import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+
+import 'StudyMaterial/StudyMaterial0.dart';
 
 class MainPage extends StatefulWidget {
   createState() {
@@ -43,7 +46,6 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    updateReminder();
     getAuth();
     updateProfile();
 
@@ -71,9 +73,9 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
           elevation: 8,
           backgroundColor: Colors.teal,
           child: Icon(
-            Icons.cancel,
+            Icons.add,
             color: Colors.white,
-            size: 55,
+            size: 50,
           ),
           onPressed: () {
             showDialog(
@@ -87,11 +89,14 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
         key: key,
         body: DraggableBottomSheet(
           backgroundWidget: Scaffold(
-            body: Container(
-              color: Colors.teal,
-              child: Image(
-                image: AssetImage('assets/custom_reminders.png'),
-                height: 250,
+            body: Center(
+              child: Container(
+                alignment: Alignment.topCenter,
+                color: Colors.teal,
+                child: Image(
+                  image: AssetImage('assets/custom_reminders.png'),
+                  height: 250,
+                ),
               ),
             ),
           ),
@@ -140,7 +145,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                             color: Color(colorChoices[index]),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10))),
-                                        height: 100,
+                                        height: 120,
                                         width: 4,
                                       ),
                                       SizedBox(
@@ -154,14 +159,26 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                           Row(
                                             children: [
                                               Text(
-                                                mainPageReminderStartTimes[
-                                                    index],
+                                                customReminders[index]
+                                                        .reminderDateTime
+                                                        .day
+                                                        .toString() +
+                                                    '-' +
+                                                    customReminders[index]
+                                                        .reminderDateTime
+                                                        .month
+                                                        .toString() +
+                                                    '-' +
+                                                    customReminders[index]
+                                                        .reminderDateTime
+                                                        .year
+                                                        .toString(),
                                                 style: GoogleFonts.exo2(),
                                               ),
                                               SizedBox(width: 5),
                                               Container(
                                                 height: 1,
-                                                width: 290,
+                                                width: 250,
                                                 color: Colors.grey,
                                               )
                                             ],
@@ -192,7 +209,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                               SizedBox(width: 5),
                                               Container(
                                                 height: 1,
-                                                width: 250,
+                                                width: 240,
                                                 color: Colors.grey,
                                               ),
                                               IconButton(
@@ -283,13 +300,26 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                     Row(
                                       children: [
                                         Text(
-                                          mainPageReminderStartTimes[index],
+                                          customReminders[index]
+                                                  .reminderDateTime
+                                                  .day
+                                                  .toString() +
+                                              '-' +
+                                              customReminders[index]
+                                                  .reminderDateTime
+                                                  .month
+                                                  .toString() +
+                                              '-' +
+                                              customReminders[index]
+                                                  .reminderDateTime
+                                                  .year
+                                                  .toString(),
                                           style: GoogleFonts.exo2(),
                                         ),
                                         SizedBox(width: 5),
                                         Container(
                                           height: 1,
-                                          width: 290,
+                                          width: 250,
                                           color: Colors.grey,
                                         )
                                       ],
@@ -318,9 +348,31 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                         SizedBox(width: 5),
                                         Container(
                                           height: 1,
-                                          width: 290,
+                                          width: 240,
                                           color: Colors.grey,
-                                        )
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.cancel_outlined),
+                                          onPressed: () async {
+                                            var reminderHelper =
+                                                ReminderDatabase.instance;
+                                            reminderHelper.deleteReminder(
+                                                mainPageReminderDescriptions[
+                                                    index]);
+                                            mainPageReminders.removeAt(index);
+                                            mainPageReminderDescriptions
+                                                .removeAt(index);
+                                            mainPageReminderStartTimes
+                                                .removeAt(index);
+                                            mainPageReminderEndTimes
+                                                .removeAt(index);
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EntryPoint()));
+                                          },
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -351,36 +403,6 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             onPressed: () => handleOnPressed(),
           ),
           actions: [
-            GestureDetector(
-                child: Container(
-                  child: Container(
-                    width: 45,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      color: Colors.teal,
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(selectedAvatar),
-                      ),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ViewProfile()));
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomReminderAddNew();
-                      });
-                }),
             IconButton(
                 icon: Icon(
                   Icons.notifications,
@@ -603,46 +625,31 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         }
                       });
                 }),
+            GestureDetector(
+                child: Container(
+                  child: Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(selectedAvatar),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ViewProfile()));
+                }),
+            SizedBox(width: 15)
           ],
         ),
         drawer: Settings(),
         bottomNavigationBar: bottomAppBar(),
       ),
     );
-  }
-
-  void updateReminder() async {
-    var reminderHelper = ReminderDatabase.instance;
-    var databaseReminder = await reminderHelper.getAllReminders();
-    print('reminder count ${databaseReminder.length}');
-    customReminders.clear();
-    mainPageReminders.clear();
-    mainPageReminderDescriptions.clear();
-    mainPageReminderStartTimes.clear();
-    mainPageReminderEndTimes.clear();
-    for (int i = 0; i < databaseReminder.length; i++) {
-      DateTime dateTime = new DateTime(
-          databaseReminder[i].year,
-          databaseReminder[i].month,
-          databaseReminder[i].day,
-          databaseReminder[i].hour,
-          databaseReminder[i].minute);
-      customReminders.add(CustomReminderDetails(
-          0,
-          databaseReminder[i].description,
-          dateTime,
-          databaseReminder[i].getNotified));
-
-      mainPageReminders.add('Reminder ${i + 1}');
-      mainPageReminderDescriptions.add(databaseReminder[i].description);
-      mainPageReminderStartTimes.add('${databaseReminder[i].hour}' +
-          ':' +
-          '${databaseReminder[i].minute}');
-      mainPageReminderEndTimes.add('${databaseReminder[i].hour}' +
-          ':' +
-          '${databaseReminder[i].minute}');
-    }
-    reminderLength = customReminders.length;
   }
 
   Future<int> getAuth() async {
@@ -683,5 +690,31 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       profileAvatar =
           profile.avatar == null ? 'assets/neutral_girl.png' : profile.avatar;
     });
+  }
+
+  getDayFromReminder(int day) {
+    switch (day) {
+      case 1:
+        return 'Monday';
+        break;
+      case 2:
+        return 'Tuesday';
+        break;
+      case 3:
+        return 'Wednesday';
+        break;
+      case 4:
+        return 'Thursday';
+        break;
+      case 5:
+        return 'Friday';
+        break;
+      case 6:
+        return 'Saturday';
+        break;
+      case 7:
+        return 'Sunday';
+        break;
+    }
   }
 }

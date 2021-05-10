@@ -14,7 +14,7 @@ class SubjectDatabase {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _initDB('subjects8.db');
+    _database = await _initDB('subjects9.db');
     return _database;
   }
 

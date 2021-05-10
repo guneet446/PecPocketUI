@@ -50,7 +50,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
   var key = GlobalKey<ScaffoldState>();
   void initState() {
     super.initState();
-    //updateSubjectsList();
+    updateCodesList();
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -59,6 +59,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
 
   File image;
   final picker = ImagePicker();
+  @override
   Widget build(context) {
     return Scaffold(
       key: key,
@@ -79,6 +80,10 @@ class StudyMaterial0State extends State<StudyMaterial0>
       backgroundColor: Colors.white,
       bottomNavigationBar: bottomAppBar(),
       appBar: AppBar(
+        title: Text(
+          'StudyMaterial',
+          style: TextStyle(color: Colors.teal),
+        ),
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: AnimatedIcon(
@@ -121,7 +126,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
                           child: Align(
                             alignment: Alignment.bottomLeft,
                             child: Text(
-                              studyMaterialCodesList[index] + '\n' + subjectsList[index],
+                              subjectsList[index],
                               //textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,
@@ -134,15 +139,14 @@ class StudyMaterial0State extends State<StudyMaterial0>
                       ],
                     ),
                     onTap: () async {
-                      print(subjectsList);
                       var response = await get(Uri.parse(
-                          '${global.url}/subject/search?query=${subjectsList[index]}'));
+                          '${global.url}subject/search?query=${subjectsList[index]}'));
                       var rb = response.body;
 
                       var list = json.decode(rb) as List;
 
                       List<Subjects> mySubjects =
-                      list.map((i) => Subjects.fromJson(i)).toList();
+                          list.map((i) => Subjects.fromJson(i)).toList();
 
                       var userHelper = UserDatabase.instance;
                       var userData = await userHelper.getAllUsers();
@@ -228,15 +232,6 @@ class StudyMaterial0State extends State<StudyMaterial0>
     for (int i = 0; i < databaseSubjects.length; i++) {}
   }
 
-  void updateSubjectsList() async {
-    var subjectsHelper = SubjectDatabase.instance;
-    List<Subject> databaseSubjects = await subjectsHelper.getAllSubjects();
-    for (int i = 0; i < databaseSubjects.length; i++) {
-      subjectsList.add(databaseSubjects[i].subject);
-    }
-    //print(subjectsList.length);
-  }
-
   void sendRequest(http.MultipartRequest request) async {
     var res = await request.send();
     setState(() {
@@ -253,5 +248,23 @@ class StudyMaterial0State extends State<StudyMaterial0>
     setState(() {
       print(isPlaying);
     });
+  }
+
+  void updateCodesList() async {
+    var subjectHelper = SubjectDatabase.instance;
+    var databaseSubjects = await subjectHelper.getAllSubjects();
+    for (int i = 0; i < databaseSubjects.length; i++) {
+      var response = await get(Uri.parse(
+          '${global.url}subject/search?query=${databaseSubjects[i].subject}'));
+      var rb = response.body;
+
+      var list = json.decode(rb) as List;
+
+      List<Subjects> subjects = list.map((i) => Subjects.fromJson(i)).toList();
+
+      setState(() {
+        print(subjects[i].subCode);
+      });
+    }
   }
 }

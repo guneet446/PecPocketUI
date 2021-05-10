@@ -18,6 +18,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../HamburgerMenu.dart';
 import '../attendance.dart';
+import '../mainPage.dart';
 
 class SubjectStudyMaterial1 extends StatefulWidget {
   int index;
@@ -30,7 +31,8 @@ class SubjectStudyMaterial1 extends StatefulWidget {
 
 List<String> uploadsList = [];
 String uploadSubject = '';
-String pageDescription = '\nLong press the file icon to download the resource you need';
+String pageDescription =
+    '\nLong press the file icon to download the resource you need';
 String fileIcon = 'assets/image.png';
 bool isEmpty = false;
 
@@ -41,8 +43,7 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
       final id = await FlutterDownloader.enqueue(
-          url:
-              'https://8532a4f966b3.ngrok.io/download/$uploadSubject/$nameFile',
+          url: '${global.url}download/$uploadSubject/$nameFile',
           savedDir: baseStorage.path,
           fileName: '$nameFile',
           showNotification: true);
@@ -77,8 +78,22 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
 
   @override
   Widget build(BuildContext context) {
-    if(!isEmpty) {
+    if (!isEmpty) {
       return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          elevation: 8,
+          backgroundColor: Colors.teal,
+          child: Icon(
+            Icons.home_filled,
+            color: Colors.white,
+            size: 35,
+          ),
+          onPressed: () async {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MainPage()));
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -89,31 +104,32 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
           iconTheme: IconThemeData(color: Colors.black),
           actions: [
             IconButton(
-                icon: Icon(Icons.wifi),
+                icon: Icon(
+                  Icons.wifi,
+                  color: Colors.black,
+                ),
                 onPressed: () {
                   //return alert(context, content: fileChoice());
                   return showDialog(
                       context: context,
-                      builder: (context){
+                      builder: (context) {
                         return AlertDialog(
                           content: fileChoice(),
                           actions: [
                             TextButton(
-                                onPressed: (){
+                                onPressed: () {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                    'Ok',
+                                  'Ok',
                                   style: TextStyle(
                                     color: Color(0xff272727),
                                   ),
-                                )
-                            ),
+                                )),
                           ],
                         );
                       });
-                }
-            ),
+                }),
           ],
         ),
         backgroundColor: Colors.white,
@@ -155,8 +171,10 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
                     mainAxisExtent: 150,
                     crossAxisSpacing: 15,
                   ),
-                  itemBuilder: (BuildContext context, int index){
-                    if(uploadsList[index].substring(uploadsList[index].length - 3) == 'pdf') {
+                  itemBuilder: (BuildContext context, int index) {
+                    if (uploadsList[index]
+                            .substring(uploadsList[index].length - 3) ==
+                        'pdf') {
                       fileIcon = 'assets/pdf-file.png';
                     }
                     return Column(
@@ -198,8 +216,7 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
           ],
         ),
       );
-    }
-    else {
+    } else {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -212,8 +229,7 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
         ),
         backgroundColor: Colors.white,
         bottomNavigationBar: bottomAppBar(),
-        body:
-        Column(
+        body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
@@ -234,7 +250,9 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
               'assets/study_material.png',
               scale: 1.4,
             ),
-            Container(height: 20,),
+            Container(
+              height: 20,
+            ),
             Text(
               'Looks like there is no study material available\nAsk your CR to Upload!',
               textAlign: TextAlign.center,
@@ -250,8 +268,9 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
         await get(Uri.parse('${global.url}/getuploads/$uploadSubject'));
     Uploads uploads = Uploads.fromJson(json.decode(response.body));
     setState(() {
-      if(uploads.uploads.isEmpty) {
-        pageDescription = '\nNo study material available for this subject! Ask your CR to upload resources';
+      if (uploads.uploads.isEmpty) {
+        pageDescription =
+            '\nNo study material available for this subject! Ask your CR to upload resources';
       }
       if (uploadsList.length == 0) {
         for (int i = 0; i < uploads.uploads.length; i++) {
@@ -272,8 +291,8 @@ class _SubjectStudyMaterial1State extends State<SubjectStudyMaterial1> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ElevatedButton(
-              onPressed: photoUploadGallery,
-              child: Text('Upload files'),
+            onPressed: photoUploadGallery,
+            child: Text('Upload files'),
             style: ElevatedButton.styleFrom(
               primary: Color(0xff272727),
             ),

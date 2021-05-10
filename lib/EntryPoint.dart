@@ -30,6 +30,7 @@ class _EntryPointState extends State<EntryPoint> {
     checkLogin();
     updateReminders();
     getAvatar();
+    updateMainPageReminders();
   }
 
   @override
@@ -81,5 +82,39 @@ class _EntryPointState extends State<EntryPoint> {
     var databaseAvatar = await avatarHelper.getAllavatar();
     selectedAvatar = databaseAvatar[0].avatar;
     print(databaseAvatar.length);
+  }
+
+  void updateMainPageReminders() async {
+    var reminderHelper = ReminderDatabase.instance;
+    var databaseReminder = await reminderHelper.getAllReminders();
+    print('reminder count ${databaseReminder.length}');
+    customReminders.clear();
+    mainPageReminders.clear();
+    mainPageReminderDescriptions.clear();
+    mainPageReminderStartTimes.clear();
+    mainPageReminderEndTimes.clear();
+    for (int i = 0; i < databaseReminder.length; i++) {
+      DateTime dateTime = new DateTime(
+          databaseReminder[i].year,
+          databaseReminder[i].month,
+          databaseReminder[i].day,
+          databaseReminder[i].hour,
+          databaseReminder[i].minute);
+      customReminders.add(CustomReminderDetails(
+          0,
+          databaseReminder[i].description,
+          dateTime,
+          databaseReminder[i].getNotified));
+
+      mainPageReminders.add('Reminder ${i + 1}');
+      mainPageReminderDescriptions.add(databaseReminder[i].description);
+      mainPageReminderStartTimes.add('${databaseReminder[i].hour}' +
+          ':' +
+          '${databaseReminder[i].minute}');
+      mainPageReminderEndTimes.add('${databaseReminder[i].hour}' +
+          ':' +
+          '${databaseReminder[i].minute}');
+    }
+    reminderLength = customReminders.length;
   }
 }

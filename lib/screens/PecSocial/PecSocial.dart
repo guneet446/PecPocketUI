@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
+import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import 'package:fend/screens/mainPage.dart';
-import 'package:fend/widgets/attendanceCard.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

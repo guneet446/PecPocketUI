@@ -9,12 +9,14 @@ import 'package:fend/screens/attendance.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../HamburgerMenu.dart';
+import '../mainPage.dart';
 
 class SubjectStudyMaterial extends StatefulWidget {
   int index;
@@ -36,8 +38,7 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
       final id = await FlutterDownloader.enqueue(
-          url:
-              'https://8532a4f966b3.ngrok.io/download/$uploadSubject0/$nameFile',
+          url: '${global.url}download/$uploadSubject0/$nameFile',
           savedDir: baseStorage.path,
           fileName: '$nameFile',
           showNotification: true);
@@ -72,8 +73,22 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
 
   @override
   Widget build(BuildContext context) {
-    if(!isEmpty) {
+    if (!isEmpty) {
       return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          elevation: 8,
+          backgroundColor: Colors.teal,
+          child: Icon(
+            Icons.home_filled,
+            color: Colors.white,
+            size: 35,
+          ),
+          onPressed: () async {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MainPage()));
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -93,14 +108,8 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Study Material/${subjectsList[widget.index]}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text('Study Material/${subjectsList[widget.index]}',
+                        style: GoogleFonts.exo2()),
                     Text(
                       '\nLong press the file icon to download the resource you need',
                       style: TextStyle(
@@ -122,8 +131,10 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
                     mainAxisExtent: 150,
                     crossAxisSpacing: 15,
                   ),
-                  itemBuilder: (BuildContext context, int index){
-                    if(uploadsList0[index].substring(uploadsList0[index].length - 3) == 'pdf') {
+                  itemBuilder: (BuildContext context, int index) {
+                    if (uploadsList0[index]
+                            .substring(uploadsList0[index].length - 3) ==
+                        'pdf') {
                       fileIcon = 'assets/pdf-file.png';
                     }
                     return Column(
@@ -165,8 +176,7 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
           ],
         ),
       );
-    }
-    else {
+    } else {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -179,35 +189,36 @@ class _SubjectStudyMaterialState extends State<SubjectStudyMaterial> {
         ),
         backgroundColor: Colors.white,
         bottomNavigationBar: bottomAppBar(),
-        body:
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 160, left: 10, right: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Study Material/${subjectsList[widget.index]}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 160, left: 10, right: 10),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Study Material/${subjectsList[widget.index]}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              Image.asset(
-                'assets/study_material.png',
-                scale: 1.4,
-              ),
-              Container(height: 20,),
-              Text(
-                'Looks like there is no study material available\nAsk your CR to Upload!',
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+            ),
+            Image.asset(
+              'assets/study_material.png',
+              scale: 1.4,
+            ),
+            Container(
+              height: 20,
+            ),
+            Text(
+              'Looks like there is no study material available\nAsk your CR to Upload!',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       );
     }
   }

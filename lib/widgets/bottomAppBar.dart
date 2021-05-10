@@ -79,13 +79,10 @@ class bottomAppBarState extends State<bottomAppBar> {
   }
 
   goToStudyMaterialPage() async {
-    int size = await updateSubjectsList();
+    updateSubjectsList();
     setState(() {
-      print(subjectsList.length);
-      if (size == 0) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => StudyMaterial0()));
-      }
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => StudyMaterial0()));
     });
   }
 
@@ -180,26 +177,11 @@ class bottomAppBarState extends State<bottomAppBar> {
     });
     var allAttendances = await attendanceHelper.getAllAttendance();
     /* for (int i = 0; i < allAttendances.length; i++) {
-                print(allAttendances[i].subject);
-                print(allAttendances[i].subtitle);
-                print(allAttendances[i].classesAttended);
-                print(allAttendances[i].totalClasses);
-              }*/
-  }
-
-  Future<int> updateSubjectsList() async {
-    subjectsList.clear();
-    var subjectsHelper = SubjectDatabase.instance;
-    List<Subject> databaseSubjects = await subjectsHelper.getAllSubjects();
-    for (int i = 0; i < databaseSubjects.length; i++) {
-      subjectsList.add(databaseSubjects[i].subject);
-      var response = await get(Uri.parse(
-          '${global.url}/subject/search?query=${databaseSubjects[i].subject}'));
-      Subjects subject = Subjects.fromJson(json.decode(response.body));
-      studyMaterialCodesList.add(subject.subject[i]);
-    }
-    print(subjectsList.length);
-    return subjectsList.length;
+                    print(allAttendances[i].subject);
+                    print(allAttendances[i].subtitle);
+                    print(allAttendances[i].classesAttended);
+                    print(allAttendances[i].totalClasses);
+                  }*/
   }
 
   goToTimeTable() async {
@@ -240,5 +222,23 @@ class bottomAppBarState extends State<bottomAppBar> {
     }
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => TimeTable()));
+  }
+
+  updateSubjectsList() async {
+    var subjectsHelper = SubjectDatabase.instance;
+    List<Subject> databaseSubjects = await subjectsHelper.getAllSubjects();
+
+    setState(() {
+      subjectsList.clear();
+    });
+
+    for (int i = 0; i < databaseSubjects.length; i++) {
+      setState(() {
+        subjectsList.add(databaseSubjects[i].subject);
+      });
+    }
+    setState(() {
+      print(subjectsList.length);
+    });
   }
 }

@@ -51,7 +51,7 @@ class _SettingsState extends State<Settings> {
     return Drawer(
       elevation: 30,
       child: Container(
-        color: Colors.red,
+        color: Color(0xff272727),
         child: ListView(
           children: [
             SizedBox(height: 100),
@@ -78,7 +78,7 @@ class _SettingsState extends State<Settings> {
             ),
             ListTile(
               title: Text(
-                'Add/Update Instagram Handle',
+                'Add/Update Insta',
                 style: GoogleFonts.exo2(
                     textStyle: TextStyle(color: Colors.white, fontSize: 20)),
               ),
@@ -163,7 +163,6 @@ class _SettingsState extends State<Settings> {
                 });
               },
             ),
-            SizedBox(height: 200),
             ListTile(
               title: Text(
                 'Change Password',
@@ -229,6 +228,7 @@ class _SettingsState extends State<Settings> {
                     });
               },
             ),
+            SizedBox(height: 200),
             ListTile(
               title: Text(
                 'Logout',

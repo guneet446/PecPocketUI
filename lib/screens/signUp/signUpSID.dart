@@ -4,8 +4,8 @@ import 'package:fend/globals.dart' as global;
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/classes/user.dart';
 import 'package:fend/models/student_json.dart';
-import 'package:fend/screens/HamburgerMenuOptions/AddSubjects.dart';
-import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
+import 'package:fend/screens/signUp/SignUpAvatarChoice.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -286,7 +286,7 @@ class _SignUpState extends State<SignUp> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    AvatarChoice())); // go to add subjects page
+                    SignUpAvatarChoice())); // go to add subjects page
       });
     } else {
       setState(() {

@@ -1,6 +1,7 @@
 import 'package:fend/Databases/AttendanceDB.dart';
 import 'package:fend/classes/Attendances.dart';
 import 'package:fend/models/subjectAttendanceDetails.dart';
+import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import 'package:fend/screens/attendance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,27 +19,6 @@ class AttendanceCard extends StatefulWidget {
 }
 
 //List<int> colorChoices = [0xff7BA399, 0xffF07F83, 0XffFECE48, 0xffDE6A66, 0xff813CA3, 0xff9A275A, 0xffD97F30, 0xff484F70, 0xff2F3737, 0xff23356C];
-List<int> colorChoices = [
-  0xff7BA399,
-  0xffF07F83,
-  0XffFECE48,
-  0xffDE6A66,
-  0xff813CA3,
-  0xff9A275A,
-  0xffD97F30,
-  0xff484F70,
-  0xff2F3737,
-  0xff23356C,
-  0xffF5CAC3,
-  0xffBDB8B0,
-  0xff9F7F7F,
-  0xff91C2C4,
-  0xff84A59D,
-  0xffE47A77,
-  0xff6C96C6,
-  0xff868998,
-  0xffD47090
-];
 
 class _AttendanceCardState extends State<AttendanceCard> {
   @override

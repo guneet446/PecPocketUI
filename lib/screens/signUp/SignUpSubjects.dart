@@ -6,12 +6,15 @@ import 'package:fend/globals.dart' as global;
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AddClubs.dart';
+import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/widgets/attendanceCard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'dart:math';
+
+import 'SignUpClubs.dart';
 
 class SignUpSubjects extends StatefulWidget {
   @override
@@ -128,7 +131,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
 
   subject() async {
     var response = await get(
-        Uri.parse('${global.url}/subject/search?query=$searchForSubject'));
+        Uri.parse('${global.url}subject/search?query=$searchForSubject'));
     var rb = response.body;
 
     var list = json.decode(rb) as List;
@@ -213,7 +216,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 2),
-                      Text(
+                      /*Text(
                         codesList[index],
                         style: GoogleFonts.exo2(
                           textStyle: TextStyle(
@@ -222,7 +225,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                           ),
                         ),
                         textAlign: TextAlign.center,
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -274,7 +277,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Center(
+                      /*Center(
                         child: Text(
                           selectedCodesList[index],
                           style: GoogleFonts.exo2(
@@ -282,7 +285,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                                 TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -311,7 +314,8 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
               subjectHelper.addSubject(subject);
             }
 
-            Navigator.pop(context);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => SignUpClubs()));
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color>(

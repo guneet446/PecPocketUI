@@ -27,6 +27,9 @@ class _SignUpState extends State<SignUp> {
   String response;
   String password;
   String confirmPassword;
+  String sidError = '';
+  String otpError = '';
+  String passwordError = '';
   bool sidCheck = false;
   bool otpCheck = false;
   final formKey = GlobalKey<FormState>();
@@ -80,6 +83,10 @@ class _SignUpState extends State<SignUp> {
           child: TextFormField(
             decoration: InputDecoration(
               labelText: 'SID',
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              errorText: sidError,
             ),
             onChanged: (String value) {
               setState(() {
@@ -94,7 +101,7 @@ class _SignUpState extends State<SignUp> {
             onPressed: validateSID,
             icon: Icon(
               Icons.check_circle,
-              color: Color(0xff272727),
+              color: sidCheck ? Colors.green : Color(0xff272727),
             ),
           ),
         ),
@@ -112,6 +119,10 @@ class _SignUpState extends State<SignUp> {
             enabled: sidCheck,
             decoration: InputDecoration(
               labelText: 'OTP',
+              labelStyle: TextStyle(
+                color: sidCheck ? Colors.black : Colors.grey,
+              ),
+              errorText: otpError,
             ),
             onChanged: (String value) {
               setState(() {
@@ -126,11 +137,35 @@ class _SignUpState extends State<SignUp> {
             onPressed: validateUser,
             icon: Icon(
               Icons.check_circle,
-              color: Color(0xff272727),
+              color: otpCheck ? Colors.green : Color(0xff272727),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  resendOtp() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: RichText(
+        text: new TextSpan(
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+            children: [
+              new TextSpan(
+                  text: 'Resend OTP',
+                  style: TextStyle(
+                    color: Color(0xff272727),
+                    decoration: TextDecoration.underline,
+                  ),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = validateSID()
+              )
+            ]),
+      ),
     );
   }
 
@@ -140,6 +175,10 @@ class _SignUpState extends State<SignUp> {
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
+        labelStyle: TextStyle(
+          color: otpCheck ? Colors.black : Colors.grey,
+        ),
+        errorText: passwordError,
       ),
       onChanged: (String value) {
         setState(() {
@@ -155,6 +194,10 @@ class _SignUpState extends State<SignUp> {
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Confirm Password',
+        labelStyle: TextStyle(
+          color: otpCheck ? Colors.black : Colors.grey,
+        ),
+        errorText: passwordError,
       ),
       onChanged: (String value) {
         setState(() {
@@ -172,14 +215,14 @@ class _SignUpState extends State<SignUp> {
         primary: Color(0xff272727),
         minimumSize: Size(MediaQuery.of(context).size.width, 45),
         shape:
-            RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
       ),
     );
   }
 
   toRegister() {
     return Padding(
-      padding: const EdgeInsets.only(top: 60, bottom: 20),
+      padding: const EdgeInsets.only(top: 30, bottom: 10),
       child: Center(
         child: RichText(
           text: new TextSpan(
@@ -225,7 +268,7 @@ class _SignUpState extends State<SignUp> {
       await emailTransport.send(envelope);
       var response = await get(Uri.parse('${global.url}/super/$sid'));
       StudentData studentData =
-          StudentData.fromJson(json.decode(response.body));
+      StudentData.fromJson(json.decode(response.body));
 
       setState(() {
         global.sid = sid;
@@ -235,14 +278,11 @@ class _SignUpState extends State<SignUp> {
     } else if (body[14] == '2') {
       setState(() {
         print(body);
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('SID already signed up')));
+        sidError = 'SID already signed up';
       });
     } else {
       setState(() {
-        print(body);
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Not a valid PEC SID')));
+        sidError = 'Not a valid PEC SID';
       });
     }
   }
@@ -253,8 +293,7 @@ class _SignUpState extends State<SignUp> {
         otpCheck = true;
       });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('OTP does not match the one sent on your PEC Email')));
+      otpError = 'OTP does not match the one sent on your PEC Email';
     }
   }
 
@@ -290,8 +329,7 @@ class _SignUpState extends State<SignUp> {
       });
     } else {
       setState(() {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Passwords don't match")));
+        passwordError = "Passwords don't match";
       });
     }
   }

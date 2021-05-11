@@ -101,9 +101,6 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Text(
-                  'Overall Attendance.....',
-                ),
               ],
             ),
           ),

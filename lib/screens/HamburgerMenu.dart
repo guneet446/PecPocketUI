@@ -55,341 +55,428 @@ class _SettingsState extends State<Settings> {
         child: ListView(
           children: [
             SizedBox(height: 100),
-            ListTile(
-              title: Text(
-                subjectsOption,
-                style: GoogleFonts.exo2(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              onTap: () async {
-                var subjectHelper = SubjectDatabase.instance;
-                List<Subject> subjects = await subjectHelper.getAllSubjects();
-                selectedSubsList.clear();
-                selectedCodesList.clear();
-                for (int i = 0; i < subjects.length; i++) {
-                  selectedSubsList.add(subjects[i].subject);
-                  selectedCodesList.add('');
-                }
-                setState(() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddSubjects()));
-                });
-              },
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Image(
+                  image: AssetImage('assets/subjects.png'),
+                  height: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    var subjectHelper = SubjectDatabase.instance;
+                    List<Subject> subjects =
+                        await subjectHelper.getAllSubjects();
+                    selectedSubsList.clear();
+                    selectedCodesList.clear();
+                    for (int i = 0; i < subjects.length; i++) {
+                      selectedSubsList.add(subjects[i].subject);
+                      selectedCodesList.add('');
+                    }
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddSubjects()));
+                    });
+                  },
+                  child: Text(
+                    subjectsOption,
+                    style: GoogleFonts.exo2(fontSize: 20, color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            ListTile(
-              title: Text(
-                'Add/Update Insta',
-                style: GoogleFonts.exo2(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              onTap: () {
-                return showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Enter Instagram Handle',
-                          style: TextStyle(
-                            color: Color(0xff235790),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              onChanged: (String value) {
-                                instagramHandle = value;
-                              },
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                var userHelper = UserDatabase.instance;
-                                var userData = await userHelper.getAllUsers();
-                                var jsonMap = {
-                                  'SID': userData[0].sid,
-                                  'Insta': instagramHandle,
-                                };
-                                String jsonStr = jsonEncode(jsonMap);
-                                var response = await http.put(
-                                  Uri.parse(
-                                      '${global.url}/insta/${userData[0].sid}'),
-                                  body: jsonStr,
-                                  headers: {"Content-Type": "application/json"},
-                                );
-                                setState(() {
-                                  print(jsonMap);
-                                  print(response.body);
-                                  print(response);
-                                  Navigator.pop(context);
-                                });
-                              },
-                              child: Text(
-                                'Confirm',
-                                style: TextStyle(
-                                  color: Color(0xffE28F22),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Image(
+                  image: AssetImage('assets/instagram.png'),
+                  height: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 10),
+                GestureDetector(
+                  child: Text(
+                    'Update Insta Handle',
+                    style: GoogleFonts.exo2(fontSize: 20, color: Colors.white),
+                  ),
+                  onTap: () {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Enter Instagram Handle',
+                              style: TextStyle(
+                                color: Color(0xff235790),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
-                          ],
-                        ),
-                      );
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  onChanged: (String value) {
+                                    instagramHandle = value;
+                                  },
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    var userHelper = UserDatabase.instance;
+                                    var userData =
+                                        await userHelper.getAllUsers();
+                                    var jsonMap = {
+                                      'SID': userData[0].sid,
+                                      'Insta': instagramHandle,
+                                    };
+                                    String jsonStr = jsonEncode(jsonMap);
+                                    var response = await http.put(
+                                      Uri.parse(
+                                          '${global.url}/insta/${userData[0].sid}'),
+                                      body: jsonStr,
+                                      headers: {
+                                        "Content-Type": "application/json"
+                                      },
+                                    );
+                                    setState(() {
+                                      print(jsonMap);
+                                      print(response.body);
+                                      print(response);
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                  child: Text(
+                                    'Confirm',
+                                    style: TextStyle(
+                                      color: Color(0xffE28F22),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                )
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Image(
+                  image: AssetImage('assets/clubs.png'),
+                  height: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    var clubHelper = ClubDatabase.instance;
+                    List<Club> clubs = await clubHelper.getAllClubs();
+                    selectedclubsList.clear();
+                    for (int i = 0; i < clubs.length; i++) {
+                      selectedclubsList.add(clubs[i].club);
+                    }
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddClubs(
+                                    title: clubsOption,
+                                  )));
                     });
-              },
+                  },
+                  child: Text(
+                    clubsOption,
+                    style: GoogleFonts.exo2(fontSize: 20, color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            ListTile(
-              title: Text(
-                clubsOption, //Change to Edit clubs if clubs have been added already
-                style: GoogleFonts.exo2(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              onTap: () async {
-                var clubHelper = ClubDatabase.instance;
-                List<Club> clubs = await clubHelper.getAllClubs();
-                selectedclubsList.clear();
-                for (int i = 0; i < clubs.length; i++) {
-                  selectedclubsList.add(clubs[i].club);
-                }
-                setState(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddClubs(
-                                title: clubsOption,
-                              )));
-                });
-              },
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Image(
+                  image: AssetImage('assets/password.png'),
+                  height: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Enter Current Password followed by the new password',
+                              style: TextStyle(
+                                color: Color(0xff235790),
+                              ),
+                            ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  obscureText: true,
+                                  onChanged: (String value) {
+                                    confirmPassword = value;
+                                  },
+                                ),
+                                TextField(
+                                  obscureText: true,
+                                  onChanged: (String value) {
+                                    newPassword = value;
+                                  },
+                                ),
+                                TextButton(
+                                    onPressed: () async {
+                                      var userHelper = UserDatabase.instance;
+                                      var userData =
+                                          await userHelper.getAllUsers();
+                                      setState(() {
+                                        if (userData[0].password ==
+                                            confirmPassword) {
+                                          userHelper.deleteTable();
+                                          User user = new User(
+                                              id: 0,
+                                              sid: userData[0].sid,
+                                              password: newPassword,
+                                              auth: userData[0].auth,
+                                              login: 1);
+                                          userHelper.addUser(user);
+                                          Navigator.pop(context);
+                                        }
+                                      });
+                                    },
+                                    child: Text(
+                                      'Submit',
+                                      style: TextStyle(
+                                        color: Color(0xffE28F22),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: Text(
+                    'Change Password',
+                    style: GoogleFonts.exo2(fontSize: 20, color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            ListTile(
-              title: Text(
-                'Change Password',
-                style: GoogleFonts.exo2(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              onTap: () {
-                return showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Enter Current Password followed by the new password',
-                          style: TextStyle(
-                            color: Color(0xff235790),
-                          ),
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              obscureText: true,
-                              onChanged: (String value) {
-                                confirmPassword = value;
-                              },
+            SizedBox(height: 400),
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Image(
+                  image: AssetImage('assets/logout.png'),
+                  height: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Do you want to Logout?',
+                              style: TextStyle(
+                                color: Color(0xff235790),
+                              ),
                             ),
-                            TextField(
-                              obscureText: true,
-                              onChanged: (String value) {
-                                newPassword = value;
-                              },
-                            ),
-                            TextButton(
-                                onPressed: () async {
-                                  var userHelper = UserDatabase.instance;
-                                  var userData = await userHelper.getAllUsers();
-                                  setState(() {
-                                    if (userData[0].password ==
-                                        confirmPassword) {
-                                      userHelper.deleteTable();
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style: TextStyle(
+                                      color: Color(0xffE28F22),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    var userHelper = UserDatabase.instance;
+                                    var userData =
+                                        await userHelper.getAllUsers();
+                                    setState(() {
                                       User user = new User(
                                           id: 0,
                                           sid: userData[0].sid,
-                                          password: newPassword,
+                                          password: userData[0].password,
                                           auth: userData[0].auth,
-                                          login: 1);
-                                      userHelper.addUser(user);
-                                      Navigator.pop(context);
-                                    }
-                                  });
-                                },
-                                child: Text(
-                                  'Submit',
-                                  style: TextStyle(
-                                    color: Color(0xffE28F22),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                                          login: 0);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Login()));
+                                    });
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                      color: Color(0xffE28F22),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ))
-                          ],
-                        ),
-                      );
-                    });
-              },
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: Text(
+                    'Log Out',
+                    style: GoogleFonts.exo2(fontSize: 20, color: Colors.white),
+                  ),
+                )
+              ],
             ),
-            SizedBox(height: 200),
-            ListTile(
-              title: Text(
-                'Logout',
-                style: GoogleFonts.exo2(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              onTap: () async {
-                return showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Do you want to Logout?',
-                          style: TextStyle(
-                            color: Color(0xff235790),
-                          ),
-                        ),
-                        content: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                'No',
-                                style: TextStyle(
-                                  color: Color(0xffE28F22),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Image(
+                  image: AssetImage('assets/delete.png'),
+                  height: 20,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Delete Account?',
+                              style: TextStyle(
+                                color: Color(0xff235790),
+                              ),
+                            ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter password',
+                                  ),
+                                  onChanged: (String value) {
+                                    confirmPassword = value;
+                                  },
                                 ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                var userHelper = UserDatabase.instance;
-                                var userData = await userHelper.getAllUsers();
-                                setState(() {
-                                  User user = new User(
-                                      id: 0,
-                                      sid: userData[0].sid,
-                                      password: userData[0].password,
-                                      auth: userData[0].auth,
-                                      login: 0);
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Login()));
-                                });
-                              },
-                              child: Text(
-                                'Yes',
-                                style: TextStyle(
-                                  color: Color(0xffE28F22),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Delete Account',
-                style: GoogleFonts.exo2(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              onTap: () {
-                return showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Delete Account?',
-                          style: TextStyle(
-                            color: Color(0xff235790),
-                          ),
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                hintText: 'Enter password',
-                              ),
-                              onChanged: (String value) {
-                                confirmPassword = value;
-                              },
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                var avatarHelper = AvatarDatabase.instance;
-                                var userHelper = UserDatabase.instance;
-                                var databaseUser =
-                                    await userHelper.getAllUsers();
-                                var attendanceHelper =
-                                    AttendanceDatabase.instance;
-                                var clubHelper = ClubDatabase.instance;
-                                var reminderHelper = ReminderDatabase.instance;
-                                var subjectHelper = SubjectDatabase.instance;
-                                var timetableHelper =
-                                    TimetableDatabase.instance;
-                                var userData = await userHelper.getAllUsers();
-                                var attendanceData =
-                                    await attendanceHelper.getAllAttendance();
-                                var clubData = await clubHelper.getAllClubs();
-                                var reminderData =
-                                    await reminderHelper.getAllReminders();
-                                var subjectData =
-                                    subjectHelper.getAllSubjects();
+                                TextButton(
+                                  onPressed: () async {
+                                    var avatarHelper = AvatarDatabase.instance;
+                                    var userHelper = UserDatabase.instance;
+                                    var databaseUser =
+                                        await userHelper.getAllUsers();
+                                    var attendanceHelper =
+                                        AttendanceDatabase.instance;
+                                    var clubHelper = ClubDatabase.instance;
+                                    var reminderHelper =
+                                        ReminderDatabase.instance;
+                                    var subjectHelper =
+                                        SubjectDatabase.instance;
+                                    var timetableHelper =
+                                        TimetableDatabase.instance;
+                                    var userData =
+                                        await userHelper.getAllUsers();
+                                    var attendanceData = await attendanceHelper
+                                        .getAllAttendance();
+                                    var clubData =
+                                        await clubHelper.getAllClubs();
+                                    var reminderData =
+                                        await reminderHelper.getAllReminders();
+                                    var subjectData =
+                                        subjectHelper.getAllSubjects();
 
-                                if (confirmPassword ==
-                                    databaseUser[0].password) {
-                                  final http.Response response =
-                                      await http.delete(
-                                    Uri.parse(
-                                        '${global.url}/delete/${userData[0].sid}'),
-                                    headers: <String, String>{
-                                      'Content-Type':
-                                          'application/json; charset=UTF-8',
-                                    },
-                                  );
-                                  avatarHelper.deleteTable();
-                                  attendanceHelper.deleteTable();
-                                  clubHelper.deleteTable();
-                                  reminderHelper.deleteTable();
-                                  subjectHelper.deleteTable();
-                                  timetableHelper.deleteTable();
-                                  userHelper.deleteTable();
+                                    if (confirmPassword ==
+                                        databaseUser[0].password) {
+                                      final http.Response response =
+                                          await http.delete(
+                                        Uri.parse(
+                                            '${global.url}/delete/${userData[0].sid}'),
+                                        headers: <String, String>{
+                                          'Content-Type':
+                                              'application/json; charset=UTF-8',
+                                        },
+                                      );
+                                      avatarHelper.deleteTable();
+                                      attendanceHelper.deleteTable();
+                                      clubHelper.deleteTable();
+                                      reminderHelper.deleteTable();
+                                      subjectHelper.deleteTable();
+                                      timetableHelper.deleteTable();
+                                      userHelper.deleteTable();
 
-                                  setState(() {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => SignUp()));
-                                  });
-                                } else {
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                }
-                              },
-                              child: Text(
-                                'Confirm Password',
-                                style: TextStyle(
-                                  color: Color(0xffE28F22),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                      setState(() {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignUp()));
+                                      });
+                                    } else {
+                                      setState(() {
+                                        Navigator.pop(context);
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    'Confirm Password',
+                                    style: TextStyle(
+                                      color: Color(0xffE28F22),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    });
-              },
+                          );
+                        });
+                  },
+                  child: Text(
+                    'Delete Account',
+                    style: GoogleFonts.exo2(fontSize: 20, color: Colors.white),
+                  ),
+                )
+              ],
             ),
           ],
         ),

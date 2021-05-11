@@ -7,7 +7,7 @@ class App extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(
       home: Scaffold(
-        body: MainPage(),
+        body: EntryPoint(),
       ),
     );
   }

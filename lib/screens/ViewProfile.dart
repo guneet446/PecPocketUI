@@ -48,36 +48,53 @@ class _ViewProfileState extends State<ViewProfile> {
             child: Column(
               children: [
                 SizedBox(height: 40),
-                Container(
-                  width: 130,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black54,
-                        offset: const Offset(
-                          0.0,
-                          0.0,
+                Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black54,
+                            offset: const Offset(
+                              0.0,
+                              0.0,
+                            ),
+                            blurRadius: 10,
+                          ),
+                        ],
+                        image: DecorationImage(
+                          image: AssetImage(profileAvatar),
                         ),
-                        blurRadius: 15.0,
-                        spreadRadius: 2.0,
                       ),
-                    ],
-                    image: DecorationImage(
-                      image: AssetImage(profileAvatar),
                     ),
-                  ),
-                ),
-                Container(
-                  child: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AvatarChoice())),
-                  ),
+                    Container(
+                      padding: EdgeInsets.only(top: 100, left: 100),
+                      child: Container(
+                        padding: EdgeInsets.only(right: 30),
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            size: 18,
+                            color: Colors.white,
+                          ),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AvatarChoice())),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
@@ -91,9 +108,12 @@ class _ViewProfileState extends State<ViewProfile> {
                   ),
                 ),
                 Container(
+                  alignment: Alignment.centerLeft,
+                  width: 400,
                   padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                   margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
                   decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
                     color: Color(0xffF0F2F5),
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -120,9 +140,12 @@ class _ViewProfileState extends State<ViewProfile> {
                   ),
                 ),
                 Container(
+                  alignment: Alignment.centerLeft,
+                  width: 400,
                   padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                   margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
                   decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
                     color: Color(0xffF0F2F5),
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -149,9 +172,12 @@ class _ViewProfileState extends State<ViewProfile> {
                   ),
                 ),
                 Container(
+                  width: 400,
+                  alignment: Alignment.centerLeft,
                   padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                   margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
                   decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
                     color: Color(0xffF0F2F5),
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -178,9 +204,12 @@ class _ViewProfileState extends State<ViewProfile> {
                   ),
                 ),
                 Container(
+                  width: 400,
+                  alignment: Alignment.centerLeft,
                   padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                   margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
                   decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
                     color: Color(0xffF0F2F5),
                     borderRadius: BorderRadius.circular(40),
                   ),
@@ -207,9 +236,12 @@ class _ViewProfileState extends State<ViewProfile> {
                   ),
                 ),
                 Container(
+                  width: 400,
+                  alignment: Alignment.centerLeft,
                   padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                   margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
                   decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
                     color: Color(0xffF0F2F5),
                     borderRadius: BorderRadius.circular(40),
                   ),

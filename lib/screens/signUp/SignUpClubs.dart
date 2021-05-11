@@ -35,50 +35,6 @@ class SignUpClubsState extends State<SignUpClubs> {
     return MaterialApp(
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Add Clubs',
-            style: TextStyle(
-              color: Color(0xffCADBE4),
-              fontSize: 32,
-            ),
-          ),
-          backgroundColor: Color(0xff588297),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.info_outline),
-              onPressed: () {
-                return showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text(
-                          'Long press the club name to delete',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'Ok',
-                              style: TextStyle(
-                                color: Color(0xff588297),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    });
-              },
-            ),
-          ],
-        ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
           child: Form(
@@ -183,14 +139,13 @@ class SignUpClubsState extends State<SignUpClubs> {
                       ],
                     ),
                     child: Center(
-                      child: Text(
-                        clubslist[index],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff588297),
-                        ),
-                      ),
+                      child: Text(clubslist[index],
+                          style: GoogleFonts.exo2(
+                            textStyle: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                          )),
                     ),
                   ),
                 ),
@@ -223,7 +178,7 @@ class SignUpClubsState extends State<SignUpClubs> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: Color(getRandomElement(colorChoices)),
+                    color: Color(colorChoices[index]),
                   ),
                   width: 115,
                   child: Column(

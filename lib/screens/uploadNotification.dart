@@ -102,7 +102,9 @@ class _UploadNotificationState extends State<UploadNotification> {
                     ),
                   ),
                   validator: (val) {
-                    return val.isEmpty ? 'Enter the description of the task' : null;
+                    return val.isEmpty
+                        ? 'Enter the description of the task'
+                        : null;
                   },
                 ),
               ],
@@ -112,7 +114,8 @@ class _UploadNotificationState extends State<UploadNotification> {
             height: MediaQuery.of(context).size.height - 330,
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40), topRight: Radius.circular(40)),
               color: Colors.white,
             ),
             child: Column(
@@ -128,7 +131,7 @@ class _UploadNotificationState extends State<UploadNotification> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         selectedDate = await _selectDate(context);
                         setState(() {});
                       },
@@ -146,7 +149,7 @@ class _UploadNotificationState extends State<UploadNotification> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         selectedTime = await _selectTime(context);
                         setState(() {});
                       },
@@ -154,15 +157,17 @@ class _UploadNotificationState extends State<UploadNotification> {
                     ),
                   ],
                 ),
-                Container(height: 30,),
+                Container(
+                  height: 30,
+                ),
                 ElevatedButton(
                   onPressed: uploadNotification,
                   child: Text('Create Notification'),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff272727),
                     minimumSize: Size(MediaQuery.of(context).size.width, 45),
-                    shape:
-                    RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20)),
                   ),
                 ),
               ],
@@ -217,14 +222,14 @@ class _UploadNotificationState extends State<UploadNotification> {
   }
 
   String formattedDate(DateTime selectedDate) {
-    if(selectedDate == null) {
+    if (selectedDate == null) {
       return 'Select Date';
     }
     return DateFormat("EEEE, d MMMM").format(selectedDate);
   }
 
   String formattedTime(TimeOfDay selectedTime) {
-    if(selectedTime == null) {
+    if (selectedTime == null) {
       return 'Select Time';
     }
     final localizations = MaterialLocalizations.of(context);
@@ -233,7 +238,7 @@ class _UploadNotificationState extends State<UploadNotification> {
 
   uploadNotification() async {
     date = DateFormat("dd-MM-yyyy").format(selectedDate);
-    time = selectedTime.toString().substring(10,15);
+    time = selectedTime.toString().substring(10, 15);
     topic = titleController.text;
     description = descriptionController.text;
 
@@ -262,125 +267,3 @@ class _UploadNotificationState extends State<UploadNotification> {
     }
   }
 }
-
-
-/*class UploadNotification extends StatefulWidget {
-  @override
-  UploadNotificationState createState() => UploadNotificationState();
-}
-
-class UploadNotificationState extends State<UploadNotification> {
-  String topic;
-  String description;
-  String date;
-  String time;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Send Notification",
-          style: TextStyle(
-            color: Color(0xffCADBE4),
-            fontSize: 32,
-          ),
-        ),
-        backgroundColor: Color(0xff588297),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Form(
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Topic',
-                ),
-                onChanged: (String value) {
-                  setState(() {
-                    topic = value;
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Description',
-                ),
-                onChanged: (String value) {
-                  setState(() {
-                    description = value;
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Date',
-                ),
-                onChanged: (String value) {
-                  setState(() {
-                    date = value;
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Time',
-                ),
-                onChanged: (String value) {
-                  setState(() {
-                    time = value;
-                  });
-                },
-              ),
-              Container(
-                height: 20,
-              ),
-              uploadButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  uploadButton() {
-    return ElevatedButton(
-      onPressed: uploadNotification,
-      child: Text('Upload'),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
-            return Color(0xffE28F22); // Use the component's default.
-          },
-        ),
-      ),
-    );
-  }
-
-  uploadNotification() async {
-    Map<String, String> headers = {"Content-type": "application/json"};
-    String json =
-        '{"Topic" : "$topic", "Description": "$description", "Date": "$date", "Time": "$time"}';
-
-    var userHelper = UserDatabase.instance;
-    var databaseUsers = await userHelper.getAllUsers();
-    print(databaseUsers[0].sid);
-
-    //var response = await post(Uri.parse('${global.url}/noti/${databaseUsers[0].sid}'),
-    var response = await post(Uri.parse('${global.url}/noti/19103098'),
-        headers: headers, body: json);
-    setState(() {
-      print(response.body.length);
-    });
-    if (response.body.length == 18) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Notification Uploaded')));
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => EntryPoint()));
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Check date and time format')));
-    }
-  }
-}
-*/

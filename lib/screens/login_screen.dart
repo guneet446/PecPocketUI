@@ -15,6 +15,8 @@ class _LoginState extends State<Login> {
   int sidFlag = 0;
   String sid;
   String password;
+  String sidError = "";
+  String passwordError = "";
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -63,6 +65,10 @@ class _LoginState extends State<Login> {
     return TextFormField(
       decoration: InputDecoration(
         labelText: 'SID',
+        labelStyle: TextStyle(
+          color: Colors.black,
+        ),
+        errorText: sidError,
       ),
       onChanged: (String value) {
         setState(() {
@@ -77,6 +83,10 @@ class _LoginState extends State<Login> {
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
+        labelStyle: TextStyle(
+          color: Colors.black,
+        ),
+        errorText: passwordError,
       ),
       onChanged: (String value) {
         setState(() {
@@ -94,7 +104,7 @@ class _LoginState extends State<Login> {
         primary: Color(0xff272727),
         minimumSize: Size(MediaQuery.of(context).size.width, 45),
         shape:
-            RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
       ),
     );
   }
@@ -175,20 +185,10 @@ class _LoginState extends State<Login> {
         );
       });
     } else if (body[14] == '4') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Incorrect Password'),
-        ),
-      );
+      passwordError = 'Incorrect Password';
     }
-    //snackbar for incorrect password
     else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('No such user'),
-        ),
-      );
-      //snackBar for user not found
+      sidError = 'No such user';
     }
   }
 }

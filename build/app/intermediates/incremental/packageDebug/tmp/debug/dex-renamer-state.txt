@@ -1,4 +1,4 @@
-#Mon May 10 22:54:57 AST 2021
+#Tue May 11 16:21:15 AST 2021
 base.0=/home/kauts/projects/PecPocketUI/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

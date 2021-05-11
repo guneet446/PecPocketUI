@@ -23,7 +23,7 @@ class _EntryPointState extends State<EntryPoint> {
   void initState() {
     super.initState();
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
-      systemNavigationBarColor: Color(0xffF0f2f5),
+      systemNavigationBarColor: Color(0xff272727),
       systemNavigationBarIconBrightness: Brightness.light,
     );
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
@@ -108,12 +108,39 @@ class _EntryPointState extends State<EntryPoint> {
 
       mainPageReminders.add('Reminder ${i + 1}');
       mainPageReminderDescriptions.add(databaseReminder[i].description);
-      mainPageReminderStartTimes.add('${databaseReminder[i].hour}' +
-          ':' +
-          '${databaseReminder[i].minute}');
-      mainPageReminderEndTimes.add('${databaseReminder[i].hour}' +
-          ':' +
-          '${databaseReminder[i].minute}');
+      if (databaseReminder[i].hour < 10) {
+        if (databaseReminder[i].minute > 9) {
+          mainPageReminderStartTimes.add('0${databaseReminder[i].hour}' +
+              ':' +
+              '${databaseReminder[i].minute}');
+          mainPageReminderEndTimes.add('0${databaseReminder[i].hour}' +
+              ':' +
+              '${databaseReminder[i].minute}');
+        } else {
+          mainPageReminderStartTimes.add('0${databaseReminder[i].hour}' +
+              ':' +
+              '${databaseReminder[i].minute}');
+          mainPageReminderEndTimes.add('0${databaseReminder[i].hour}' +
+              ':' +
+              '0${databaseReminder[i].minute}');
+        }
+      } else {
+        if (databaseReminder[i].minute > 9) {
+          mainPageReminderStartTimes.add('${databaseReminder[i].hour}' +
+              ':' +
+              '${databaseReminder[i].minute}');
+          mainPageReminderEndTimes.add('${databaseReminder[i].hour}' +
+              ':' +
+              '${databaseReminder[i].minute}');
+        } else {
+          mainPageReminderStartTimes.add('${databaseReminder[i].hour}' +
+              ':' +
+              '${databaseReminder[i].minute}');
+          mainPageReminderEndTimes.add('${databaseReminder[i].hour}' +
+              ':' +
+              '0${databaseReminder[i].minute}');
+        }
+      }
     }
     reminderLength = customReminders.length;
   }

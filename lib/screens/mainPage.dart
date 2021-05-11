@@ -410,7 +410,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 ),
                 onPressed: () async {
                   var response =
-                      await get(Uri.parse('${global.url}/noti/${global.sid}'));
+                      await get(Uri.parse('${global.url}noti/${global.sid}'));
 
                   setState(() {
                     if (response.body.length > 18) {
@@ -582,6 +582,11 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                       );
 
                                       reminderHelper.create(reminder);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EntryPoint()));
                                     },
                                     child: Container(
                                       child: Column(
@@ -687,8 +692,9 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       profileSemester = profile.semester.toString();
       profileInsta =
           profile.insta == null ? 'No instagram handle' : profile.insta;
-      profileAvatar =
-          profile.avatar == null ? 'assets/neutral_girl.png' : profile.avatar;
+      profileAvatar = profile.avatar == profileAvatar
+          ? 'assets/neutral_girl.png'
+          : profile.avatar;
     });
   }
 

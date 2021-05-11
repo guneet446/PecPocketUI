@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fend/Databases/UserDB.dart';
+import 'package:fend/EntryPoint.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:http/http.dart';
@@ -115,6 +116,8 @@ class UploadNotificationState extends State<UploadNotification> {
     if (response.body.length == 18) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Notification Uploaded')));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => EntryPoint()));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Check date and time format')));

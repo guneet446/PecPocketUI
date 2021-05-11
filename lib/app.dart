@@ -1,4 +1,5 @@
 import 'package:fend/EntryPoint.dart';
+import 'package:fend/screens/signUp/SignUpAvatarChoice.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

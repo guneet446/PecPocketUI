@@ -7,6 +7,7 @@ import 'package:fend/screens/signUp/SignUpSubjects.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:fend/globals.dart' as global;
 
@@ -152,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage>
                               boxShadow: [
                                 BoxShadow(
                                     color: Colors.grey,
-                                    blurRadius: 4,
+                                    blurRadius: 12.5,
                                     spreadRadius: 0,
                                     offset: Offset(1.0, 1.0))
                               ],
@@ -177,7 +178,18 @@ class _MyHomePageState extends State<MyHomePage>
               child: Row(
                 children: [
                   SizedBox(
-                    width: 260,
+                    width: 70,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Text(
+                          'Choose your avatar',
+                          style: GoogleFonts.exo2(fontSize: 20),
+                        ),
+                      ),
+                    ],
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -187,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage>
                           children: [
                             Image(
                               image: AssetImage(avatars[selectedIndex]),
-                              height: 80,
+                              height: 100,
                             ),
                             IconButton(
                                 icon: Icon(

@@ -246,7 +246,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: Color(getRandomElement(colorChoices)),
+                    color: Color(colorChoices[index]),
                   ),
                   width: 115,
                   child: Column(

@@ -50,7 +50,7 @@ class bottomAppBarState extends State<bottomAppBar> {
               const SizedBox(height: 4),
             ]);
       },
-      backgroundColor: Color(0xffF0F2F5),
+      backgroundColor: Color(0xff272727),
       activeIndex: bottomNavIndex,
       notchSmoothness: NotchSmoothness.defaultEdge,
       gapLocation: GapLocation.center,

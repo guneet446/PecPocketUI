@@ -101,7 +101,14 @@ class _AddSubjectsState extends State<AddSubjects> {
                 ),
                 SizedBox(height: 10),
                 //dropDownList(),
-                subjectsList(context),
+                searchForSubject == null || searchForSubject.length == 0
+                    ? Container(
+                        height: 280,
+                        child: Image(
+                          image: AssetImage('assets/custom_reminders.png'),
+                        ),
+                      )
+                    : subjectsList(context),
                 Container(
                   height: 20,
                 ),
@@ -159,7 +166,7 @@ class _AddSubjectsState extends State<AddSubjects> {
         scrollDirection: Axis.vertical,
         //shrinkWrap: true,
         itemBuilder: (context, index) {
-          if (searchForSubject == '') {
+          if (searchForSubject.length == 0) {
             subsList.clear();
             codesList.clear();
           }
@@ -202,7 +209,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                   child: Column(
                     children: [
                       Text(
-                        subsList[index],
+                        subsList[index] + codesList[index],
                         style: GoogleFonts.exo2(
                           textStyle: TextStyle(
                             fontSize: 18,

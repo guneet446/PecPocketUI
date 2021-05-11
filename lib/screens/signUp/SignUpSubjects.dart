@@ -104,7 +104,14 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                 ),
                 SizedBox(height: 10),
                 //dropDownList(),
-                subjectsList(context),
+                searchForSubject == null || searchForSubject.length == 0
+                    ? Container(
+                        height: 280,
+                        child: Image(
+                          image: AssetImage('assets/custom_reminders.png'),
+                        ),
+                      )
+                    : subjectsList(context),
                 Container(
                   height: 20,
                 ),

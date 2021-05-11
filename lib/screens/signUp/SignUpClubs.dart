@@ -56,7 +56,14 @@ class SignUpClubsState extends State<SignUpClubs> {
                 },
               ),
               //dropDownList(),
-              clubsList(context),
+              searchForClub == null || searchForClub.length == 0
+                  ? Container(
+                      height: 200,
+                      child: Image(
+                        image: AssetImage('assets/custom_reminders.png'),
+                      ),
+                    )
+                  : clubsList(context),
               Container(
                 margin: EdgeInsets.only(top: 10.0),
               ),

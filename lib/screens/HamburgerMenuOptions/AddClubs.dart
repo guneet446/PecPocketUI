@@ -1,17 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:alert_dialog/alert_dialog.dart';
 import 'package:fend/Databases/ClubsDB.dart';
-import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/classes/Clubs.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
-import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' show Response, get, post;
-import 'package:http/http.dart' as http;
 
 class AddClubs extends StatefulWidget {
   String title;
@@ -99,7 +95,14 @@ class AddClubsState extends State<AddClubs> {
                 },
               ),
               //dropDownList(),
-              clubsList(context),
+              searchForClub == null || searchForClub.length == 0
+                  ? Container(
+                      height: 200,
+                      child: Image(
+                        image: AssetImage('assets/custom_reminders.png'),
+                      ),
+                    )
+                  : clubsList(context),
               Container(
                 margin: EdgeInsets.only(top: 10.0),
               ),
@@ -222,7 +225,7 @@ class AddClubsState extends State<AddClubs> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: Color(getRandomElement(colorChoices)),
+                    color: Color(colorChoices[index]),
                   ),
                   width: 115,
                   child: Column(

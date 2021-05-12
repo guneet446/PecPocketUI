@@ -8,6 +8,7 @@ import 'package:weekday_selector/weekday_selector.dart';
 import 'HamburgerMenu.dart';
 import 'StudyMaterial/StudyMaterial0.dart';
 import 'mainPage.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 class TimeTable extends StatefulWidget {
   const TimeTable({Key key}) : super(key: key);
@@ -56,6 +57,7 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
       key: key,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           icon: AnimatedIcon(
             color: Colors.black,
@@ -125,14 +127,24 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: SfCalendar(
-        view: CalendarView.week,
-        dataSource: MeetingDataSource(_getDataSource()),
-        onLongPress: deleteSelected,
-        allowedViews: [
-          CalendarView.week,
-          CalendarView.day,
-        ],
+      body: SfCalendarTheme(
+        data: SfCalendarThemeData(
+            todayHighlightColor: Color(0xff272727),
+        ),
+        child: SfCalendar(
+          view: CalendarView.week,
+          dataSource: MeetingDataSource(_getDataSource()),
+          onLongPress: deleteSelected,
+          allowedViews: [
+            CalendarView.week,
+            CalendarView.day,
+          ],
+          timeSlotViewSettings: TimeSlotViewSettings(
+            startHour: 7,
+            endHour: 20,
+            //timeIntervalHeight: 45,
+          ),
+        ),
       ),
       drawer: Settings(),
       bottomNavigationBar: bottomAppBar(),
@@ -472,6 +484,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       ),
                       IconButton(
                         onPressed: () async{
+                          help = "From";
                           from = await _selectTime(context);
                           setState(() {});
                         },
@@ -490,6 +503,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       ),
                       IconButton(
                         onPressed: () async{
+                          help = "To";
                           till = await _selectTime(context);
                           setState(() {});
                         },
@@ -522,7 +536,42 @@ class _TimeTableInputState extends State<TimeTableInput> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed:(){} ,
+                    onPressed:(){
+                      from_dt = new DateTime(selectedDate.year, selectedDate.month,
+                          selectedDate.day, from.hour, from.minute);
+                      till_dt = new DateTime(selectedDate.year, selectedDate.month,
+                          selectedDate.day, till.hour, till.minute);
+                      setState(() {
+                        var ttHelper = TimetableDatabase.instance;
+
+                        Timetable timetable = Timetable(
+                          id: 0,
+                          title: '$subject $subtitle',
+                          startYear: from_dt.year,
+                          startMonth: from_dt.month,
+                          startDay: from_dt.day,
+                          startHour: from_dt.hour,
+                          startMinute: from_dt.minute,
+                          endYear: till_dt.year,
+                          endMonth: till_dt.month,
+                          endDay: till_dt.day,
+                          endHour: till.hour,
+                          endMinute: till.minute,
+                          interval: 365,
+                        );
+
+                        ttHelper.addTimetable(timetable);
+                        meetings.add(Meeting(
+                            timetable.title,
+                            from_dt,
+                            till_dt,
+                            Color(selectedColor),
+                            false,
+                            ''));
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => TimeTable()));
+                      });
+                    } ,
                     child: Text('Save'),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff272727),
@@ -682,6 +731,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       ),
                       IconButton(
                         onPressed: () async{
+                          help = 'From';
                           from = await _selectTime(context);
                           setState(() {});
                         },
@@ -700,6 +750,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       ),
                       IconButton(
                         onPressed: () async{
+                          help = 'To';
                           till = await _selectTime(context);
                           setState(() {});
                         },
@@ -732,7 +783,42 @@ class _TimeTableInputState extends State<TimeTableInput> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed:(){} ,
+                    onPressed:(){
+                      from_dt = new DateTime(selectedDate.year, selectedDate.month,
+                          selectedDate.day, from.hour, from.minute);
+                      till_dt = new DateTime(selectedDate.year, selectedDate.month,
+                          selectedDate.day, till.hour, till.minute);
+                      setState(() {
+                        var ttHelper = TimetableDatabase.instance;
+
+                        Timetable timetable = Timetable(
+                          id: 0,
+                          title: myController.text,
+                          startYear: from_dt.year,
+                          startMonth: from_dt.month,
+                          startDay: from_dt.day,
+                          startHour: from_dt.hour,
+                          startMinute: from_dt.minute,
+                          endYear: till_dt.year,
+                          endMonth: till_dt.month,
+                          endDay: till_dt.day,
+                          endHour: till.hour,
+                          endMinute: till.minute,
+                          interval: 365,
+                        );
+
+                        ttHelper.addTimetable(timetable);
+                        meetings.add(Meeting(
+                            myController.text,
+                            from_dt,
+                            till_dt,
+                            Color(selectedColor),
+                            false,
+                            ''));
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => TimeTable()));
+                      });
+                    } ,
                     child: Text('Save'),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff272727),
@@ -960,6 +1046,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                     ),
                     IconButton(
                       onPressed: () async{
+                        help = "From";
                         from = await _selectTime(context);
                         setState(() {});
                       },
@@ -978,6 +1065,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                     ),
                     IconButton(
                       onPressed: () async{
+                        help = "To";
                         till = await _selectTime(context);
                         setState(() {});
                       },
@@ -1010,7 +1098,42 @@ class _TimeTableInputState extends State<TimeTableInput> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed:(){} ,
+                  onPressed:() {
+                    selectedDate =
+                        firstDateOfWeek.add(Duration(days: (selectedDay - 1)));
+                    from_dt = new DateTime(selectedDate.year, selectedDate.month,
+                        selectedDate.day, from.hour, from.minute);
+                    till_dt = new DateTime(selectedDate.year, selectedDate.month,
+                        selectedDate.day, till.hour, till.minute);
+                    setState(() {
+                      var ttHelper = TimetableDatabase.instance;
+
+                      Timetable timetable = Timetable(
+                        id: 0,
+                        title: '$subject $subtitle',
+                        startYear: from_dt.year,
+                        startMonth: from_dt.month,
+                        startDay: from_dt.day,
+                        startHour: from_dt.hour,
+                        startMinute: from_dt.minute,
+                        endYear: till_dt.year,
+                        endMonth: till_dt.month,
+                        endDay: till_dt.day,
+                        endHour: till.hour,
+                        endMinute: till.minute,
+                        interval: 7,
+                      );
+                      int i;
+                      for (i = 0; i < timetableSubjectsList.length; i++) {
+                        if (timetableSubjectsList[i] == titleSubject) break;
+                      }
+                      ttHelper.addTimetable(timetable);
+                      meetings.add(Meeting(timetable.title, from_dt, till_dt,
+                          Color(selectedColor), false, 'FREQ=DAILY;INTERVAL=7'));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => TimeTable()));
+                    });
+                  } ,
                   child: Text('Save'),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff272727),
@@ -1018,7 +1141,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                     shape:
                     RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -1053,7 +1176,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
     TimeOfDay initial = TimeOfDay.now();
     final TimeOfDay pickedTime = await showTimePicker(
         context: context,
-        helpText: "Time of Notification",
+        helpText: help,
         initialTime: initial,
         initialEntryMode: TimePickerEntryMode.dial,
         builder: (BuildContext context, Widget child) {

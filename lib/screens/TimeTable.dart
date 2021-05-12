@@ -18,7 +18,7 @@ class TimeTable extends StatefulWidget {
 
 List<Meeting> meetings = <Meeting>[];
 
-List<String> timetableSubjectsList = ['Subjects'];
+List<String> timetableSubjectsList = [];
 List<String> timetableSubtitlesList = ['Lecture', 'Tutorial', 'Lab'];
 String selectedOption = 'Weekly Class';
 String subject;

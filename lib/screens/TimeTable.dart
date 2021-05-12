@@ -2,6 +2,7 @@ import 'package:fend/Databases/TimetableDB.dart';
 import 'package:fend/classes/Timetable.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 import 'HamburgerMenu.dart';
@@ -18,21 +19,23 @@ List<Meeting> meetings = <Meeting>[];
 
 List<String> timetableSubjectsList = ['Subjects'];
 List<String> timetableSubtitlesList = ['Lecture', 'Tutorial', 'Lab'];
-String subject = timetableSubjectsList[0];
-String subtitle = 'Lecture';
+String selectedOption = 'Weekly Class';
+String subject;
+String subtitle;
 DateTime now = new DateTime.now();
 DateTime firstDateOfWeek;
-int selectedDay;
+int selectedDay = -1;
 DateTime selectedDate = new DateTime.now();
 String help;
 String title;
 TimeOfDay initial = TimeOfDay(hour: 0, minute: 0);
-TimeOfDay from = TimeOfDay(hour: 0, minute: 0);
-TimeOfDay till = TimeOfDay(hour: 0, minute: 0);
+TimeOfDay from;
+TimeOfDay till;
 DateTime from_dt;
 DateTime till_dt;
 String titleSubject;
 String titleSubtitle;
+int selectedColor = 0xffE47A77;
 
 class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
   AnimationController animationController;
@@ -63,157 +66,14 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
         ),
         backgroundColor: Colors.white,
         actions: [
-          PopupMenuButton(
-            child: Icon(
+          IconButton(
+            icon: Icon(
               Icons.add,
               color: Colors.black,
             ),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text('Weekly Class'),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Extra Class"),
-              ),
-              PopupMenuItem(
-                value: 3,
-                child: Text("Meeting"),
-              ),
-            ],
-            onSelected: (value) async {
-              if (value == 1) {
-                await getSubject(context);
-                await selectDay();
-                selectedDate =
-                    firstDateOfWeek.add(Duration(days: (selectedDay - 1)));
-                help = "From";
-                from = await selectTime(context);
-                initial = from;
-                from_dt = new DateTime(selectedDate.year, selectedDate.month,
-                    selectedDate.day, from.hour, from.minute);
-                help = "To";
-                till = await selectTime(context);
-                till_dt = new DateTime(selectedDate.year, selectedDate.month,
-                    selectedDate.day, till.hour, till.minute);
-                initial = TimeOfDay(hour: 0, minute: 0);
-                setState(() {
-                  var ttHelper = TimetableDatabase.instance;
-
-                  Timetable timetable = Timetable(
-                    id: 0,
-                    title: '$titleSubject $titleSubtitle',
-                    startYear: from_dt.year,
-                    startMonth: from_dt.month,
-                    startDay: from_dt.day,
-                    startHour: from_dt.hour,
-                    startMinute: from_dt.minute,
-                    endYear: till_dt.year,
-                    endMonth: till_dt.month,
-                    endDay: till_dt.day,
-                    endHour: till.hour,
-                    endMinute: till.minute,
-                    interval: 7,
-                  );
-                  int i;
-                  for (i = 0; i < timetableSubjectsList.length; i++) {
-                    if (timetableSubjectsList[i] == titleSubject) break;
-                  }
-                  ttHelper.addTimetable(timetable);
-                  meetings.add(Meeting(timetable.title, from_dt, till_dt,
-                      Color(colorChoices[i]), false, 'FREQ=DAILY;INTERVAL=7'));
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => TimeTable()));
-                });
-              } else if (value == 2) {
-                await getSubject(context);
-                await selectDate(context);
-                help = "From";
-                from = await selectTime(context);
-                initial = from;
-                from_dt = new DateTime(selectedDate.year, selectedDate.month,
-                    selectedDate.day, from.hour, from.minute);
-                help = "To";
-                till = await selectTime(context);
-                till_dt = new DateTime(selectedDate.year, selectedDate.month,
-                    selectedDate.day, till.hour, till.minute);
-                initial = TimeOfDay(hour: 0, minute: 0);
-                setState(() {
-                  var ttHelper = TimetableDatabase.instance;
-
-                  Timetable timetable = Timetable(
-                    id: 0,
-                    title: '$titleSubject $titleSubtitle',
-                    startYear: from_dt.year,
-                    startMonth: from_dt.month,
-                    startDay: from_dt.day,
-                    startHour: from_dt.hour,
-                    startMinute: from_dt.minute,
-                    endYear: till_dt.year,
-                    endMonth: till_dt.month,
-                    endDay: till_dt.day,
-                    endHour: till.hour,
-                    endMinute: till.minute,
-                    interval: 365,
-                  );
-
-                  ttHelper.addTimetable(timetable);
-                  meetings.add(Meeting(
-                      timetable.title,
-                      from_dt,
-                      till_dt,
-                      Color(colorChoices[0]),
-                      false,
-                      'FREQ=DAILY;INTERVAL=365'));
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => TimeTable()));
-                });
-              } else if (value == 3) {
-                await getTitle(context);
-                await selectDate(context);
-                help = "From";
-                from = await selectTime(context);
-                initial = from;
-                from_dt = new DateTime(selectedDate.year, selectedDate.month,
-                    selectedDate.day, from.hour, from.minute);
-                help = "To";
-                till = await selectTime(context);
-                till_dt = new DateTime(selectedDate.year, selectedDate.month,
-                    selectedDate.day, till.hour, till.minute);
-                initial = TimeOfDay(hour: 0, minute: 0);
-                setState(() {
-                  var ttHelper = TimetableDatabase.instance;
-
-                  Timetable timetable = Timetable(
-                    id: 0,
-                    title: myController.text,
-                    startYear: from_dt.year,
-                    startMonth: from_dt.month,
-                    startDay: from_dt.day,
-                    startHour: from_dt.hour,
-                    startMinute: from_dt.minute,
-                    endYear: till_dt.year,
-                    endMonth: till_dt.month,
-                    endDay: till_dt.day,
-                    endHour: till.hour,
-                    endMinute: till.minute,
-                    interval: 365,
-                  );
-
-                  ttHelper.addTimetable(timetable);
-                  meetings.add(Meeting(
-                      myController.text,
-                      from_dt,
-                      till_dt,
-                      Color(colorChoices[0]),
-                      false,
-                      'FREQ=DAILY;INTERVAL=365'));
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => TimeTable()));
-                });
-              }
-            },
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TimeTableInput()));
+            }
           ),
           IconButton(
             icon: Icon(
@@ -349,113 +209,6 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
         });
   }
 
-  selectDay() {
-    firstDateOfWeek = now.subtract(Duration(days: now.weekday - 1));
-    print(firstDateOfWeek);
-    final values = List.filled(7, true);
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return WeekdaySelector(
-          color: Color(0xff235790),
-          fillColor: Color(0xff235790),
-          selectedFillColor: Color(0xff235790),
-          //textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          onChanged: (int day) {
-            setState(() {
-              selectedDay = day;
-              final index = day % 7;
-              values[index] = !values[index];
-              Navigator.pop(context);
-            });
-          },
-          values: values,
-        );
-      },
-    );
-  }
-
-  Future<TimeOfDay> selectTime(BuildContext context) async {
-    final TimeOfDay picked_s = await showTimePicker(
-        context: context,
-        helpText: help,
-        initialTime: initial,
-        builder: (BuildContext context, Widget child) {
-          /*return MediaQuery(
-                                                              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-                                                              child: child,
-                                                              );*/
-          return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: Color(0xff588297),
-              accentColor: Color(0xffE28F22),
-              colorScheme: ColorScheme.light(
-                primary: Color(0xff235790),
-              ),
-              buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child,
-          );
-        });
-    return picked_s;
-  }
-
-  selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2025),
-      initialEntryMode: DatePickerEntryMode.calendar,
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            primaryColor: Color(0xff588297),
-            accentColor: Color(0xffE28F22),
-            colorScheme: ColorScheme.light(
-              primary: Color(0xff235790),
-            ),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          ),
-          child: child,
-        );
-      },
-    );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
-
-  final myController = TextEditingController();
-  getTitle(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Meeting Description"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  controller: myController,
-                  decoration: InputDecoration(labelText: 'Title'),
-                  validator: (val) {
-                    return val.isEmpty ? 'Enter the subject name' : null;
-                  },
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Submit'),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   deleteSelected(CalendarLongPressDetails details) {
     final Meeting tappedEvent = details.appointments[0];
 
@@ -501,6 +254,869 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
     });
   }
 }
+
+class TimeTableInput extends StatefulWidget {
+  @override
+  _TimeTableInputState createState() => _TimeTableInputState();
+}
+
+class _TimeTableInputState extends State<TimeTableInput> {
+  final myController = TextEditingController();
+  List<double> colorIconSize = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
+
+  @override
+  Widget build(BuildContext context) {
+    firstDateOfWeek = now.subtract(Duration(days: now.weekday - 1));
+    print(firstDateOfWeek);
+    final values = List.filled(7, true);
+
+    if(selectedOption == 'Extra Class') {
+      return Scaffold(
+        backgroundColor: Color(0xff272727),
+        appBar: AppBar(
+          title: Text(
+            'Extra Class',
+            style: TextStyle(
+              fontSize: 28,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xff272727),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        body: ListView(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 225,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+              color: Color(0xff272727),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ButtonBar(
+                    children: [
+                      ElevatedButton(
+                        onPressed:(){
+                          setState(() {
+                            selectedOption = 'Weekly Class';
+                          });
+                        } ,
+                        child: Text('Weekly Class'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape:
+                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed:() {
+                          setState(() {
+                            selectedOption = 'Extra Class';
+                          });
+                        } ,
+                        child: Text('Extra Class'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape:
+                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed:() {
+                          setState(() {
+                            selectedOption = 'Personal';
+                          });
+                        } ,
+                        child: Text('Personal'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape:
+                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        ),
+                      ),
+                    ],
+                    alignment: MainAxisAlignment.spaceEvenly,
+                    buttonMinWidth: (MediaQuery.of(context).size.width / 3) - 10,
+                  ),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Colors.grey,
+                    ),
+                    child: DropdownButton<String>(
+                      value: subject,
+                      hint: Text(
+                        'Subject Name',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      itemHeight: 60,
+                      icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                      iconSize: 35,
+                      elevation: 16,
+                      //style: TextStyle(fontSize: 16),
+                      underline: Container(
+                        height: 2,
+                        color: Color(0x95ffffff),
+                      ),
+                      isExpanded: true,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          print("Changed");
+                          subject = newValue;
+                        });
+                      },
+                      items: timetableSubjectsList
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Colors.grey,
+                    ),
+                    child: DropdownButton<String>(
+                      value: subtitle,
+                      hint: Text(
+                        'Type',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      itemHeight: 60,
+                      icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                      iconSize: 35,
+                      elevation: 16,
+                      underline: Container(
+                        height: 2,
+                        color: Color(0x95ffffff),
+                      ),
+                      isExpanded: true,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          subtitle = newValue;
+                        });
+                      },
+                      items: timetableSubtitlesList
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height - 305,
+              padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        formattedDate(selectedDate),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          selectedDate = await _selectDate(context);
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.calendar_today_rounded),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'From: ' + formattedTime(from),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          from = await _selectTime(context);
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.timer),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'To: ' + formattedTimeEnd(till),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          till = await _selectTime(context);
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.timer),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7, bottom: 7),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 7,
+                      children: List.generate(colorChoices.length, (index) {
+                        return Center(
+                          child: IconButton(
+                            onPressed: () {
+                              selectedColor = colorChoices[index];
+                              setState(() {
+                                resetIconSize();
+                                colorIconSize[index] = 34;
+                              });
+                            },
+                            icon: Icon(Icons.circle),
+                            iconSize: colorIconSize[index],
+                            color: Color(colorChoices[index]),
+                          ),
+                        );
+                      }
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed:(){} ,
+                    child: Text('Save'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff272727),
+                      minimumSize: Size(MediaQuery.of(context).size.width, 45),
+                      shape:
+                      RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    else if(selectedOption == 'Personal') {
+      return Scaffold(
+        backgroundColor: Color(0xff272727),
+        appBar: AppBar(
+          title: Text(
+            'Personal',
+            style: TextStyle(
+              fontSize: 28,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xff272727),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        body: ListView(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 225,
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+              color: Color(0xff272727),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ButtonBar(
+                    children: [
+                      ElevatedButton(
+                        onPressed:(){
+                          setState(() {
+                            selectedOption = 'Weekly Class';
+                          });
+                        } ,
+                        child: Text('Weekly Class'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape:
+                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed:() {
+                          setState(() {
+                            selectedOption = 'Extra Class';
+                          });
+                        } ,
+                        child: Text('Extra Class'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape:
+                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed:() {
+                          setState(() {
+                            selectedOption = 'Personal';
+                          });
+                        } ,
+                        child: Text('Personal'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey,
+                          shape:
+                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        ),
+                      ),
+                    ],
+                    alignment: MainAxisAlignment.spaceEvenly,
+                    buttonMinWidth: (MediaQuery.of(context).size.width / 3) - 10,
+                  ),
+                  TextFormField(
+                    controller: myController,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                    decoration: InputDecoration(
+                      labelText: 'TITLE',
+                      labelStyle: TextStyle(
+                        color: Color(0x95ffffff),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
+                    ),
+                    validator: (val) {
+                      return val.isEmpty ? 'Enter the title of the task' : null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height - 305,
+              padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        formattedDate(selectedDate),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          selectedDate = await _selectDate(context);
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.calendar_today_rounded),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'From: ' + formattedTime(from),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          from = await _selectTime(context);
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.timer),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'To: ' + formattedTimeEnd(till),
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async{
+                          till = await _selectTime(context);
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.timer),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7, bottom: 7),
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 7,
+                      children: List.generate(colorChoices.length, (index) {
+                        return Center(
+                          child: IconButton(
+                            onPressed: () {
+                              selectedColor = colorChoices[index];
+                              setState(() {
+                                resetIconSize();
+                                colorIconSize[index] = 34;
+                              });
+                            },
+                            icon: Icon(Icons.circle),
+                            iconSize: colorIconSize[index],
+                            color: Color(colorChoices[index]),
+                          ),
+                        );
+                      }
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed:(){} ,
+                    child: Text('Save'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff272727),
+                      minimumSize: Size(MediaQuery.of(context).size.width, 45),
+                      shape:
+                      RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    //in case of weekly class
+    return Scaffold(
+      backgroundColor: Color(0xff272727),
+      appBar: AppBar(
+        title: Text(
+          'Weekly Class',
+          style: TextStyle(
+            fontSize: 28,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Color(0xff272727),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 230,
+            width: double.infinity,
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+            color: Color(0xff272727),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ButtonBar(
+                  children: [
+                    ElevatedButton(
+                      onPressed:(){
+                        setState(() {
+                          selectedOption = 'Weekly Class';
+                        });
+                      } ,
+                      child: Text('Weekly Class'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey,
+                        shape:
+                        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed:() {
+                        setState(() {
+                          selectedOption = 'Extra Class';
+                        });
+                      } ,
+                      child: Text('Extra Class'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey,
+                        shape:
+                        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed:() {
+                        setState(() {
+                          selectedOption = 'Personal';
+                        });
+                      } ,
+                      child: Text('Personal'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey,
+                        shape:
+                        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                      ),
+                    ),
+                  ],
+                  alignment: MainAxisAlignment.spaceEvenly,
+                  buttonMinWidth: (MediaQuery.of(context).size.width / 3) - 10,
+                ),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.grey,
+                  ),
+                  child: DropdownButton<String>(
+                    value: subject,
+                    hint: Text(
+                        'Subject Name',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                    itemHeight: 60,
+                    icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                    iconSize: 35,
+                    elevation: 16,
+                    //style: TextStyle(fontSize: 16),
+                    underline: Container(
+                      height: 2,
+                      color: Color(0x95ffffff),
+                    ),
+                    isExpanded: true,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        print("Changed");
+                        subject = newValue;
+                      });
+                    },
+                    items: timetableSubjectsList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.grey,
+                  ),
+                  child: DropdownButton<String>(
+                    value: subtitle,
+                    hint: Text(
+                        'Type',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                    itemHeight: 60,
+                    icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                    iconSize: 35,
+                    elevation: 16,
+                    underline: Container(
+                      height: 2,
+                      color: Color(0x95ffffff),
+                    ),
+                    isExpanded: true,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        subtitle = newValue;
+                      });
+                    },
+                    items: timetableSubtitlesList
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height - 305,
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 5,),
+                    child: Text(
+                      'Day: ' + dayToString(selectedDay),
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                WeekdaySelector(
+                  selectedFillColor: Color(0xff272727),
+                  fillColor: Colors.white,
+                  //textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  elevation: 10,
+                  onChanged: (int day) {
+                    setState(() {
+                      selectedDay = day;
+                      int index = day % 7;
+                      values[index] = !values[index];
+                      print(values);
+                    });
+                  },
+                  values: values,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'From: ' + formattedTime(from),
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async{
+                        from = await _selectTime(context);
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.timer),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'To: ' + formattedTimeEnd(till),
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async{
+                        till = await _selectTime(context);
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.timer),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 7, bottom: 7),
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 7,
+                    children: List.generate(colorChoices.length, (index) {
+                      return Center(
+                        child: IconButton(
+                          onPressed: () {
+                            selectedColor = colorChoices[index];
+                            setState(() {
+                              resetIconSize();
+                              colorIconSize[index] = 34;
+                            });
+                          },
+                          icon: Icon(Icons.circle),
+                          iconSize: colorIconSize[index],
+                          color: Color(colorChoices[index]),
+                        ),
+                      );
+                    }
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed:(){} ,
+                  child: Text('Save'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff272727),
+                    minimumSize: Size(MediaQuery.of(context).size.width, 45),
+                    shape:
+                    RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<DateTime> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2025),
+      initialEntryMode: DatePickerEntryMode.calendar,
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Color(0xff272727),
+            ),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child,
+        );
+      },
+    );
+    return pickedDate;
+  }
+
+  Future<TimeOfDay> _selectTime(BuildContext context) async {
+    TimeOfDay initial = TimeOfDay.now();
+    final TimeOfDay pickedTime = await showTimePicker(
+        context: context,
+        helpText: "Time of Notification",
+        initialTime: initial,
+        initialEntryMode: TimePickerEntryMode.dial,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Color(0xff272727),
+              ),
+              buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child,
+          );
+        });
+    return pickedTime;
+  }
+
+  dayToString(int dayIndex) {
+    if(dayIndex == 1)
+      return "Monday";
+    if(dayIndex == 2)
+      return "Tuesday";
+    if(dayIndex == 3)
+      return "Wednesday";
+    if(dayIndex == 4)
+      return "Thursday";
+    if(dayIndex == 5)
+      return "Friday";
+    if(dayIndex == 6)
+      return "Saturday";
+    if(dayIndex == 7)
+      return "Sunday";
+    if(dayIndex == -1)
+      return "Select Day";
+  }
+
+  String formattedDate(DateTime date) {
+    if(date == null) {
+      return 'Select Date';
+    }
+    return DateFormat("EEEE, d MMMM").format(date);
+  }
+
+  String formattedTime(TimeOfDay time) {
+    if(time == null) {
+      return 'Select Start Time';
+    }
+    final localizations = MaterialLocalizations.of(context);
+    return localizations.formatTimeOfDay(time);
+  }
+
+  String formattedTimeEnd(TimeOfDay time) {
+    if(time == null) {
+      return 'Select End Time';
+    }
+    final localizations = MaterialLocalizations.of(context);
+    return localizations.formatTimeOfDay(time);
+  }
+
+  resetIconSize() {
+    colorIconSize = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
+  }
+}
+
 
 class MeetingDataSource extends CalendarDataSource {
   /// Creates a meeting data source, which used to set the appointment

@@ -5,6 +5,7 @@ import 'package:fend/classes/Reminder.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CustomReminderAddNew extends StatefulWidget {
   @override
@@ -18,7 +19,8 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
   DateTime selectedDate;
   TimeOfDay selectedTime;
   DateTime selectedDateTime;
-  String userDescription = "";
+  String userTitle;
+  String userDescription;
   bool getNotif = true;
   int uid = 0;
   int toAdd = 0;
@@ -29,11 +31,18 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
 
   @override
   Widget build(BuildContext context) {
-    //date time input under progress
-    /*return Scaffold(
+    return Scaffold(
+      backgroundColor: Color(0xff272727),
       appBar: AppBar(
-        backgroundColor: Color(0xff0B7A75),
+        backgroundColor: Color(0xff272727),
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: ListView(
         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,13 +51,13 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
             height: 250,
             width: double.infinity,
             padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
-            color: Color(0xff0B7A75),
+            color: Color(0xff272727),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "Set Reminder",
+                  "Set Custom Reminder",
                   style: TextStyle(
                     fontSize: 28,
                     color: Colors.white,
@@ -105,125 +114,127 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'DATE',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  selectedDate.day.toString(),
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black
-                  ),
-                ),
-              ],
+          Container(
+            height: MediaQuery.of(context).size.height - 330,
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              color: Colors.white,
             ),
-          ),
-          SizedBox(
-            width: 300,
-            child: SwitchListTile(
-              title: Text("Get Notified"),
-              activeColor: Color(0xff0B7A75),
-              value: getNotif,
-              onChanged: (newValue) {
-                setState(() {
-                  getNotif = newValue;
-                });
-              },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      formattedDate(selectedDate),
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async{
+                        selectedDate = await _selectDate(context);
+                        setState(() {
+                          toAdd = 1;
+                          print('toAdd $toAdd');
+                        });
+                      },
+                      icon: Icon(Icons.calendar_today_rounded),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      formattedTime(selectedTime),
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async{
+                        selectedTime = await _selectTime(context);
+                        setState(() {
+                          toAdd = 2;
+                          print('toAdd $toAdd');
+                        });
+                      },
+                      icon: Icon(Icons.timer),
+                    ),
+                  ],
+                ),
+                Container(height: 30,),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: 200,
+                    child: SwitchListTile(
+                      title: Text(
+                        "Get Notified",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      activeColor: Color(0xff272727),
+                      value: getNotif,
+                      onChanged: (newValue) {
+                        setState(() {
+                          getNotif = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed:() {
+                    userTitle = titleController.text;
+                    userDescription = descriptionController.text;
+
+                    var reminderHelper = ReminderDatabase.instance;
+
+                    if (toAdd == 2) {
+                      Reminder reminder = Reminder(
+                          id: 0,
+                          description: userDescription,
+                          year: selectedDate.year,
+                          month: selectedDate.month,
+                          day: selectedDate.day,
+                          hour: selectedTime.hour,
+                          minute: selectedTime.minute,
+                          getNotified: getNotif);
+
+                      selectedDateTime = new DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          selectedTime.hour,
+                          selectedTime.minute);
+                      customReminders.add(CustomReminderDetails(
+                          uid, userTitle, userDescription, selectedDateTime, getNotif));
+                      setState(() {
+                        reminderHelper.create(reminder);
+                      });
+                    }
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) => EntryPoint()));
+                  },
+
+                  child: Text('Create Reminder'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff272727),
+                    minimumSize: Size(MediaQuery.of(context).size.width, 45),
+                    shape:
+                    RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                  ),
+                )
+              ],
             ),
           ),
         ],
       ),
-    ); */
-    return AlertDialog(
-      title: Text("Set Reminder"),
-      content: TextFormField(
-        controller: myController,
-        decoration: InputDecoration(labelText: 'Description of the reminder'),
-        validator: (val) {
-          return val.isEmpty ? 'Enter the description' : null;
-        },
-      ),
-      actions: <Widget>[
-        SizedBox(
-          width: 300,
-          child: SwitchListTile(
-            title: Text("Get Notified"),
-            value: getNotif,
-            onChanged: (newValue) {
-              setState(() {
-                getNotif = newValue;
-              });
-            },
-          ),
-        ),
-        TextButton(
-          child: Text(
-            'Next',
-            style: TextStyle(color: Color(0xff235790)),
-          ),
-          onPressed: () async {
-            userDescription = myController.text;
-            selectedDate = await _selectDate(context);
-            setState(() {
-              toAdd = 1;
-              print('toAdd $toAdd');
-            });
-            selectedTime = await _selectTime(context);
-            setState(() {
-              toAdd = 2;
-              print('toAdd $toAdd');
-            });
-
-            var reminderHelper = ReminderDatabase.instance;
-
-            if (toAdd == 2) {
-              Reminder reminder = Reminder(
-                  id: 0,
-                  description: userDescription,
-                  year: selectedDate.year,
-                  month: selectedDate.month,
-                  day: selectedDate.day,
-                  hour: selectedTime.hour,
-                  minute: selectedTime.minute,
-                  getNotified: getNotif);
-
-              selectedDateTime = new DateTime(
-                  selectedDate.year,
-                  selectedDate.month,
-                  selectedDate.day,
-                  selectedTime.hour,
-                  selectedTime.minute);
-              customReminders.add(CustomReminderDetails(
-                  uid, userDescription, selectedDateTime, getNotif));
-              setState(() {
-                reminderHelper.create(reminder);
-              });
-            }
-
-            //if (selectedDate != null && selectedTime != null) {}
-
-            //if (getNotif) {
-            //await notifications.showNotification(); //can be used for testing
-            //await notifications.scheduleNotification(
-            //   uid, selectedDateTime, userDescription);
-            // ++uid;
-            // }
-
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => EntryPoint()));
-          },
-        ),
-      ],
     );
   }
 
@@ -237,10 +248,8 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
       builder: (BuildContext context, Widget child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: Color(0xff588297),
-            accentColor: Color(0xffE28F22),
             colorScheme: ColorScheme.light(
-              primary: Color(0xff235790),
+              primary: Color(0xff272727),
             ),
             buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
@@ -258,16 +267,10 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
         initialTime: TimeOfDay.now(),
         initialEntryMode: TimePickerEntryMode.dial,
         builder: (BuildContext context, Widget child) {
-          /*return MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-            child: child,
-          );*/
           return Theme(
             data: ThemeData.light().copyWith(
-              primaryColor: Color(0xff588297),
-              accentColor: Color(0xffE28F22),
               colorScheme: ColorScheme.light(
-                primary: Color(0xff235790),
+                primary: Color(0xff272727),
               ),
               buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
             ),
@@ -275,6 +278,21 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
           );
         });
     return pickedTime;
+  }
+
+  String formattedDate(DateTime date) {
+    if(date == null) {
+      return 'Select Date';
+    }
+    return DateFormat("EEEE, d MMMM").format(date);
+  }
+
+  String formattedTime(TimeOfDay time) {
+    if(time == null) {
+      return 'Select Time';
+    }
+    final localizations = MaterialLocalizations.of(context);
+    return localizations.formatTimeOfDay(time);
   }
 
   onNotificationClick(String payload) {

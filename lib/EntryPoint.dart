@@ -71,6 +71,7 @@ class _EntryPointState extends State<EntryPoint> {
           databaseReminder[i].minute);
       customReminders.add(CustomReminderDetails(
           0,
+          'title', //add title here
           databaseReminder[i].description,
           dateTime,
           databaseReminder[i].getNotified));
@@ -102,6 +103,7 @@ class _EntryPointState extends State<EntryPoint> {
           databaseReminder[i].minute);
       customReminders.add(CustomReminderDetails(
           0,
+          'title', //add title here
           databaseReminder[i].description,
           dateTime,
           databaseReminder[i].getNotified));

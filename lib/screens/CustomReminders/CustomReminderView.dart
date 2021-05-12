@@ -59,6 +59,7 @@ class _CustomReminderViewState extends State<CustomReminderView> {
             databaseReminder[i].minute);
         customReminders.add(CustomReminderDetails(
             0,
+            'title', //add title here
             databaseReminder[i].description,
             dateTime,
             databaseReminder[i].getNotified));

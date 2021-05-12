@@ -566,6 +566,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
 
                                       customReminders.add(CustomReminderDetails(
                                           0,
+                                          'title', //add title here
                                           reminderDescription,
                                           notificationDateTime,
                                           true));

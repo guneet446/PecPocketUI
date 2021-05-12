@@ -38,6 +38,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
+          elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.black,
@@ -81,7 +82,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Form(
             child: ListView(
               children: [
@@ -164,7 +165,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
 
   subjectsList(context) {
     return Container(
-      height: 280,
+      height: MediaQuery.of(context).size.height - 410,
       child: new ListView.builder(
         scrollDirection: Axis.vertical,
         //shrinkWrap: true,
@@ -184,8 +185,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                   }
                 }
                 if (flag == 0) {
-                  selectedSubsList.insert(
-                      0, subsList[index].replaceAll(' ', '\n'));
+                  selectedSubsList.insert(0, subsList[index]);
                   selectedCodesList.insert(0, codesList[index]);
                 } else
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -197,8 +197,8 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
               children: [
                 Container(
                   width: 350,
-                  height: 60,
-                  padding: EdgeInsets.only(left: 20, top: 10),
+                  height: 65,
+                  padding: EdgeInsets.only(left: 10, top: 7, right: 10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -220,19 +220,23 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                             color: Colors.black,
                           ),
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 2),
-                      /*Text(
+                      Text(
                         codesList[index],
                         style: GoogleFonts.exo2(
                           textStyle: TextStyle(
                             fontSize: 15,
                             color: Colors.black,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         textAlign: TextAlign.center,
-                      ),*/
+                      ),
                     ],
                   ),
                 ),
@@ -248,7 +252,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
 
   selectedSubjectsList(context) {
     return Container(
-      height: 130,
+      height: 120,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -269,31 +273,42 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                     ),
                     color: Color(colorChoices[index]),
                   ),
-                  width: 115,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10),
-                      Center(
-                        child: Text(
-                          selectedSubsList[index],
-                          style: GoogleFonts.exo2(
+                  width: 120,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 7, right: 7),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10),
+                        Center(
+                          child: Text(
+                            selectedSubsList[index],
+                            style: GoogleFonts.exo2(
                               color: Colors.white,
-                              fontSize: selectedSubsList[index].length > 30
-                                  ? 12
-                                  : 15),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      /*Center(
-                        child: Text(
-                          selectedCodesList[index],
-                          style: GoogleFonts.exo2(
-                            textStyle:
-                                TextStyle(color: Colors.white, fontSize: 20),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
                           ),
                         ),
-                      ),*/
-                    ],
+                        Container(height: 10,),
+                        Center(
+                          child: Text(
+                            selectedCodesList[index],
+                            style: GoogleFonts.exo2(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -324,14 +339,17 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => SignUpClubs()));
           },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                return Color(0xffE28F22); // Use the component's default.
-              },
-            ),
-          ),
-          child: Text('Confirm Subjects')),
+          child: Text('Confirm Subjects',
+              style: GoogleFonts.exo2(
+                fontWeight: FontWeight.bold,
+              )),
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xff272727),
+          minimumSize: Size(MediaQuery.of(context).size.width, 45),
+          shape:
+          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+        ),
+      ),
     );
   }
 

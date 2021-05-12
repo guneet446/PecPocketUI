@@ -133,22 +133,20 @@ class _SettingsState extends State<Settings> {
                                     var userData =
                                         await userHelper.getAllUsers();
                                     var jsonMap = {
-                                      'SID': userData[0].sid,
+                                      'SID': userData[0].sid.toString(),
                                       'Insta': instagramHandle,
                                     };
                                     String jsonStr = jsonEncode(jsonMap);
                                     var response = await http.put(
                                       Uri.parse(
-                                          '${global.url}/insta/${userData[0].sid}'),
+                                          '${global.url}insta/${userData[0].sid}'),
                                       body: jsonStr,
                                       headers: {
                                         "Content-Type": "application/json"
                                       },
                                     );
                                     setState(() {
-                                      print(jsonMap);
                                       print(response.body);
-                                      print(response);
                                       Navigator.pop(context);
                                     });
                                   },

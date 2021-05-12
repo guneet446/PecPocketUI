@@ -3,6 +3,7 @@ import 'package:alert_dialog/alert_dialog.dart';
 import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/globals.dart' as global;
+import 'package:fend/models/SubjectCodes.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AddClubs.dart';
@@ -32,8 +33,10 @@ class _AddSubjectsState extends State<AddSubjects> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.white,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -90,6 +93,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                         borderSide: BorderSide(),
                       ),
                       hintText: 'Enter Subject Name',
+                      hintStyle: GoogleFonts.exo2(),
                     ),
                     onChanged: (String value) {
                       setState(() {
@@ -124,6 +128,7 @@ class _AddSubjectsState extends State<AddSubjects> {
                 ),
                 SizedBox(height: 20),
                 selectedSubjectsList(context),
+                SizedBox(height: 20),
                 confirmSubjectsButton(),
               ],
             ),
@@ -136,27 +141,16 @@ class _AddSubjectsState extends State<AddSubjects> {
   subject() async {
     var response = await get(
         Uri.parse('${global.url}/subject/search?query=$searchForSubject'));
-    var rb = response.body;
+    var mySubjects = CodesList.fromJson(json.decode(response.body));
 
-    var list = json.decode(rb) as List;
-
-    List<Subjects> mySubjects = list.map((i) => Subjects.fromJson(i)).toList();
-
-    if (searchForSubject.length == 0) {
-      setState(() {
-        subsList.clear();
-        codesList.clear();
-      });
-    } else {
-      setState(() {
-        subsList.clear();
-        codesList.clear();
-        for (int i = 0; i < mySubjects.length; i++) {
-          subsList.add(mySubjects[i].subject);
-          codesList.add(mySubjects[i].subCode);
-        }
-      });
-    }
+    setState(() {
+      subsList.clear();
+      codesList.clear();
+      for (int i = 0; i < mySubjects.codes.length; i++) {
+        subsList.add(mySubjects.codes[i].subjectName);
+        codesList.add(mySubjects.codes[i].subCode);
+      }
+    });
   }
 
   subjectsList(context) {
@@ -189,11 +183,13 @@ class _AddSubjectsState extends State<AddSubjects> {
               });
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
+                  alignment: Alignment.center,
                   width: 350,
-                  height: 60,
+                  height: 78,
                   padding: EdgeInsets.only(left: 20, top: 10),
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -207,9 +203,20 @@ class _AddSubjectsState extends State<AddSubjects> {
                     color: Colors.white,
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        subsList[index] + codesList[index],
+                        subsList[index],
+                        style: GoogleFonts.exo2(
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        codesList[index],
                         style: GoogleFonts.exo2(
                           textStyle: TextStyle(
                             fontSize: 18,
@@ -234,7 +241,7 @@ class _AddSubjectsState extends State<AddSubjects> {
 
   selectedSubjectsList(context) {
     return Container(
-      height: 130,
+      height: 150,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -248,29 +255,43 @@ class _AddSubjectsState extends State<AddSubjects> {
                     selectedCodesList.removeAt(index);
                   });
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    color: Color(colorChoices[index]),
-                  ),
-                  width: 115,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10),
-                      Center(
-                        child: Text(
-                          selectedSubsList[index],
-                          style: GoogleFonts.exo2(
-                              color: Colors.white,
-                              fontSize: selectedSubsList[index].length > 30
-                                  ? 12
-                                  : 15),
-                        ),
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
                       ),
-                      SizedBox(height: 20),
-                    ],
+                      color: Color(colorChoices[index]),
+                    ),
+                    width: 120,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10),
+                        Center(
+                          child: Text(
+                            selectedSubsList[index],
+                            style: GoogleFonts.exo2(
+                                color: Colors.white,
+                                fontSize: selectedSubsList[index].length > 30
+                                    ? 12
+                                    : 20),
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            selectedCodesList[index],
+                            style: GoogleFonts.exo2(
+                                color: Colors.white,
+                                fontSize: selectedSubsList[index].length > 30
+                                    ? 12
+                                    : 15),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -287,27 +308,31 @@ class _AddSubjectsState extends State<AddSubjects> {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-          onPressed: () async {
-            var subjectHelper = SubjectDatabase.instance;
-            var databaseSubjects = await subjectHelper.getAllSubjects();
-            int initialSubjectsLength = databaseSubjects.length;
-            for (int i = 0;
-                i < selectedSubsList.length - initialSubjectsLength;
-                i++) {
-              Subject subject = Subject(id: i, subject: selectedSubsList[i]);
-              subjectHelper.addSubject(subject);
-            }
+        onPressed: () async {
+          var subjectHelper = SubjectDatabase.instance;
+          var databaseSubjects = await subjectHelper.getAllSubjects();
+          int initialSubjectsLength = databaseSubjects.length;
+          for (int i = 0;
+              i < selectedSubsList.length - initialSubjectsLength;
+              i++) {
+            Subject subject = Subject(id: i, subject: selectedSubsList[i]);
+            subjectHelper.addSubject(subject);
+          }
 
-            Navigator.pop(context);
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                return Color(0xffE28F22); // Use the component's default.
-              },
-            ),
+          Navigator.pop(context);
+        },
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              return Color(0xffE28F22); // Use the component's default.
+            },
           ),
-          child: Text('Confirm Subjects')),
+        ),
+        child: Text('Confirm Subjects',
+            style: GoogleFonts.exo2(
+              fontWeight: FontWeight.bold,
+            )),
+      ),
     );
   }
 

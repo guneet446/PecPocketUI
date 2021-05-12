@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:fend/classes/Profile.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
+import 'package:fend/screens/mainPage.dart';
+import 'package:fend/screens/signUp/SignUpAvatarChoice.dart';
 import 'package:http/http.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,7 +35,10 @@ class _ViewProfileState extends State<ViewProfile> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.white,
@@ -48,53 +53,36 @@ class _ViewProfileState extends State<ViewProfile> {
             child: Column(
               children: [
                 SizedBox(height: 40),
-                Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black54,
-                            offset: const Offset(
-                              0.0,
-                              0.0,
-                            ),
-                            blurRadius: 10,
-                          ),
-                        ],
-                        image: DecorationImage(
-                          image: AssetImage(profileAvatar),
+                Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black54,
+                        offset: const Offset(
+                          0.0,
+                          0.0,
                         ),
+                        blurRadius: 10,
                       ),
+                    ],
+                    image: DecorationImage(
+                      image: AssetImage(profileAvatar),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 100, left: 100),
-                      child: Container(
-                        padding: EdgeInsets.only(right: 30),
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            color: Colors.teal,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            size: 18,
-                            color: Colors.white,
-                          ),
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AvatarChoice())),
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AvatarChoice()));
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),

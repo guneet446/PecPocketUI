@@ -42,6 +42,7 @@ class Social {
   int semester;
   String insta;
   List<dynamic> clubs;
+  String avatar;
   Social({
     this.name,
     this.sid,
@@ -50,6 +51,7 @@ class Social {
     this.semester,
     this.insta,
     this.clubs,
+    this.avatar,
   });
 
   factory Social.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class Social {
       semester: json['Semester'],
       insta: json['Insta'],
       clubs: clubsList,
+      avatar: json['Avatar'],
     );
   }
 }

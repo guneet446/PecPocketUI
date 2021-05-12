@@ -31,18 +31,14 @@ class AddClubsState extends State<AddClubs> {
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Add Clubs',
-            style: TextStyle(
-              color: Color(0xffCADBE4),
-              fontSize: 32,
-            ),
-          ),
-          backgroundColor: Color(0xff588297),
+          elevation: 0,
+          backgroundColor: Colors.white,
           actions: [
             IconButton(
-              icon: Icon(Icons.info_outline),
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.black,
+              ),
               onPressed: () {
                 return showDialog(
                     context: context,
@@ -82,7 +78,7 @@ class AddClubsState extends State<AddClubs> {
               TextFormField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(),
                   ),
                   hintText: 'Enter Club Name',

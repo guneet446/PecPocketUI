@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:fend/classes/Profile.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
+import 'package:fend/screens/PecSocial/SocialViewProfile.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
+import 'package:fend/screens/ViewProfile.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +89,7 @@ class _PecSocialState extends State<PecSocial>
   String searchFor;
   List<String> names = [];
   List<String> sids = [];
+  int i = 0;
   //default index of a first screen
 
   Animation<double> animation;
@@ -113,9 +117,10 @@ class _PecSocialState extends State<PecSocial>
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             Row(
               children: [
+                SizedBox(width: 5),
                 IconButton(
                   icon: AnimatedIcon(
                     color: Colors.black,
@@ -128,14 +133,14 @@ class _PecSocialState extends State<PecSocial>
             ),
             Container(
               padding: EdgeInsets.only(top: 25, bottom: 20),
-              height: 85,
+              height: 105,
               width: 350,
               child: TextField(
                 decoration: InputDecoration(
-                  labelText: 'Search here',
+                  labelText: 'Enter SID/Clubs/Name',
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(7.5),
+                      Radius.circular(10),
                     ),
                     borderSide: BorderSide(color: Colors.grey, width: 0.75),
                   ),
@@ -151,148 +156,219 @@ class _PecSocialState extends State<PecSocial>
                 },
               ),
             ),
-            Container(
-              child: Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.only(bottom: 20),
-                  itemCount: names.length ~/ 2,
-                  itemBuilder: (context, index) {
-                    if (index != 0) index += 1;
-
-                    return Container(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left: 20),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Container(
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(top: 20),
-                                        ),
-                                        Container(
-                                          width: 80,
-                                          height: 80,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                              image: AssetImage(avatars[index]),
+            searchFor == null || searchFor.length == 0
+                ? Container(
+                    height: 200,
+                    child: Image(
+                      image: AssetImage('assets/Pecsocial.png'),
+                    ),
+                  )
+                : Container(
+                    child: Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(bottom: 20),
+                        itemCount: names.length ~/ 2,
+                        itemBuilder: (context, index) {
+                          if (index != 0 && (index + 2) <= names.length) {
+                            i += 2;
+                          }
+                          return Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        print(sids[index]);
+                                        var response = await get(Uri.parse(
+                                            '${global.url}viewprofile/${sids[index]}'));
+                                        Profile profile = Profile.fromJson(
+                                            json.decode(response.body));
+                                        socialName = profile.name;
+                                        socialSid = profile.sid.toString();
+                                        socialClubs = profile.clubs.length == 0
+                                            ? ' Not in any clubs '
+                                            : profile.clubs.toString();
+                                        socialBranch =
+                                            profile.branch.toString();
+                                        socialYear = profile.year.toString();
+                                        socialSemester =
+                                            profile.semester.toString();
+                                        socialInsta = profile.insta == null
+                                            ? 'No instagram handle'
+                                            : profile.insta;
+                                        socialAvatar =
+                                            'assets/${profile.avatar}';
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialViewProfile()));
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Container(
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      EdgeInsets.only(top: 20),
+                                                ),
+                                                Container(
+                                                  width: 80,
+                                                  height: 80,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/${avatars[index]}'),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  names[index],
+                                                  style: GoogleFonts.exo2(
+                                                    textStyle: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white),
+                                                  ),
+                                                ), //The names go here
+                                                Text(
+                                                  sids[index],
+                                                  style: GoogleFonts.exo2(
+                                                    textStyle: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white),
+                                                  ),
+                                                ), //The SIDS go here
+                                              ],
                                             ),
                                           ),
-                                        ),
-                                        Text(
-                                          names[index],
-                                          style: GoogleFonts.exo2(
-                                            textStyle: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                        ), //The names go here
-                                        Text(
-                                          sids[index],
-                                          style: GoogleFonts.exo2(
-                                            textStyle: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white),
-                                          ),
-                                        ), //The SIDS go here
-                                      ],
-                                    ),
-                                  ),
-                                  height: 160,
-                                  margin: EdgeInsets.all(6),
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 7,
-                                          offset: Offset(-1.0, 1.0))
-                                    ],
-                                    color: Color(
-                                        getRandomListElement(colorChoices)),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 7.5),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Container(
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(top: 20),
-                                        ),
-                                        Container(
-                                          width: 90,
-                                          height: 90,
+                                          height: 160,
+                                          margin: EdgeInsets.all(6),
+                                          width: 160,
                                           decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  avatars[index + 10]),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey,
+                                                  blurRadius: 7,
+                                                  offset: Offset(-1.0, 1.0))
+                                            ],
+                                            color: Color(getRandomListElement(
+                                                colorChoices)),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 7.5),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        print(sids[index]);
+                                        var response = await get(Uri.parse(
+                                            '${global.url}viewprofile/${sids[index + 1]}'));
+                                        Profile profile = Profile.fromJson(
+                                            json.decode(response.body));
+                                        socialName = profile.name;
+                                        socialSid = profile.sid.toString();
+                                        socialClubs = profile.clubs.length == 0
+                                            ? ' Not in any clubs '
+                                            : profile.clubs.toString();
+                                        socialBranch =
+                                            profile.branch.toString();
+                                        socialYear = profile.year.toString();
+                                        socialSemester =
+                                            profile.semester.toString();
+                                        socialInsta = profile.insta == null
+                                            ? 'No instagram handle'
+                                            : profile.insta;
+                                        socialAvatar =
+                                            'assets/${profile.avatar}';
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialViewProfile()));
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Container(
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      EdgeInsets.only(top: 20),
+                                                ),
+                                                Container(
+                                                  width: 80,
+                                                  height: 80,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/${avatars[index + 1]}'),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  names[index + 1],
+                                                  style: GoogleFonts.exo2(
+                                                    textStyle: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white),
+                                                  ),
+                                                ), //The names go here
+                                                Text(
+                                                  sids[index + 1],
+                                                  style: GoogleFonts.exo2(
+                                                    textStyle: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white),
+                                                  ),
+                                                ), //The SIDS go here
+                                              ],
                                             ),
                                           ),
+                                          height: 160,
+                                          margin: EdgeInsets.all(6),
+                                          width: 160,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey,
+                                                  blurRadius: 7,
+                                                  offset: Offset(1.0, 1.0))
+                                            ],
+                                            color: Color(getRandomListElement(
+                                                colorChoices)),
+                                          ),
                                         ),
-                                        Text(
-                                          names[index + 1],
-                                          style: GoogleFonts.exo2(
-                                            textStyle: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                        ), //The names go here
-                                        Text(
-                                          sids[index + 1],
-                                          style: GoogleFonts.exo2(
-                                            textStyle: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white),
-                                          ),
-                                        ), //The SIDS go here
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  height: 160,
-                                  margin: EdgeInsets.all(6),
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 7,
-                                          offset: Offset(1.0, 1.0))
-                                    ],
-                                    color: Color(
-                                        getRandomListElement(colorChoices)),
-                                  ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(bottom: 7.5),
-                          )
-                        ],
+                                Container(
+                                  padding: EdgeInsets.only(bottom: 7.5),
+                                )
+                              ],
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
+                    ),
+                  ),
           ],
         ),
       ),
@@ -320,10 +396,13 @@ class _PecSocialState extends State<PecSocial>
       setState(() {
         names.clear();
         sids.clear();
+        avatars.clear();
+        i = 0;
       });
     } else {
       names.clear();
       sids.clear();
+      avatars.clear();
       var response =
           await get(Uri.parse('${global.url}social?query=$searchFor'));
 
@@ -334,6 +413,11 @@ class _PecSocialState extends State<PecSocial>
         for (int i = 0; i < socialList.social.length; i++) {
           names.add(socialList.social[i].name);
           sids.add(socialList.social[i].sid.toString());
+          if (socialList.social[i].avatar == 'assets/neutral.png' ||
+              socialList.social[i].avatar == null) {
+            avatars.add('assets/41.png');
+          } else
+            avatars.add(socialList.social[i].avatar);
         }
       });
     }

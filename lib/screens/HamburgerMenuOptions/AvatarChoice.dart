@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage>
     'assets/38.png',
     'assets/39.png',
     'assets/40.png',
-    'assets/41.png',
+    'assets/neutral.png',
     'assets/42.png',
     'assets/43.png',
     'assets/44.png',

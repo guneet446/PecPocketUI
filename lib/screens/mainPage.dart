@@ -32,7 +32,7 @@ class MainPage extends StatefulWidget {
   }
 }
 
-String selectedAvatar = 'assets/neutral_guy.png';
+String selectedAvatar = 'assets/41.png';
 int auth;
 int reminderLength = customReminders.length;
 List<String> mainPageReminders = ['', '', ''];
@@ -409,8 +409,10 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   color: Colors.black,
                 ),
                 onPressed: () async {
-                  var response =
-                      await get(Uri.parse('${global.url}noti/${global.sid}'));
+                  var userHelper = UserDatabase.instance;
+                  var databaseUser = await userHelper.getAllUsers();
+                  var response = await get(
+                      Uri.parse('${global.url}noti/${databaseUser[0].sid}'));
 
                   setState(() {
                     if (response.body.length > 18) {
@@ -676,10 +678,12 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
   }
 
   void updateProfile() async {
+    var avatarHelper = AvatarDatabase.instance;
+    var userAvatar = await avatarHelper.getAllavatar();
     var userHelper = UserDatabase.instance;
     var databaseUser = await userHelper.getAllUsers();
     var sid = databaseUser[0].sid;
-    var response = await get(Uri.parse('${global.url}/viewprofile/$sid'));
+    var response = await get(Uri.parse('${global.url}viewprofile/$sid'));
     Profile profile = Profile.fromJson(json.decode(response.body));
     setState(() {
       profileName = profile.name;
@@ -692,9 +696,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       profileSemester = profile.semester.toString();
       profileInsta =
           profile.insta == null ? 'No instagram handle' : profile.insta;
-      profileAvatar = profile.avatar == profileAvatar
-          ? 'assets/neutral_girl.png'
-          : profile.avatar;
+      profileAvatar = selectedAvatar;
     });
   }
 

@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage>
     'assets/38.png',
     'assets/39.png',
     'assets/40.png',
-    'assets/41.png',
+    'assets/neutral.png',
     'assets/42.png',
     'assets/43.png',
     'assets/44.png',
@@ -214,11 +214,13 @@ class _MyHomePageState extends State<MyHomePage>
                                   Map<String, String> headers = {
                                     "Content-type": "application/json"
                                   };
+                                  var avatarSplit =
+                                      avatars[selectedIndex].split('/');
                                   String json =
-                                      '{"SID": $sid, "Avatar": "${avatars[selectedIndex]}"}';
+                                      '{"SID": $sid, "Avatar": "${avatarSplit[1]}"}';
 
-                                  Response response = await post(
-                                      Uri.parse('${global.url}/avatar'),
+                                  Response response = await put(
+                                      Uri.parse('${global.url}avatar'),
                                       headers: headers,
                                       body: json);
                                   print(response.body);

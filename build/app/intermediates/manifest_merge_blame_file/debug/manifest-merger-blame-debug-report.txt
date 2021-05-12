@@ -12,56 +12,56 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:5:6-67
-14-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:5:23-65
+14-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:5:6-67
+14-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:5:23-65
 15    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-15-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:3:6-81
-15-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:3:23-79
+15-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:3:6-81
+15-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:3:23-79
 16    <uses-permission android:name="android.permission.VIBRATE" />
-16-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:4:6-67
-16-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:4:23-64
+16-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:4:6-67
+16-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:4:23-64
 17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-17-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:6:5-98
-17-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:6:22-79
+17-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:6:5-98
+17-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:6:22-79
 18    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-18-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:7:5-99
-18-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:7:22-80
+18-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:7:5-99
+18-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:7:22-80
 19    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-19-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-81
-19-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:9:22-78
+19-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-81
+19-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:9:22-78
 20    <uses-permission android:name="android.permission.WAKE_LOCK" />
-20-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:25:5-68
-20-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:25:22-65
+20-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:25:5-68
+20-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:25:22-65
 21    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-21-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:26:5-79
-21-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:26:22-76
+21-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:26:5-79
+21-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:26:22-76
 22    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-22-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:28:5-77
-22-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:28:22-74
+22-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:28:5-77
+22-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:28:22-74
 23
 24    <application
-24-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:8:4-60:19
+24-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:8:4-60:19
 25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-25-->[androidx.core:core:1.3.1] /home/kauts/.gradle/caches/transforms-2/files-2.1/9d2ac2ae8a44d697ec01e22fb5b300b2/core-1.3.1/AndroidManifest.xml:24:18-86
+25-->[androidx.core:core:1.3.1] /Users/guneet/.gradle/caches/transforms-2/files-2.1/9d2ac2ae8a44d697ec01e22fb5b300b2/core-1.3.1/AndroidManifest.xml:24:18-86
 26        android:debuggable="true"
 27        android:icon="@mipmap/ic_launcher"
-27-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:10:9-43
+27-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:10:9-43
 28        android:label="fend" >
-28-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:9:9-29
+28-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:9:9-29
 29        <activity
-29-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:11:9-39:20
+29-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:11:9-39:20
 30            android:name="com.example.fend.MainActivity"
-30-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:12:13-41
+30-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:12:13-41
 31            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-31-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:15:13-163
+31-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:15:13-163
 32            android:hardwareAccelerated="true"
-32-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:16:13-47
+32-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:16:13-47
 33            android:launchMode="singleTop"
-33-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:13:13-43
+33-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:13:13-43
 34            android:theme="@style/LaunchTheme"
-34-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:14:13-47
+34-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:14:13-47
 35            android:windowSoftInputMode="adjustResize" >
-35-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:17:13-55
+35-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:17:13-55
 36
 37            <!--
 38                 Specifies an Android theme to apply to this Activity as soon as
@@ -70,11 +70,11 @@
 41                 to determine the Window background behind the Flutter UI.
 42            -->
 43            <meta-data
-43-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:22:13-25:17
+43-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:22:13-25:17
 44                android:name="io.flutter.embedding.android.NormalTheme"
-44-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:23:15-70
+44-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:23:15-70
 45                android:resource="@style/NormalTheme" />
-45-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:24:15-52
+45-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:24:15-52
 46            <!--
 47                 Displays an Android View that continues showing the launch screen
 48                 Drawable until Flutter paints its first frame, then this splash
@@ -83,21 +83,21 @@
 51                 Flutter's first frame.
 52            -->
 53            <meta-data
-53-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:31:13-34:17
+53-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:31:13-34:17
 54                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-54-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:32:15-79
+54-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:32:15-79
 55                android:resource="@drawable/launch_background" />
-55-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:33:15-61
+55-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:33:15-61
 56
 57            <intent-filter>
-57-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:35:13-38:29
+57-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:35:13-38:29
 58                <action android:name="android.intent.action.MAIN" />
-58-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:36:17-68
-58-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:36:25-66
+58-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:36:17-68
+58-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:36:25-66
 59
 60                <category android:name="android.intent.category.LAUNCHER" />
-60-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:37:17-76
-60-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:37:27-74
+60-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:37:17-76
+60-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:37:27-74
 61            </intent-filter>
 62        </activity>
 63
@@ -107,287 +107,287 @@
 67            android:exported="false"
 68            android:grantUriPermissions="true" >
 69            <meta-data
-69-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+69-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
 70                android:name="android.support.FILE_PROVIDER_PATHS"
-70-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+70-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
 71                android:resource="@xml/provider_paths" />
-71-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+71-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
 72        </provider>
 73
 74        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" >
-74-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:49:9-53:19
-74-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:49:19-107
+74-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:49:9-53:19
+74-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:49:19-107
 75            <intent-filter>
-75-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:50:12-52:28
+75-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:50:12-52:28
 76                <action android:name="android.intent.action.BOOT_COMPLETED" />
-76-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:16-85
-76-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:24-75
+76-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:16-85
+76-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:24-75
 77            </intent-filter>
 78            <intent-filter>
-78-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-19:29
+78-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-19:29
 79                <action android:name="android.intent.action.BOOT_COMPLETED" />
-79-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:16-85
-79-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:24-75
+79-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:16-85
+79-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:24-75
 80                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-80-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-84
-80-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:16:25-81
+80-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-84
+80-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:16:25-81
 81                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-81-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-82
-81-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:17:25-79
+81-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-82
+81-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:17:25-79
 82                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
-82-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-82
-82-->[:flutter_local_notifications] /home/kauts/projects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:18:25-79
+82-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-82
+82-->[:flutter_local_notifications] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_local_notifications/intermediates/library_manifest/debug/AndroidManifest.xml:18:25-79
 83            </intent-filter>
 84        </receiver>
 85        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
-85-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:54:8-105
-85-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:54:18-102
+85-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:54:8-105
+85-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:54:18-102
 86        <!--
 87             Don't delete the meta-data below.
 88             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 89        -->
 90        <meta-data
-90-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:57:9-59:33
+90-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:57:9-59:33
 91            android:name="flutterEmbedding"
-91-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:58:13-44
+91-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:58:13-44
 92            android:value="2" />
-92-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:59:13-30
+92-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:59:13-30
 93
 94        <provider
-94-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+94-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
 95            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-95-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+95-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
 96            android:authorities="com.example.fend.flutter.image_provider"
-96-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+96-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
 97            android:exported="false"
-97-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+97-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
 98            android:grantUriPermissions="true" >
-98-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+98-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
 99            <meta-data
-99-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+99-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
 100                android:name="android.support.FILE_PROVIDER_PATHS"
-100-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+100-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
 101                android:resource="@xml/flutter_image_picker_file_paths" />
-101-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+101-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
 102        </provider>
 103        <provider
-103-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
+103-->[:flutter_email_sender] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
 104            android:name="com.sidlatau.flutteremailsender.FlutterEmailSenderFileProvider"
-104-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-90
+104-->[:flutter_email_sender] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-90
 105            android:authorities="com.example.fend.file_provider"
-105-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-65
+105-->[:flutter_email_sender] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-65
 106            android:exported="false"
-106-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
+106-->[:flutter_email_sender] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
 107            android:grantUriPermissions="true" >
-107-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
+107-->[:flutter_email_sender] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
 108            <meta-data
-108-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+108-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
 109                android:name="android.support.FILE_PROVIDER_PATHS"
-109-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+109-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
 110                android:resource="@xml/shared_file_paths" />
-110-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+110-->[:image_picker] /Users/guneet/AndroidStudioProjects/PecPocketUI/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
 111        </provider>
 112        <provider
-112-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:31:9-37:35
+112-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:31:9-37:35
 113            android:name="androidx.work.impl.WorkManagerInitializer"
-113-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:32:13-69
+113-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:32:13-69
 114            android:authorities="com.example.fend.workmanager-init"
-114-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:33:13-68
+114-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:33:13-68
 115            android:directBootAware="false"
-115-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:34:13-44
+115-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:34:13-44
 116            android:exported="false"
-116-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:35:13-37
+116-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:35:13-37
 117            android:multiprocess="true" />
-117-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:36:13-40
+117-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:36:13-40
 118
 119        <service
-119-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:39:9-44:35
+119-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:39:9-44:35
 120            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-120-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:40:13-88
+120-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:40:13-88
 121            android:directBootAware="false"
-121-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:41:13-44
+121-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:41:13-44
 122            android:enabled="@bool/enable_system_alarm_service_default"
-122-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:42:13-72
+122-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:42:13-72
 123            android:exported="false" />
-123-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:43:13-37
+123-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:43:13-37
 124        <service
-124-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:45:9-51:35
+124-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:45:9-51:35
 125            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-125-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:46:13-84
+125-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:46:13-84
 126            android:directBootAware="false"
-126-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:47:13-44
+126-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:47:13-44
 127            android:enabled="@bool/enable_system_job_service_default"
-127-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:48:13-70
+127-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:48:13-70
 128            android:exported="true"
-128-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:49:13-36
+128-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:49:13-36
 129            android:permission="android.permission.BIND_JOB_SERVICE" />
-129-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:50:13-69
+129-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:50:13-69
 130        <service
-130-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:52:9-57:35
+130-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:52:9-57:35
 131            android:name="androidx.work.impl.foreground.SystemForegroundService"
-131-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:53:13-81
+131-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:53:13-81
 132            android:directBootAware="false"
-132-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:54:13-44
+132-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:54:13-44
 133            android:enabled="@bool/enable_system_foreground_service_default"
-133-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:55:13-77
+133-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:55:13-77
 134            android:exported="false" />
-134-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:56:13-37
+134-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:56:13-37
 135
 136        <receiver
-136-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:59:9-64:35
+136-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:59:9-64:35
 137            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-137-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:60:13-88
+137-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:60:13-88
 138            android:directBootAware="false"
-138-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:61:13-44
+138-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:61:13-44
 139            android:enabled="true"
-139-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:62:13-35
+139-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:62:13-35
 140            android:exported="false" />
-140-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:63:13-37
+140-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:63:13-37
 141        <receiver
-141-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:65:9-75:20
+141-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:65:9-75:20
 142            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-142-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:66:13-106
+142-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:66:13-106
 143            android:directBootAware="false"
-143-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:67:13-44
+143-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:67:13-44
 144            android:enabled="false"
-144-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:68:13-36
+144-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:68:13-36
 145            android:exported="false" >
-145-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:69:13-37
+145-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:69:13-37
 146            <intent-filter>
-146-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:71:13-74:29
+146-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:71:13-74:29
 147                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-147-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:72:17-87
-147-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:72:25-84
+147-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:72:17-87
+147-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:72:25-84
 148                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-148-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:73:17-90
-148-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:73:25-87
+148-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:73:17-90
+148-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:73:25-87
 149            </intent-filter>
 150        </receiver>
 151        <receiver
-151-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:76:9-86:20
+151-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:76:9-86:20
 152            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-152-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:77:13-104
+152-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:77:13-104
 153            android:directBootAware="false"
-153-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:78:13-44
+153-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:78:13-44
 154            android:enabled="false"
-154-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:79:13-36
+154-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:79:13-36
 155            android:exported="false" >
-155-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:80:13-37
+155-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:80:13-37
 156            <intent-filter>
-156-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:82:13-85:29
+156-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:82:13-85:29
 157                <action android:name="android.intent.action.BATTERY_OKAY" />
-157-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:83:17-77
-157-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:83:25-74
+157-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:83:17-77
+157-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:83:25-74
 158                <action android:name="android.intent.action.BATTERY_LOW" />
-158-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:84:17-76
-158-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:84:25-73
+158-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:84:17-76
+158-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:84:25-73
 159            </intent-filter>
 160        </receiver>
 161        <receiver
-161-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:87:9-97:20
+161-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:87:9-97:20
 162            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-162-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:88:13-104
+162-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:88:13-104
 163            android:directBootAware="false"
-163-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:89:13-44
+163-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:89:13-44
 164            android:enabled="false"
-164-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:90:13-36
+164-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:90:13-36
 165            android:exported="false" >
-165-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:91:13-37
+165-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:91:13-37
 166            <intent-filter>
-166-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:93:13-96:29
+166-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:93:13-96:29
 167                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-167-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:94:17-83
-167-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:94:25-80
+167-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:94:17-83
+167-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:94:25-80
 168                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-168-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:95:17-82
-168-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:95:25-79
+168-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:95:17-82
+168-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:95:25-79
 169            </intent-filter>
 170        </receiver>
 171        <receiver
-171-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:98:9-107:20
+171-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:98:9-107:20
 172            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-172-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:99:13-103
+172-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:99:13-103
 173            android:directBootAware="false"
-173-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:100:13-44
+173-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:100:13-44
 174            android:enabled="false"
-174-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:101:13-36
+174-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:101:13-36
 175            android:exported="false" >
-175-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:102:13-37
+175-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:102:13-37
 176            <intent-filter>
-176-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:104:13-106:29
+176-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:104:13-106:29
 177                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-177-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:105:17-79
-177-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:105:25-76
+177-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:105:17-79
+177-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:105:25-76
 178            </intent-filter>
 179        </receiver>
 180        <receiver
-180-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:108:9-119:20
+180-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:108:9-119:20
 181            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-181-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:109:13-88
+181-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:109:13-88
 182            android:directBootAware="false"
-182-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:110:13-44
+182-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:110:13-44
 183            android:enabled="false"
-183-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:111:13-36
+183-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:111:13-36
 184            android:exported="false" >
-184-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:112:13-37
+184-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:112:13-37
 185            <intent-filter>
-185-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:114:13-118:29
+185-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:114:13-118:29
 186                <action android:name="android.intent.action.BOOT_COMPLETED" />
-186-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:16-85
-186-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:24-75
+186-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:16-85
+186-->/Users/guneet/AndroidStudioProjects/PecPocketUI/android/app/src/main/AndroidManifest.xml:51:24-75
 187                <action android:name="android.intent.action.TIME_SET" />
-187-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:116:17-73
-187-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:116:25-70
+187-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:116:17-73
+187-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:116:25-70
 188                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-188-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:117:17-81
-188-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:117:25-78
+188-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:117:17-81
+188-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:117:25-78
 189            </intent-filter>
 190        </receiver>
 191        <receiver
-191-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:120:9-129:20
+191-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:120:9-129:20
 192            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-192-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:121:13-99
+192-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:121:13-99
 193            android:directBootAware="false"
-193-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:122:13-44
+193-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:122:13-44
 194            android:enabled="@bool/enable_system_alarm_service_default"
-194-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:123:13-72
+194-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:123:13-72
 195            android:exported="false" >
-195-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:124:13-37
+195-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:124:13-37
 196            <intent-filter>
-196-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:126:13-128:29
+196-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:126:13-128:29
 197                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-197-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:127:17-98
-197-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:127:25-95
+197-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:127:17-98
+197-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:127:25-95
 198            </intent-filter>
 199        </receiver>
 200        <receiver
-200-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:130:9-140:20
+200-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:130:9-140:20
 201            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
-201-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:131:13-78
+201-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:131:13-78
 202            android:directBootAware="false"
-202-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:132:13-44
+202-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:132:13-44
 203            android:enabled="true"
-203-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:133:13-35
+203-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:133:13-35
 204            android:exported="true"
-204-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:134:13-36
+204-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:134:13-36
 205            android:permission="android.permission.DUMP" >
-205-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:135:13-57
+205-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:135:13-57
 206            <intent-filter>
-206-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:137:13-139:29
+206-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:137:13-139:29
 207                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
-207-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:138:17-88
-207-->[androidx.work:work-runtime:2.4.0] /home/kauts/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:138:25-85
+207-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:138:17-88
+207-->[androidx.work:work-runtime:2.4.0] /Users/guneet/.gradle/caches/transforms-2/files-2.1/96a04a5ba4f3af7914bab11078e450ec/work-runtime-2.4.0/AndroidManifest.xml:138:25-85
 208            </intent-filter>
 209        </receiver>
 210
 211        <service
-211-->[androidx.room:room-runtime:2.2.5] /home/kauts/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
+211-->[androidx.room:room-runtime:2.2.5] /Users/guneet/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
 212            android:name="androidx.room.MultiInstanceInvalidationService"
-212-->[androidx.room:room-runtime:2.2.5] /home/kauts/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:26:13-74
+212-->[androidx.room:room-runtime:2.2.5] /Users/guneet/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:26:13-74
 213            android:directBootAware="true"
-213-->[androidx.room:room-runtime:2.2.5] /home/kauts/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
+213-->[androidx.room:room-runtime:2.2.5] /Users/guneet/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
 214            android:exported="false" />
-214-->[androidx.room:room-runtime:2.2.5] /home/kauts/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
+214-->[androidx.room:room-runtime:2.2.5] /Users/guneet/.gradle/caches/transforms-2/files-2.1/0a89fa6730b81f04d1338cd90d9af60b/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
 215    </application>
 216
 217</manifest>

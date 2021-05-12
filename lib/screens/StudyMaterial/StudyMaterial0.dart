@@ -40,7 +40,8 @@ List<int> colorChoices = [
   0xff91C2C4,
   0xff84A59D,
   0xffE47A77,
-  0xff6C96C6
+  0xff6C96C6,
+  0xff0B7A75
 ];
 
 class StudyMaterial0State extends State<StudyMaterial0>
@@ -107,7 +108,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
                 mainAxisExtent: 150,
               ),
               itemBuilder: (BuildContext context, int index) {
-                int backgroundColor = colorChoices[(index + 1) % 13];
+                int backgroundColor = colorChoices[(index + 1) % 14];
                 return GestureDetector(
                     child: Stack(
                       alignment: Alignment.center,

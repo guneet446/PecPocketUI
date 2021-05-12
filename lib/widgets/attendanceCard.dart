@@ -29,15 +29,14 @@ class _AttendanceCardState extends State<AttendanceCard> {
 
   @override
   Widget build(BuildContext context) {
-    int backgroundColor = colorChoices[(widget.index + 1) % 19];
     List<ChartData> chartData = [
       ChartData('Attended', widget.subject.percentage, Color(0xffffffff)),
       ChartData('Not attended', (100 - widget.subject.percentage),
-          Color(backgroundColor))
+          Color(widget.subject.selectedColor))
     ];
     return Card(
-      margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
-      color: Color(backgroundColor),
+      margin: EdgeInsets.fromLTRB(15, 0, 15, 25),
+      color: Color(widget.subject.selectedColor),
       elevation: 15,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -230,7 +229,10 @@ class _AttendanceCardState extends State<AttendanceCard> {
               ),
             ),
             Text(
-              widget.subject.subjectName + '\n' + widget.subject.subtitle,
+              widget.subject.subjectName,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -238,10 +240,24 @@ class _AttendanceCardState extends State<AttendanceCard> {
               ),
             ),
             Text(
-              widget.subject.status,
+              widget.subject.subtitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: 14,
                 color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 7,),
+              child: Text(
+                widget.subject.status,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

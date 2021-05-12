@@ -184,3 +184,7 @@ flutter:
     - assets/clubs.png
     - assets/attendance.png
     - assets/Pecsocial.png
+    - assets/attendance_placeholder.png
+    - assets/custom_reminder.png
+    - assets/noti.png
+    - assets/pec_social.png

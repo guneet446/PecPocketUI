@@ -165,6 +165,7 @@ class bottomAppBarState extends State<bottomAppBar> {
               SubjectAttendanceDetails(
                   databaseAttendances[i].subject,
                   databaseAttendances[i].subtitle,
+                  0xffE47A77, //to be replaced by value from sqlite
                   databaseAttendances[i].classesAttended,
                   databaseAttendances[i].totalClasses);
 

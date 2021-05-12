@@ -33,9 +33,12 @@ dependencies:
   fl_chart: ^0.36.0
   flutter_downloader: ^1.6.0
   flutter_email_sender: ^5.0.0
+  flutter_local_notifications: ^5.0.0+4
   google_fonts: ^2.0.0
   http: ^0.13.1
   image_picker: ^0.7.4
+  intl: ^0.17.0
+  introduction_screen: ^2.1.0
   mailer: ^5.0.0
   mailer2: ^1.2.5
   path: ^1.8.0
@@ -47,7 +50,6 @@ dependencies:
   syncfusion_flutter_calendar: ^19.1.58
   syncfusion_flutter_charts: ^19.1.59
   weekday_selector: ^1.0.0
-  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -189,3 +191,5 @@ flutter:
     - assets/custom_reminder.png
     - assets/noti.png
     - assets/pec_social.png
+    - assets/studymaterial.png
+    - assets/timetable.png

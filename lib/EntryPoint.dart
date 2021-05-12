@@ -3,6 +3,7 @@ import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
+import 'package:fend/screens/introduction.dart';
 import 'package:fend/screens/login_screen.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/screens/signUp/signUpSID.dart';
@@ -46,7 +47,7 @@ class _EntryPointState extends State<EntryPoint> {
     setState(() {
       if (count == 0) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUp()));
+            context, MaterialPageRoute(builder: (context) => IntroScreen()));
       } else if (user[0].login == 1) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MainPage()));

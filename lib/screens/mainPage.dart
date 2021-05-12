@@ -411,8 +411,8 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 onPressed: () async {
                   var userHelper = UserDatabase.instance;
                   var databaseUser = await userHelper.getAllUsers();
-                  var response = await get(
-                      Uri.parse('${global.url}noti/${databaseUser[0].sid}'));
+                  var response =
+                      await get(Uri.parse('${global.url}noti/19103098'));
 
                   setState(() {
                     if (response.body.length > 18) {
@@ -449,54 +449,15 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       context: context,
                       builder: (BuildContext context) {
                         print(auth);
-                        if (auth == 1) {
+                        if (auth == 0) {
                           return AlertDialog(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Notifications',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color(0xff235790),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.info_outline,
-                                    color: Color(0xff235790),
-                                  ),
-                                  onPressed: () {
-                                    return showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            content: Text(
-                                              'Long press the club name to delete',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text(
-                                                  'Ok',
-                                                  style: TextStyle(
-                                                    color: Color(0xff588297),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  },
-                                ),
-                              ],
+                            title: Text(
+                              'Notifications',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xff235790),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             content: Container(
                               height: double.maxFinite,
@@ -504,9 +465,55 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               child: ListView.builder(
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onLongPress: () async {
-                                      print(notificationsList[index].title +
-                                          notificationsList[index].description);
+                                    onLongPress: () {
+                                      String reminderDescription =
+                                          notificationsList[index].title +
+                                              ' ' +
+                                              notificationsList[index]
+                                                  .description;
+                                      List<String> dateList =
+                                          notificationsList[index]
+                                              .date
+                                              .split('-');
+                                      List<String> timeList =
+                                          notificationsList[index]
+                                              .time
+                                              .split(':');
+                                      DateTime notificationDateTime =
+                                          new DateTime(
+                                        int.parse(dateList[2]),
+                                        int.parse(dateList[1]),
+                                        int.parse(dateList[0]),
+                                        int.parse(timeList[0]),
+                                        int.parse(timeList[1]),
+                                      );
+
+                                      customReminders.add(CustomReminderDetails(
+                                          0,
+                                          'title', //add title here
+                                          reminderDescription,
+                                          notificationDateTime,
+                                          true));
+
+                                      var reminderHelper =
+                                          ReminderDatabase.instance;
+                                      Reminder reminder = Reminder(
+                                        id: 0,
+                                        description: reminderDescription,
+                                        year: int.parse(dateList[2]),
+                                        month: int.parse(dateList[1]),
+                                        day: int.parse(dateList[0]),
+                                        hour: int.parse(timeList[0]),
+                                        minute: int.parse(timeList[1]),
+                                        getNotified: true,
+                                      );
+
+                                      reminderHelper.create(reminder);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EntryPoint()));
                                     },
                                     child: Container(
                                       child: Column(
@@ -524,6 +531,19 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                 itemCount: notificationsList.length,
                               ),
                             ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MainPage()));
+                                  },
+                                  child: Text(
+                                    'Okay',
+                                    style: TextStyle(fontSize: 17.5),
+                                  ))
+                            ],
                           );
                         } else {
                           return AlertDialog(

@@ -3,28 +3,27 @@ import 'package:alert_dialog/alert_dialog.dart';
 import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/globals.dart' as global;
+import 'package:fend/models/SubjectCodes.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/screens/HamburgerMenuOptions/AddClubs.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import 'package:fend/screens/mainPage.dart';
-import 'package:fend/widgets/attendanceCard.dart';
+import 'package:fend/screens/signUp/SignUpClubs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'dart:math';
 
-import 'SignUpClubs.dart';
-
 class SignUpSubjects extends StatefulWidget {
   @override
-  _SignUpSubjectsState createState() => _SignUpSubjectsState();
+  createState() => SignUpSubjectsState();
 }
 
 List<String> selectedSubsList = [];
 List<String> selectedCodesList = [];
 
-class _SignUpSubjectsState extends State<SignUpSubjects> {
+class SignUpSubjectsState extends State<SignUpSubjects> {
   String searchForSubject;
 
   List<String> subsList = [];
@@ -35,10 +34,11 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: Colors.white,
           elevation: 0,
+          backgroundColor: Colors.white,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.black,
@@ -94,6 +94,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                         borderSide: BorderSide(),
                       ),
                       hintText: 'Enter Subject Name',
+                      hintStyle: GoogleFonts.exo2(),
                     ),
                     onChanged: (String value) {
                       setState(() {
@@ -123,11 +124,13 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                     textStyle: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
                 selectedSubjectsList(context),
+                SizedBox(height: 20),
                 confirmSubjectsButton(),
               ],
             ),
@@ -139,28 +142,17 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
 
   subject() async {
     var response = await get(
-        Uri.parse('${global.url}subject/search?query=$searchForSubject'));
-    var rb = response.body;
+        Uri.parse('${global.url}/subject/search?query=$searchForSubject'));
+    var mySubjects = CodesList.fromJson(json.decode(response.body));
 
-    var list = json.decode(rb) as List;
-
-    List<Subjects> mySubjects = list.map((i) => Subjects.fromJson(i)).toList();
-
-    if (searchForSubject.length == 0) {
-      setState(() {
-        subsList.clear();
-        codesList.clear();
-      });
-    } else {
-      setState(() {
-        subsList.clear();
-        codesList.clear();
-        for (int i = 0; i < mySubjects.length; i++) {
-          subsList.add(mySubjects[i].subject);
-          codesList.add(mySubjects[i].subCode);
-        }
-      });
-    }
+    setState(() {
+      subsList.clear();
+      codesList.clear();
+      for (int i = 0; i < mySubjects.codes.length; i++) {
+        subsList.add(mySubjects.codes[i].subjectName);
+        codesList.add(mySubjects.codes[i].subCode);
+      }
+    });
   }
 
   subjectsList(context) {
@@ -170,7 +162,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
         scrollDirection: Axis.vertical,
         //shrinkWrap: true,
         itemBuilder: (context, index) {
-          if (searchForSubject == '') {
+          if (searchForSubject.length == 0) {
             subsList.clear();
             codesList.clear();
           }
@@ -193,9 +185,11 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
               });
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
+                  alignment: Alignment.center,
                   width: 350,
                   height: 65,
                   padding: EdgeInsets.only(left: 10, top: 7, right: 10),
@@ -211,6 +205,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                     color: Colors.white,
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         subsList[index],
@@ -225,7 +220,6 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                         softWrap: false,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 2),
                       Text(
                         codesList[index],
                         style: GoogleFonts.exo2(
@@ -237,6 +231,7 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      SizedBox(height: 2),
                     ],
                   ),
                 ),
@@ -266,48 +261,52 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
                     selectedCodesList.removeAt(index);
                   });
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      color: Color(colorChoices[index]),
                     ),
-                    color: Color(colorChoices[index]),
-                  ),
-                  width: 120,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 7, right: 7),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10),
-                        Center(
-                          child: Text(
-                            selectedSubsList[index],
-                            style: GoogleFonts.exo2(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
+                    width: 120,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 7, right: 7),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 10),
+                          Center(
+                            child: Text(
+                              selectedSubsList[index],
+                              style: GoogleFonts.exo2(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
                             ),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
                           ),
-                        ),
-                        Container(height: 10,),
-                        Center(
-                          child: Text(
-                            selectedCodesList[index],
-                            style: GoogleFonts.exo2(
-                              color: Colors.white,
-                              fontSize: 15,
+                          Container(
+                            height: 10,
+                          ),
+                          Center(
+                            child: Text(
+                              selectedCodesList[index],
+                              style: GoogleFonts.exo2(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
+                          SizedBox(height: 10),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -325,29 +324,29 @@ class _SignUpSubjectsState extends State<SignUpSubjects> {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-          onPressed: () async {
-            var subjectHelper = SubjectDatabase.instance;
-            var databaseSubjects = await subjectHelper.getAllSubjects();
-            int initialSubjectsLength = databaseSubjects.length;
-            for (int i = 0;
-                i < selectedSubsList.length - initialSubjectsLength;
-                i++) {
-              Subject subject = Subject(id: i, subject: selectedSubsList[i]);
-              subjectHelper.addSubject(subject);
-            }
+        onPressed: () async {
+          var subjectHelper = SubjectDatabase.instance;
+          var databaseSubjects = await subjectHelper.getAllSubjects();
+          int initialSubjectsLength = databaseSubjects.length;
+          for (int i = 0;
+              i < selectedSubsList.length - initialSubjectsLength;
+              i++) {
+            Subject subject = Subject(id: i, subject: selectedSubsList[i]);
+            subjectHelper.addSubject(subject);
+          }
 
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => SignUpClubs()));
-          },
-          child: Text('Confirm Subjects',
-              style: GoogleFonts.exo2(
-                fontWeight: FontWeight.bold,
-              )),
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SignUpClubs()));
+        },
+        child: Text('Confirm Subjects',
+            style: GoogleFonts.exo2(
+              fontWeight: FontWeight.bold,
+            )),
         style: ElevatedButton.styleFrom(
           primary: Color(0xff272727),
           minimumSize: Size(MediaQuery.of(context).size.width, 45),
-          shape:
-          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(20)),
         ),
       ),
     );

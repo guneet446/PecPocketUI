@@ -5,6 +5,7 @@ import 'package:fend/classes/Reminder.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
 class CustomReminderAddNew extends StatefulWidget {
@@ -13,6 +14,7 @@ class CustomReminderAddNew extends StatefulWidget {
 }
 
 class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
+  final notifications = FlutterLocalNotificationsPlugin();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final myController = TextEditingController();
@@ -108,7 +110,9 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                     ),
                   ),
                   validator: (val) {
-                    return val.isEmpty ? 'Enter the description of the task' : null;
+                    return val.isEmpty
+                        ? 'Enter the description of the task'
+                        : null;
                   },
                 ),
               ],
@@ -118,7 +122,8 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
             height: MediaQuery.of(context).size.height - 330,
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40), topRight: Radius.circular(40)),
               color: Colors.white,
             ),
             child: Column(
@@ -134,7 +139,7 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         selectedDate = await _selectDate(context);
                         setState(() {
                           toAdd = 1;
@@ -155,7 +160,7 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         selectedTime = await _selectTime(context);
                         setState(() {
                           toAdd = 2;
@@ -166,7 +171,9 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                     ),
                   ],
                 ),
-                Container(height: 30,),
+                Container(
+                  height: 30,
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Container(
@@ -189,7 +196,7 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed:() {
+                  onPressed: () async {
                     userTitle = titleController.text;
                     userDescription = descriptionController.text;
 
@@ -212,22 +219,25 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                           selectedDate.day,
                           selectedTime.hour,
                           selectedTime.minute);
-                      customReminders.add(CustomReminderDetails(
-                          uid, userTitle, userDescription, selectedDateTime, getNotif));
+                      customReminders.add(CustomReminderDetails(uid, userTitle,
+                          userDescription, selectedDateTime, getNotif));
                       setState(() {
                         reminderHelper.create(reminder);
                       });
-                    }
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => EntryPoint()));
-                  },
+                      if (getNotif) {
+// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
 
+                      }
+                    }
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => EntryPoint()));
+                  },
                   child: Text('Create Reminder'),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff272727),
                     minimumSize: Size(MediaQuery.of(context).size.width, 45),
-                    shape:
-                    RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20)),
                   ),
                 )
               ],
@@ -281,14 +291,14 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
   }
 
   String formattedDate(DateTime date) {
-    if(date == null) {
+    if (date == null) {
       return 'Select Date';
     }
     return DateFormat("EEEE, d MMMM").format(date);
   }
 
   String formattedTime(TimeOfDay time) {
-    if(time == null) {
+    if (time == null) {
       return 'Select Time';
     }
     final localizations = MaterialLocalizations.of(context);

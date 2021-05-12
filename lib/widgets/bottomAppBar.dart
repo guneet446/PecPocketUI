@@ -148,17 +148,10 @@ class bottomAppBarState extends State<bottomAppBar> {
     var attendanceHelper = AttendanceDatabase.instance;
     var databaseAttendances = await attendanceHelper.getAllAttendance();
     setState(() {
-      if (size == 1) {
-        for (int i = 0; i < databaseSubjects.length; i++) {
-          subjectList.add(databaseSubjects[i].subject);
-        }
-      } else {
-        subjectList.removeRange(1, subjectList.length - 1);
-        for (int i = 0; i < databaseSubjects.length; i++) {
-          subjectList.add(databaseSubjects[i].subject);
-        }
+      subjectList.clear();
+      for (int i = 0; i < databaseSubjects.length; i++) {
+        subjectList.add(databaseSubjects[i].subject);
       }
-
       if (sizeAttendance == 0) {
         for (int i = 0; i < databaseAttendances.length; i++) {
           SubjectAttendanceDetails subjectAttendanceDetails =

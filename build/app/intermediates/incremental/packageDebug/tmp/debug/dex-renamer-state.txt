@@ -1,4 +1,4 @@
-#Thu May 13 21:53:49 IST 2021
-base.0=/Users/guneet/AndroidStudioProjects/PecPocketUI/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+#Fri May 14 01:54:34 AST 2021
+base.0=/home/kauts/projects/PecPocketUI/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

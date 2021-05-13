@@ -296,8 +296,10 @@ class SignUpClubsState extends State<SignUpClubs> {
           String jsonupload =
               '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
 
-          Response response = await post(Uri.parse('${global.url}club'),
-              headers: headers, body: jsonupload);
+          Response response = await http.put(
+              Uri.parse('${global.url}club/$sid'),
+              headers: headers,
+              body: jsonupload);
           setState(() {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => EntryPoint()));

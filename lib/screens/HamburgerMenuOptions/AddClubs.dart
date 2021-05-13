@@ -6,6 +6,7 @@ import 'package:fend/classes/Clubs.dart';
 import 'package:fend/models/Club.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
+import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:google_fonts/google_fonts.dart';
@@ -314,13 +315,16 @@ class AddClubsState extends State<AddClubs> {
           String jsonupload =
               '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
 
-          Response response = await http.put(Uri.parse('${global.url}club'),
-              headers: headers, body: jsonupload);
+          Response response = await http.put(
+              Uri.parse('${global.url}club/$sid'),
+              headers: headers,
+              body: jsonupload);
 
           setState(() {
             print(finalClubCodeList);
             print(response.body);
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MainPage()));
           });
         },
         child: Text('Confirm Subjects',

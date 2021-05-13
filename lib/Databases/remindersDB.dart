@@ -13,7 +13,7 @@ class ReminderDatabase {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _intiDB('reminders10.db');
+    _database = await _intiDB('reminders11.db');
     return _database;
   }
 
@@ -29,6 +29,7 @@ class ReminderDatabase {
     CREATE TABLE $tableReminders 
     (
       ${ReminderFields.id} INTEGER,
+      ${ReminderFields.title} STRING,
       ${ReminderFields.description} INTEGER,
       ${ReminderFields.year} INTEGER,
       ${ReminderFields.month} INTEGER,

@@ -202,33 +202,37 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
 
                     var reminderHelper = ReminderDatabase.instance;
 
-                    if (toAdd == 2) {
-                      Reminder reminder = Reminder(
-                          id: 0,
-                          description: userDescription,
-                          year: selectedDate.year,
-                          month: selectedDate.month,
-                          day: selectedDate.day,
-                          hour: selectedTime.hour,
-                          minute: selectedTime.minute,
-                          getNotified: getNotif);
+                    Reminder reminder = Reminder(
+                        id: 0,
+                        title: userTitle,
+                        description: userDescription,
+                        year: selectedDate.year,
+                        month: selectedDate.month,
+                        day: selectedDate.day,
+                        hour: selectedTime.hour,
+                        minute: selectedTime.minute,
+                        getNotified: getNotif);
 
-                      selectedDateTime = new DateTime(
-                          selectedDate.year,
-                          selectedDate.month,
-                          selectedDate.day,
-                          selectedTime.hour,
-                          selectedTime.minute);
-                      customReminders.add(CustomReminderDetails(uid, userTitle,
-                          userDescription, selectedDateTime, getNotif));
-                      setState(() {
+                    selectedDateTime = new DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        selectedTime.hour,
+                        selectedTime.minute);
+                    customReminders.add(
+                      CustomReminderDetails(uid, userTitle, userDescription,
+                          selectedDateTime, getNotif),
+                    );
+                    setState(
+                      () {
                         reminderHelper.create(reminder);
-                      });
-                      if (getNotif) {
+                      },
+                    );
+                    if (getNotif) {
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
 
-                      }
                     }
+
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => EntryPoint()));
                   },

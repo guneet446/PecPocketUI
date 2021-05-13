@@ -1,12 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/EntryPoint.dart';
 import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:http/http.dart';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class UploadNotification extends StatefulWidget {
@@ -255,9 +252,11 @@ class _UploadNotificationState extends State<UploadNotification> {
         Uri.parse('${global.url}noti/${databaseUsers[0].sid}'),
         headers: headers,
         body: json);
-    setState(() {
-      print(response.body);
-    });
+    setState(
+      () {
+        print(response.body);
+      },
+    );
     if (response.body.length == 18) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Notification Uploaded')));

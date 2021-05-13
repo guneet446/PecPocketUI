@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         Theme.of(context).textTheme,
       )),
       home: Scaffold(
-        body: EntryPoint(),
+        body: MainPage(),
       ),
     );
   }

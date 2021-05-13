@@ -469,13 +469,68 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       builder: (BuildContext context) {
                         print(auth);
                         if (auth == 0) {
+                          if(notificationsList.length == 0) {
+                            return AlertDialog(
+                              title: Text(
+                                'Notifications',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Color(0xff272727),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              content: Container(
+                                height: double.maxFinite,
+                                width: double.maxFinite,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20, right: 20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                        ),
+                                        Image.asset(
+                                          'assets/noti.png',
+                                          height: 250,
+                                          width: 250,
+                                        ),
+                                        Text(
+                                          'No new notification',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MainPage()));
+                                    },
+                                    child: Text(
+                                      'Okay',
+                                      style: TextStyle(fontSize: 17.5),
+                                    ))
+                              ],
+                            );
+                          }
                           return AlertDialog(
                             title: Text(
                               'Notifications',
                               style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff235790),
-                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Color(0xff272727),
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                             content: Container(
@@ -565,13 +620,77 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                             ],
                           );
                         } else {
+                          if (notificationsList.length == 0) {
+                            return AlertDialog(
+                              title: Text(
+                                'Notifications',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Color(0xff272727),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              content: Container(
+                                height: double.maxFinite,
+                                width: double.maxFinite,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20, right: 20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                        ),
+                                        Image.asset(
+                                          'assets/noti.png',
+                                          height: 250,
+                                          width: 250,
+                                        ),
+                                        Text(
+                                          'No new notification',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UploadNotification()));
+                                    },
+                                    child: Icon(Icons.add)),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MainPage()));
+                                    },
+                                    child: Text(
+                                      'Okay',
+                                      style: TextStyle(fontSize: 17.5),
+                                    ))
+                              ],
+                            );
+                          }
                           return AlertDialog(
                             title: Text(
                               'Notifications',
                               style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff235790),
-                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Color(0xff272727),
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                             content: Container(

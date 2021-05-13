@@ -109,6 +109,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/shared_file_paths" />
         </provider>
+
+        <activity
+            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="com.example.fend.workmanager-init"

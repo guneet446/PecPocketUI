@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SocialViewProfile extends StatefulWidget {
   @override
@@ -214,36 +215,46 @@ class _SocialViewProfileState extends State<SocialViewProfile> {
                     ],
                   ),
                 ),
-                Container(
-                  width: 400,
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                  margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                  decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
-                    color: Color(0xffF0F2F5),
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Insta',
-                        style: TextStyle(
-                          color: Colors.black45,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: () async {
+                    var url = "https://www.instagram.com/$socialInsta/";
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Couldnt launch $socialInsta';
+                    }
+                  },
+                  child: Container(
+                    width: 400,
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                    decoration: BoxDecoration(
+                      boxShadow: [BoxShadow(blurRadius: 4, spreadRadius: 0)],
+                      color: Color(0xffF0F2F5),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Insta',
+                          style: TextStyle(
+                            color: Colors.black45,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        socialInsta,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          socialInsta,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

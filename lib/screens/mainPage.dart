@@ -178,18 +178,18 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                               SizedBox(width: 5),
                                               Container(
                                                 height: 1,
-                                                width: 250,
+                                                width: 215,
                                                 color: Colors.grey,
-                                              )
+                                              ),
                                             ],
                                           ),
                                           SizedBox(height: 10),
                                           Text(
                                             mainPageReminders[index],
                                             style: GoogleFonts.exo2(
-                                                textStyle: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold)),
+                                              textStyle: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                           Container(
                                             width: 325,
@@ -411,8 +411,8 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 onPressed: () async {
                   var userHelper = UserDatabase.instance;
                   var databaseUser = await userHelper.getAllUsers();
-                  var response =
-                      await get(Uri.parse('${global.url}noti/19103098'));
+                  var response = await get(
+                      Uri.parse('${global.url}noti/${databaseUser[0].sid}'));
 
                   setState(() {
                     if (response.body.length > 18) {
@@ -705,7 +705,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     var databaseUser = await userHelper.getAllUsers();
     var sid = databaseUser[0].sid;
     var response = await get(Uri.parse('${global.url}viewprofile/$sid'));
-    Profile profile = Profile.fromJson(json.decode(response.body));
+    Social profile = Social.fromJson(json.decode(response.body));
     setState(() {
       profileName = profile.name;
       profileSid = profile.sid.toString();

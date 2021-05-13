@@ -29,8 +29,8 @@ class bottomAppBarState extends State<bottomAppBar> {
   final iconList = <IconData>[
     Icons.class__rounded,
     Icons.search,
-    Icons.list_alt_rounded,
     Icons.timelapse_sharp,
+    Icons.list_alt_rounded,
   ];
   @override
   Widget build(BuildContext context) {

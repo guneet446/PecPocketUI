@@ -112,6 +112,7 @@ class _PecSocialState extends State<PecSocial>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: key,
       backgroundColor: Colors.grey[100],
       body: Center(
@@ -185,7 +186,7 @@ class _PecSocialState extends State<PecSocial>
                                         print(sids[index]);
                                         var response = await get(Uri.parse(
                                             '${global.url}viewprofile/${sids[index]}'));
-                                        Profile profile = Profile.fromJson(
+                                        Social profile = Social.fromJson(
                                             json.decode(response.body));
                                         socialName = profile.name;
                                         socialSid = profile.sid.toString();

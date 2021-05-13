@@ -69,14 +69,17 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => TimeTableInput()));
-            }
-          ),
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TimeTableInput(),
+                    ));
+              }),
           IconButton(
             icon: Icon(
               Icons.info_outline,
@@ -129,7 +132,7 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SfCalendarTheme(
         data: SfCalendarThemeData(
-            todayHighlightColor: Color(0xff272727),
+          todayHighlightColor: Color(0xff272727),
         ),
         child: SfCalendar(
           view: CalendarView.week,
@@ -274,7 +277,22 @@ class TimeTableInput extends StatefulWidget {
 
 class _TimeTableInputState extends State<TimeTableInput> {
   final myController = TextEditingController();
-  List<double> colorIconSize = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
+  List<double> colorIconSize = [
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +300,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
     print(firstDateOfWeek);
     final values = List.filled(7, true);
 
-    if(selectedOption == 'Extra Class') {
+    if (selectedOption == 'Extra Class') {
       return Scaffold(
         backgroundColor: Color(0xff272727),
         appBar: AppBar(
@@ -318,47 +336,48 @@ class _TimeTableInputState extends State<TimeTableInput> {
                   ButtonBar(
                     children: [
                       ElevatedButton(
-                        onPressed:(){
+                        onPressed: () {
                           setState(() {
                             selectedOption = 'Weekly Class';
                           });
-                        } ,
+                        },
                         child: Text('Weekly Class'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
-                          shape:
-                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20)),
                         ),
                       ),
                       ElevatedButton(
-                        onPressed:() {
+                        onPressed: () {
                           setState(() {
                             selectedOption = 'Extra Class';
                           });
-                        } ,
+                        },
                         child: Text('Extra Class'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
-                          shape:
-                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20)),
                         ),
                       ),
                       ElevatedButton(
-                        onPressed:() {
+                        onPressed: () {
                           setState(() {
                             selectedOption = 'Personal';
                           });
-                        } ,
+                        },
                         child: Text('Personal'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
-                          shape:
-                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20)),
                         ),
                       ),
                     ],
                     alignment: MainAxisAlignment.spaceEvenly,
-                    buttonMinWidth: (MediaQuery.of(context).size.width / 3) - 10,
+                    buttonMinWidth:
+                        (MediaQuery.of(context).size.width / 3) - 10,
                   ),
                   Theme(
                     data: Theme.of(context).copyWith(
@@ -378,7 +397,10 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         fontSize: 18,
                       ),
                       itemHeight: 60,
-                      icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Color(0x95ffffff),
+                      ),
                       iconSize: 35,
                       elevation: 16,
                       //style: TextStyle(fontSize: 16),
@@ -420,7 +442,10 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         fontSize: 18,
                       ),
                       itemHeight: 60,
-                      icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Color(0x95ffffff),
+                      ),
                       iconSize: 35,
                       elevation: 16,
                       underline: Container(
@@ -449,7 +474,9 @@ class _TimeTableInputState extends State<TimeTableInput> {
               height: MediaQuery.of(context).size.height - 305,
               padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40)),
                 color: Colors.white,
               ),
               child: Column(
@@ -465,7 +492,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async{
+                        onPressed: () async {
                           selectedDate = await _selectDate(context);
                           setState(() {});
                         },
@@ -483,7 +510,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async{
+                        onPressed: () async {
                           help = "From";
                           from = await _selectTime(context);
                           setState(() {});
@@ -502,7 +529,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async{
+                        onPressed: () async {
                           help = "To";
                           till = await _selectTime(context);
                           setState(() {});
@@ -531,16 +558,23 @@ class _TimeTableInputState extends State<TimeTableInput> {
                             color: Color(colorChoices[index]),
                           ),
                         );
-                      }
-                      ),
+                      }),
                     ),
                   ),
                   ElevatedButton(
-                    onPressed:(){
-                      from_dt = new DateTime(selectedDate.year, selectedDate.month,
-                          selectedDate.day, from.hour, from.minute);
-                      till_dt = new DateTime(selectedDate.year, selectedDate.month,
-                          selectedDate.day, till.hour, till.minute);
+                    onPressed: () {
+                      from_dt = new DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          from.hour,
+                          from.minute);
+                      till_dt = new DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          till.hour,
+                          till.minute);
                       setState(() {
                         var ttHelper = TimetableDatabase.instance;
 
@@ -561,23 +595,20 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         );
 
                         ttHelper.addTimetable(timetable);
-                        meetings.add(Meeting(
-                            timetable.title,
-                            from_dt,
-                            till_dt,
-                            Color(selectedColor),
-                            false,
-                            ''));
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => TimeTable()));
+                        meetings.add(Meeting(timetable.title, from_dt, till_dt,
+                            Color(selectedColor), false, ''));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TimeTable()));
                       });
-                    } ,
+                    },
                     child: Text('Save'),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff272727),
                       minimumSize: Size(MediaQuery.of(context).size.width, 45),
-                      shape:
-                      RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(20)),
                     ),
                   )
                 ],
@@ -586,8 +617,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
           ],
         ),
       );
-    }
-    else if(selectedOption == 'Personal') {
+    } else if (selectedOption == 'Personal') {
       return Scaffold(
         backgroundColor: Color(0xff272727),
         appBar: AppBar(
@@ -623,47 +653,48 @@ class _TimeTableInputState extends State<TimeTableInput> {
                   ButtonBar(
                     children: [
                       ElevatedButton(
-                        onPressed:(){
+                        onPressed: () {
                           setState(() {
                             selectedOption = 'Weekly Class';
                           });
-                        } ,
+                        },
                         child: Text('Weekly Class'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
-                          shape:
-                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20)),
                         ),
                       ),
                       ElevatedButton(
-                        onPressed:() {
+                        onPressed: () {
                           setState(() {
                             selectedOption = 'Extra Class';
                           });
-                        } ,
+                        },
                         child: Text('Extra Class'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
-                          shape:
-                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20)),
                         ),
                       ),
                       ElevatedButton(
-                        onPressed:() {
+                        onPressed: () {
                           setState(() {
                             selectedOption = 'Personal';
                           });
-                        } ,
+                        },
                         child: Text('Personal'),
                         style: ElevatedButton.styleFrom(
                           primary: Colors.grey,
-                          shape:
-                          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20)),
                         ),
                       ),
                     ],
                     alignment: MainAxisAlignment.spaceEvenly,
-                    buttonMinWidth: (MediaQuery.of(context).size.width / 3) - 10,
+                    buttonMinWidth:
+                        (MediaQuery.of(context).size.width / 3) - 10,
                   ),
                   TextFormField(
                     controller: myController,
@@ -696,7 +727,9 @@ class _TimeTableInputState extends State<TimeTableInput> {
               height: MediaQuery.of(context).size.height - 305,
               padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40)),
                 color: Colors.white,
               ),
               child: Column(
@@ -712,7 +745,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async{
+                        onPressed: () async {
                           selectedDate = await _selectDate(context);
                           setState(() {});
                         },
@@ -730,7 +763,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async{
+                        onPressed: () async {
                           help = 'From';
                           from = await _selectTime(context);
                           setState(() {});
@@ -749,7 +782,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async{
+                        onPressed: () async {
                           help = 'To';
                           till = await _selectTime(context);
                           setState(() {});
@@ -778,16 +811,23 @@ class _TimeTableInputState extends State<TimeTableInput> {
                             color: Color(colorChoices[index]),
                           ),
                         );
-                      }
-                      ),
+                      }),
                     ),
                   ),
                   ElevatedButton(
-                    onPressed:(){
-                      from_dt = new DateTime(selectedDate.year, selectedDate.month,
-                          selectedDate.day, from.hour, from.minute);
-                      till_dt = new DateTime(selectedDate.year, selectedDate.month,
-                          selectedDate.day, till.hour, till.minute);
+                    onPressed: () {
+                      from_dt = new DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          from.hour,
+                          from.minute);
+                      till_dt = new DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          till.hour,
+                          till.minute);
                       setState(() {
                         var ttHelper = TimetableDatabase.instance;
 
@@ -808,23 +848,20 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         );
 
                         ttHelper.addTimetable(timetable);
-                        meetings.add(Meeting(
-                            myController.text,
-                            from_dt,
-                            till_dt,
-                            Color(selectedColor),
-                            false,
-                            ''));
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => TimeTable()));
+                        meetings.add(Meeting(myController.text, from_dt,
+                            till_dt, Color(selectedColor), false, ''));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TimeTable()));
                       });
-                    } ,
+                    },
                     child: Text('Save'),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff272727),
                       minimumSize: Size(MediaQuery.of(context).size.width, 45),
-                      shape:
-                      RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(20)),
                     ),
                   )
                 ],
@@ -870,42 +907,42 @@ class _TimeTableInputState extends State<TimeTableInput> {
                 ButtonBar(
                   children: [
                     ElevatedButton(
-                      onPressed:(){
+                      onPressed: () {
                         setState(() {
                           selectedOption = 'Weekly Class';
                         });
-                      } ,
+                      },
                       child: Text('Weekly Class'),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.grey,
-                        shape:
-                        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(20)),
                       ),
                     ),
                     ElevatedButton(
-                      onPressed:() {
+                      onPressed: () {
                         setState(() {
                           selectedOption = 'Extra Class';
                         });
-                      } ,
+                      },
                       child: Text('Extra Class'),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.grey,
-                        shape:
-                        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(20)),
                       ),
                     ),
                     ElevatedButton(
-                      onPressed:() {
+                      onPressed: () {
                         setState(() {
                           selectedOption = 'Personal';
                         });
-                      } ,
+                      },
                       child: Text('Personal'),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.grey,
-                        shape:
-                        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(20)),
                       ),
                     ),
                   ],
@@ -919,7 +956,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                   child: DropdownButton<String>(
                     value: subject,
                     hint: Text(
-                        'Subject Name',
+                      'Subject Name',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -930,7 +967,10 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       fontSize: 18,
                     ),
                     itemHeight: 60,
-                    icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: Color(0x95ffffff),
+                    ),
                     iconSize: 35,
                     elevation: 16,
                     //style: TextStyle(fontSize: 16),
@@ -961,7 +1001,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                   child: DropdownButton<String>(
                     value: subtitle,
                     hint: Text(
-                        'Type',
+                      'Type',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -972,7 +1012,10 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       fontSize: 18,
                     ),
                     itemHeight: 60,
-                    icon: const Icon(Icons.arrow_drop_down, color: Color(0x95ffffff),),
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: Color(0x95ffffff),
+                    ),
                     iconSize: 35,
                     elevation: 16,
                     underline: Container(
@@ -1001,7 +1044,8 @@ class _TimeTableInputState extends State<TimeTableInput> {
             height: MediaQuery.of(context).size.height - 305,
             padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40), topRight: Radius.circular(40)),
               color: Colors.white,
             ),
             child: Column(
@@ -1010,7 +1054,9 @@ class _TimeTableInputState extends State<TimeTableInput> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 5,),
+                    padding: const EdgeInsets.only(
+                      bottom: 5,
+                    ),
                     child: Text(
                       'Day: ' + dayToString(selectedDay),
                       style: TextStyle(
@@ -1045,7 +1091,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         help = "From";
                         from = await _selectTime(context);
                         setState(() {});
@@ -1064,7 +1110,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         help = "To";
                         till = await _selectTime(context);
                         setState(() {});
@@ -1093,18 +1139,25 @@ class _TimeTableInputState extends State<TimeTableInput> {
                           color: Color(colorChoices[index]),
                         ),
                       );
-                    }
-                    ),
+                    }),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed:() {
+                  onPressed: () {
                     selectedDate =
                         firstDateOfWeek.add(Duration(days: (selectedDay - 1)));
-                    from_dt = new DateTime(selectedDate.year, selectedDate.month,
-                        selectedDate.day, from.hour, from.minute);
-                    till_dt = new DateTime(selectedDate.year, selectedDate.month,
-                        selectedDate.day, till.hour, till.minute);
+                    from_dt = new DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        from.hour,
+                        from.minute);
+                    till_dt = new DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        till.hour,
+                        till.minute);
                     setState(() {
                       var ttHelper = TimetableDatabase.instance;
 
@@ -1128,18 +1181,23 @@ class _TimeTableInputState extends State<TimeTableInput> {
                         if (timetableSubjectsList[i] == titleSubject) break;
                       }
                       ttHelper.addTimetable(timetable);
-                      meetings.add(Meeting(timetable.title, from_dt, till_dt,
-                          Color(selectedColor), false, 'FREQ=DAILY;INTERVAL=7'));
+                      meetings.add(Meeting(
+                          timetable.title,
+                          from_dt,
+                          till_dt,
+                          Color(selectedColor),
+                          false,
+                          'FREQ=DAILY;INTERVAL=7'));
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => TimeTable()));
                     });
-                  } ,
+                  },
                   child: Text('Save'),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff272727),
                     minimumSize: Size(MediaQuery.of(context).size.width, 45),
-                    shape:
-                    RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20)),
                   ),
                 ),
               ],
@@ -1194,33 +1252,25 @@ class _TimeTableInputState extends State<TimeTableInput> {
   }
 
   dayToString(int dayIndex) {
-    if(dayIndex == 1)
-      return "Monday";
-    if(dayIndex == 2)
-      return "Tuesday";
-    if(dayIndex == 3)
-      return "Wednesday";
-    if(dayIndex == 4)
-      return "Thursday";
-    if(dayIndex == 5)
-      return "Friday";
-    if(dayIndex == 6)
-      return "Saturday";
-    if(dayIndex == 7)
-      return "Sunday";
-    if(dayIndex == -1)
-      return "Select Day";
+    if (dayIndex == 1) return "Monday";
+    if (dayIndex == 2) return "Tuesday";
+    if (dayIndex == 3) return "Wednesday";
+    if (dayIndex == 4) return "Thursday";
+    if (dayIndex == 5) return "Friday";
+    if (dayIndex == 6) return "Saturday";
+    if (dayIndex == 7) return "Sunday";
+    if (dayIndex == -1) return "Select Day";
   }
 
   String formattedDate(DateTime date) {
-    if(date == null) {
+    if (date == null) {
       return 'Select Date';
     }
     return DateFormat("EEEE, d MMMM").format(date);
   }
 
   String formattedTime(TimeOfDay time) {
-    if(time == null) {
+    if (time == null) {
       return 'Select Start Time';
     }
     final localizations = MaterialLocalizations.of(context);
@@ -1228,7 +1278,7 @@ class _TimeTableInputState extends State<TimeTableInput> {
   }
 
   String formattedTimeEnd(TimeOfDay time) {
-    if(time == null) {
+    if (time == null) {
       return 'Select End Time';
     }
     final localizations = MaterialLocalizations.of(context);
@@ -1239,7 +1289,6 @@ class _TimeTableInputState extends State<TimeTableInput> {
     colorIconSize = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
   }
 }
-
 
 class MeetingDataSource extends CalendarDataSource {
   /// Creates a meeting data source, which used to set the appointment

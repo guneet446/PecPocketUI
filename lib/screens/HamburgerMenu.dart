@@ -7,6 +7,7 @@ import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/TimetableDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
+import 'package:fend/EntryPoint.dart';
 import 'package:fend/classes/Clubs.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/classes/user.dart';
@@ -21,8 +22,6 @@ import 'package:http/http.dart';
 import 'CustomFolder.dart';
 import 'HamburgerMenuOptions/AddClubs.dart';
 import 'HamburgerMenuOptions/AddSubjects.dart';
-import 'HamburgerMenuOptions/AvatarChoice.dart';
-
 import 'login_screen.dart';
 
 class Settings extends StatefulWidget {
@@ -147,7 +146,11 @@ class _SettingsState extends State<Settings> {
                                     );
                                     setState(() {
                                       print(response.body);
-                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EntryPoint()));
                                     });
                                   },
                                   child: Text(

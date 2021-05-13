@@ -251,8 +251,10 @@ class _UploadNotificationState extends State<UploadNotification> {
     print(databaseUsers[0].sid);
 
     //var response = await post(Uri.parse('${global.url}/noti/${databaseUsers[0].sid}'),
-    var response = await post(Uri.parse('${global.url}noti/19103098'),
-        headers: headers, body: json);
+    var response = await post(
+        Uri.parse('${global.url}noti/${databaseUsers[0].sid}'),
+        headers: headers,
+        body: json);
     setState(() {
       print(response.body);
     });

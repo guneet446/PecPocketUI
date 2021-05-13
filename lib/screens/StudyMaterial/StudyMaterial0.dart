@@ -1,23 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart' as dio;
 import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/classes/subjects.dart';
 import 'package:fend/models/student_json.dart';
-import 'package:fend/screens/HamburgerMenuOptions/AddSubjects.dart';
 import 'package:fend/screens/StudyMaterial/SubjectStudyMaterial.dart';
 import 'package:fend/screens/StudyMaterial/SubjectStudyMaterial1.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
-import 'package:alert_dialog/alert_dialog.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:path/path.dart';
-
 import '../HamburgerMenu.dart';
 import '../mainPage.dart';
 
@@ -77,12 +71,14 @@ class StudyMaterial0State extends State<StudyMaterial0>
               context, MaterialPageRoute(builder: (context) => MainPage()));
         },
       ),
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: Colors.white,
       bottomNavigationBar: bottomAppBar(),
       appBar: AppBar(
+        elevation: 0,
         title: Text(
-          'StudyMaterial',
+          'Study Material',
           style: TextStyle(color: Colors.teal),
         ),
         backgroundColor: Colors.white,
@@ -163,12 +159,14 @@ class StudyMaterial0State extends State<StudyMaterial0>
                           }
                           if (userData[0].auth == 0) {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SubjectStudyMaterial(
-                                          index: index,
-                                          subjectColor: backgroundColor,
-                                        )));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SubjectStudyMaterial(
+                                  index: index,
+                                  subjectColor: backgroundColor,
+                                ),
+                              ),
+                            );
                           } else {
                             Navigator.push(
                               context,

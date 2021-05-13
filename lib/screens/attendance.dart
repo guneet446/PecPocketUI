@@ -27,7 +27,7 @@ void setSubject(context) async {
   var allAttendances = await attendanceHelper.getAllAttendance();
   var latestAttendanceId = allAttendances.length - 1;
   SubjectAttendanceDetails subjectAttendanceDetails =
-  SubjectAttendanceDetails(subjectName, subtitle, selectedColor, 0, 0);
+      SubjectAttendanceDetails(subjectName, subtitle, selectedColor, 0, 0);
   subjects.add(subjectAttendanceDetails);
   print('HELLLLOOOO ${subjects[subjects.length - 1].percentage}');
 
@@ -43,7 +43,8 @@ void setSubject(context) async {
   attendanceHelper.addAttendance(attendances);
   subjectName = null;
   subtitle = null;
-  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Attendance()));
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Attendance()));
 }
 
 class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
@@ -60,7 +61,7 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if(subjects.isEmpty) {
+    if (subjects.isEmpty) {
       return Scaffold(
         key: key,
         floatingActionButton: FloatingActionButton(
@@ -97,7 +98,8 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => GetSubject()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => GetSubject()));
               },
             ),
           ],
@@ -110,11 +112,15 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
+                Container(
+                  alignment: Alignment.center,
+                  height: 200,
+                  child: Image.asset(
                     'assets/attendance_placeholder.png',
+                  ),
                 ),
                 Text(
-                    'Looks like you are not tracking your attendance yet. Click the + button to add a subject.',
+                  'Looks like you are not tracking your attendance yet. Click the + button to add a subject.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -139,7 +145,7 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
         ),
         onPressed: () async {
           Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MainPage()));
+              context, MaterialPageRoute(builder: (context) => MainPage()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -163,7 +169,8 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GetSubject()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GetSubject()));
             },
           ),
         ],
@@ -214,7 +221,6 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
     );
   }
 
-
   final myController = TextEditingController();
 
   handleOnPressed() async {
@@ -235,7 +241,22 @@ class GetSubject extends StatefulWidget {
 }
 
 class _GetSubjectState extends State<GetSubject> {
-  List<double> colorIconSize = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
+  List<double> colorIconSize = [
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24,
+    24
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +286,8 @@ class _GetSubjectState extends State<GetSubject> {
             height: MediaQuery.of(context).size.height - 330,
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40), topRight: Radius.circular(40)),
               color: Colors.white,
             ),
             child: Padding(
@@ -273,7 +295,6 @@ class _GetSubjectState extends State<GetSubject> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   DropdownButton<String>(
                     value: subjectName,
                     hint: Text('Subject Name'),
@@ -301,7 +322,6 @@ class _GetSubjectState extends State<GetSubject> {
                       );
                     }).toList(),
                   ),
-
                   DropdownButton<String>(
                     value: subtitle,
                     hint: Text('Type'),
@@ -327,7 +347,6 @@ class _GetSubjectState extends State<GetSubject> {
                       );
                     }).toList(),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: GridView.count(
@@ -348,21 +367,19 @@ class _GetSubjectState extends State<GetSubject> {
                             color: Color(colorChoices[index]),
                           ),
                         );
-                      }
-                      ),
+                      }),
                     ),
                   ),
-
                   ElevatedButton(
-                    onPressed:() {
+                    onPressed: () {
                       setSubject(context);
-                    } ,
+                    },
                     child: Text('Add Attendance'),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff272727),
                       minimumSize: Size(MediaQuery.of(context).size.width, 45),
-                      shape:
-                      RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(20)),
                     ),
                   )
                 ],
@@ -378,4 +395,3 @@ class _GetSubjectState extends State<GetSubject> {
     colorIconSize = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
   }
 }
-

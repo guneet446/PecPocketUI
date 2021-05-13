@@ -1,11 +1,26 @@
-class Club {
-  String clubCode;
-  String club;
+class ClubsList {
+  final List<ClubsUpload> clubs;
 
-  Club({this.clubCode, this.club});
+  ClubsList({this.clubs});
 
-  Club.fromJson(Map<String, dynamic> parsedJson) {
-    clubCode = parsedJson["Club_code"];
-    club = parsedJson["Club"];
+  factory ClubsList.fromJson(List<dynamic> parsedJson) {
+    List<ClubsUpload> codes = new List<ClubsUpload>();
+    var clubs = parsedJson.map((i) => ClubsUpload.fromJson(i)).toList();
+
+    return new ClubsList(clubs: clubs);
+  }
+}
+
+class ClubsUpload {
+  final String clubName;
+  final String clubCode;
+
+  ClubsUpload({this.clubName, this.clubCode});
+
+  factory ClubsUpload.fromJson(Map<String, dynamic> json) {
+    return new ClubsUpload(
+      clubName: json['Club'],
+      clubCode: json['Club_code'],
+    );
   }
 }

@@ -254,8 +254,14 @@ class _AddSubjectsState extends State<AddSubjects> {
           return Row(
             children: [
               GestureDetector(
-                onLongPress: () {
+                onLongPress: () async {
+                  var subjectsHelper = SubjectDatabase.instance;
+                  var databaseSubjects = await subjectsHelper.getAllSubjects();
                   setState(() {
+                    if (index >=
+                        selectedSubsList.length - databaseSubjects.length) {
+                      subjectsHelper.deleteSubject(selectedSubsList[index]);
+                    }
                     selectedSubsList.removeAt(index);
                     selectedCodesList.removeAt(index);
                   });
@@ -280,8 +286,8 @@ class _AddSubjectsState extends State<AddSubjects> {
                             child: Text(
                               selectedSubsList[index],
                               style: GoogleFonts.exo2(
-                                  color: Colors.white,
-                                  fontSize: 17,
+                                color: Colors.white,
+                                fontSize: 17,
                                 fontWeight: FontWeight.w500,
                               ),
                               textAlign: TextAlign.center,
@@ -290,13 +296,15 @@ class _AddSubjectsState extends State<AddSubjects> {
                               softWrap: false,
                             ),
                           ),
-                          Container(height: 10,),
+                          Container(
+                            height: 10,
+                          ),
                           Center(
                             child: Text(
                               selectedCodesList[index],
                               style: GoogleFonts.exo2(
-                                  color: Colors.white,
-                                  fontSize: 15,
+                                color: Colors.white,
+                                fontSize: 15,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -326,8 +334,8 @@ class _AddSubjectsState extends State<AddSubjects> {
           var databaseSubjects = await subjectHelper.getAllSubjects();
           int initialSubjectsLength = databaseSubjects.length;
           for (int i = 0;
-          i < selectedSubsList.length - initialSubjectsLength;
-          i++) {
+              i < selectedSubsList.length - initialSubjectsLength;
+              i++) {
             Subject subject = Subject(id: i, subject: selectedSubsList[i]);
             subjectHelper.addSubject(subject);
           }
@@ -341,8 +349,8 @@ class _AddSubjectsState extends State<AddSubjects> {
         style: ElevatedButton.styleFrom(
           primary: Color(0xff272727),
           minimumSize: Size(MediaQuery.of(context).size.width, 45),
-          shape:
-          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(20)),
         ),
       ),
     );

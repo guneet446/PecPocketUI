@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:fend/Databases/ClubsDB.dart';
+import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/classes/Clubs.dart';
+import 'package:fend/models/Club.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import 'package:flutter/material.dart';
@@ -211,10 +213,18 @@ class AddClubsState extends State<AddClubs> {
           return Row(
             children: [
               GestureDetector(
-                onLongPress: () {
-                  setState(() {
-                    selectedclubsList.removeAt(index);
-                  });
+                onLongPress: () async {
+                  var clubHelper = ClubDatabase.instance;
+                  var databaseClubs = await clubHelper.getAllClubs();
+                  setState(
+                    () {
+                      if (index >=
+                          selectedclubsList.length - databaseClubs.length) {
+                        clubHelper.deleteClub(selectedclubsList[index]);
+                      }
+                      selectedclubsList.removeAt(index);
+                    },
+                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -268,7 +278,32 @@ class AddClubsState extends State<AddClubs> {
                   clubCode: selectedclubCodesList[i]);
               clubHelper.addClub(club);
             }
+            String finalClubCodeList = '';
+            for (int i = 0; i < selectedclubsList.length; i++) {
+              var response = await get(
+                Uri.parse(
+                    '${global.url}club/search?query=${selectedclubsList[i]}'),
+              );
+
+              var uploadClubs = ClubsList.fromJson(
+                json.decode(response.body),
+              );
+              finalClubCodeList += uploadClubs.clubs[0].clubCode;
+            }
+            var userHelper = UserDatabase.instance;
+            var databaseUser = await userHelper.getAllUsers();
+            var sid = databaseUser[0].sid;
+
+            Map<String, String> headers = {"Content-type": "application/json"};
+            String jsonupload =
+                '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
+
+            Response response = await post(Uri.parse('${global.url}club'),
+                headers: headers, body: jsonupload);
+
             setState(() {
+              print(finalClubCodeList);
+              print(response.body);
               Navigator.pop(context);
             });
           },

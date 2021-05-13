@@ -35,6 +35,11 @@ class AddClubsState extends State<AddClubs> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
+          ),
           actions: [
             IconButton(
               icon: Icon(
@@ -73,51 +78,54 @@ class AddClubsState extends State<AddClubs> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Form(
               child: ListView(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(),
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(),
+                    ),
+                    hintText: 'Enter Club Name',
                   ),
-                  hintText: 'Enter Club Name',
+                  onChanged: (String value) {
+                    setState(() {
+                      searchForClub = value;
+                      club();
+                    });
+                  },
                 ),
-                onChanged: (String value) {
-                  setState(() {
-                    searchForClub = value;
-                    club();
-                  });
-                },
-              ),
-              //dropDownList(),
-              searchForClub == null || searchForClub.length == 0
-                  ? Container(
-                      height: 200,
-                      child: Image(
-                        image: AssetImage('assets/custom_reminders.png'),
-                      ),
-                    )
-                  : clubsList(context),
-              Container(
-                margin: EdgeInsets.only(top: 10.0),
-              ),
+                //dropDownList(),
+                searchForClub == null || searchForClub.length == 0
+                    ? Container(
+                        height: 280,
+                        child: Image(
+                          image: AssetImage('assets/custom_reminders.png'),
+                        ),
+                      )
+                    : clubsList(context),
+                Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                ),
 
-              Text(
-                'Your Clubs',
-                style: GoogleFonts.exo2(
-                  textStyle: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                Text(
+                  'Your Clubs',
+                  style: GoogleFonts.exo2(
+                    textStyle: TextStyle(
+                        fontSize: 24,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              selectedClubsList(context),
-              confirmClubsButton(),
-            ],
-          )),
+                SizedBox(height: 20,),
+                selectedClubsList(context),
+                SizedBox(height: 20,),
+                confirmClubsButton(),
+              ],
+          ),
+          ),
         ),
       ),
     );
@@ -205,7 +213,7 @@ class AddClubsState extends State<AddClubs> {
 
   selectedClubsList(context) {
     return Container(
-      height: 130,
+      height: 120,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -233,7 +241,7 @@ class AddClubsState extends State<AddClubs> {
                     ),
                     color: Color(colorChoices[index]),
                   ),
-                  width: 115,
+                  width: 120,
                   child: Column(
                     children: [
                       SizedBox(height: 50),
@@ -242,9 +250,12 @@ class AddClubsState extends State<AddClubs> {
                           selectedclubsList[index],
                           style: GoogleFonts.exo2(
                               color: Colors.white,
-                              fontSize: selectedclubsList[index].length > 30
-                                  ? 12
-                                  : 15),
+                              fontSize: 17,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
                         ),
                       ),
                       SizedBox(height: 20),
@@ -265,56 +276,59 @@ class AddClubsState extends State<AddClubs> {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-          onPressed: () async {
-            var clubHelper = ClubDatabase.instance;
-            List<Club> databaseClubs = await clubHelper.getAllClubs();
-            int initialClubLength = databaseClubs.length;
-            for (int i = 0;
-                i < selectedclubsList.length - initialClubLength;
-                i++) {
-              Club club = Club(
-                  id: 0,
-                  club: selectedclubsList[i],
-                  clubCode: selectedclubCodesList[i]);
-              clubHelper.addClub(club);
-            }
-            String finalClubCodeList = '';
-            for (int i = 0; i < selectedclubsList.length; i++) {
-              var response = await get(
-                Uri.parse(
-                    '${global.url}club/search?query=${selectedclubsList[i]}'),
-              );
+        onPressed: () async {
+          var clubHelper = ClubDatabase.instance;
+          List<Club> databaseClubs = await clubHelper.getAllClubs();
+          int initialClubLength = databaseClubs.length;
+          for (int i = 0;
+          i < selectedclubsList.length - initialClubLength;
+          i++) {
+            Club club = Club(
+                id: 0,
+                club: selectedclubsList[i],
+                clubCode: selectedclubCodesList[i]);
+            clubHelper.addClub(club);
+          }
+          String finalClubCodeList = '';
+          for (int i = 0; i < selectedclubsList.length; i++) {
+            var response = await get(
+              Uri.parse(
+                  '${global.url}club/search?query=${selectedclubsList[i]}'),
+            );
 
-              var uploadClubs = ClubsList.fromJson(
-                json.decode(response.body),
-              );
-              finalClubCodeList += uploadClubs.clubs[0].clubCode;
-            }
-            var userHelper = UserDatabase.instance;
-            var databaseUser = await userHelper.getAllUsers();
-            var sid = databaseUser[0].sid;
+            var uploadClubs = ClubsList.fromJson(
+              json.decode(response.body),
+            );
+            finalClubCodeList += uploadClubs.clubs[0].clubCode;
+          }
+          var userHelper = UserDatabase.instance;
+          var databaseUser = await userHelper.getAllUsers();
+          var sid = databaseUser[0].sid;
 
-            Map<String, String> headers = {"Content-type": "application/json"};
-            String jsonupload =
-                '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
+          Map<String, String> headers = {"Content-type": "application/json"};
+          String jsonupload =
+              '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
 
-            Response response = await post(Uri.parse('${global.url}club'),
-                headers: headers, body: jsonupload);
+          Response response = await post(Uri.parse('${global.url}club'),
+              headers: headers, body: jsonupload);
 
-            setState(() {
-              print(finalClubCodeList);
-              print(response.body);
-              Navigator.pop(context);
-            });
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                return Color(0xffE28F22); // Use the component's default.
-              },
-            ),
-          ),
-          child: Text('Confirm Clubs')),
+          setState(() {
+            print(finalClubCodeList);
+            print(response.body);
+            Navigator.pop(context);
+          });
+        },
+        child: Text('Confirm Subjects',
+            style: GoogleFonts.exo2(
+              fontWeight: FontWeight.bold,
+            )),
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xff272727),
+          minimumSize: Size(MediaQuery.of(context).size.width, 45),
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(20)),
+        ),
+      ),
     );
   }
 

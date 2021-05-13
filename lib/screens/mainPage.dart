@@ -122,13 +122,32 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   height: 16,
                 ),
                 customReminders.length == 0
-                    ? Container(
-                        padding: EdgeInsets.only(top: 150),
-                        child: Text(
-                          'Such Empty, Much Wow',
-                          style: GoogleFonts.exo2(fontSize: 20),
-                        ),
-                      )
+                    ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 50,
+                          ),
+                          Image.asset(
+                            'assets/attendance_placeholder.png',
+                            height: 250,
+                            width: 250,
+                          ),
+                          Text(
+                            'Looks like you have not added a reminder. Click the + button to add one.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                     : Expanded(
                         child: ListView.builder(
                             itemCount: customReminders.length > 3

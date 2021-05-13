@@ -34,51 +34,93 @@ class SignUpClubsState extends State<SignUpClubs> {
   Widget build(context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(
+                          'Long press the club name to delete',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'Ok',
+                              style: TextStyle(
+                                color: Color(0xff588297),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    });
+              },
+            ),
+          ],
+        ),
         resizeToAvoidBottomInset: false,
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Form(
               child: ListView(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: BorderSide(),
-                  ),
-                  hintText: 'Enter Club Name',
-                ),
-                onChanged: (String value) {
-                  setState(() {
-                    searchForClub = value;
-                    club();
-                  });
-                },
-              ),
-              //dropDownList(),
-              searchForClub == null || searchForClub.length == 0
-                  ? Container(
-                      height: 200,
-                      child: Image(
-                        image: AssetImage('assets/custom_reminders.png'),
+              children: [
+                Container(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(),
                       ),
-                    )
-                  : clubsList(context),
-              Container(
-                margin: EdgeInsets.only(top: 10.0),
-              ),
-
-              Text(
-                'Your Clubs',
-                style: GoogleFonts.exo2(
-                  textStyle: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                      hintText: 'Enter Club Name',
+                    ),
+                    onChanged: (String value) {
+                      setState(() {
+                        searchForClub = value;
+                        club();
+                      });
+                    },
+                  ),
                 ),
-              ),
-              selectedClubsList(context),
-              confirmClubsButton(),
+                SizedBox(height: 10),
+                //dropDownList(),
+                searchForClub == null || searchForClub.length == 0
+                    ? Container(
+                        height: 280,
+                        child: Image(
+                          image: AssetImage('assets/custom_reminders.png'),
+                        ),
+                      )
+                    : clubsList(context),
+                SizedBox(height: 20),
+                Text(
+                  'Your Clubs',
+                  style: GoogleFonts.exo2(
+                    textStyle: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(height: 20),
+                selectedClubsList(context),
+                SizedBox(height: 20),
+                confirmClubsButton(),
             ],
           )),
         ),
@@ -114,7 +156,7 @@ class SignUpClubsState extends State<SignUpClubs> {
 
   clubsList(context) {
     return Container(
-      height: 200,
+      height: MediaQuery.of(context).size.height - 410,
       color: Colors.white,
       child: new ListView.builder(
         scrollDirection: Axis.vertical,
@@ -167,7 +209,7 @@ class SignUpClubsState extends State<SignUpClubs> {
 
   selectedClubsList(context) {
     return Container(
-      height: 130,
+      height: 120,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -187,22 +229,22 @@ class SignUpClubsState extends State<SignUpClubs> {
                     ),
                     color: Color(colorChoices[index]),
                   ),
-                  width: 115,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 50),
-                      Center(
-                        child: Text(
-                          selectedclubsList[index],
-                          style: GoogleFonts.exo2(
-                              color: Colors.white,
-                              fontSize: selectedclubsList[index].length > 30
-                                  ? 12
-                                  : 15),
+                  width: 120,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 7, right: 7),
+                      child: Text(
+                        selectedclubsList[index],
+                        style: GoogleFonts.exo2(
+                          color: Colors.white,
+                          fontSize: 17,
                         ),
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
                       ),
-                      SizedBox(height: 20),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -219,32 +261,35 @@ class SignUpClubsState extends State<SignUpClubs> {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-          onPressed: () async {
-            var clubHelper = ClubDatabase.instance;
-            List<Club> databaseClubs = await clubHelper.getAllClubs();
-            int initialClubLength = databaseClubs.length;
-            for (int i = 0;
-                i < selectedclubsList.length - initialClubLength;
-                i++) {
-              Club club = Club(
-                  id: 0,
-                  club: selectedclubsList[i],
-                  clubCode: selectedclubCodesList[i]);
-              clubHelper.addClub(club);
-            }
-            setState(() {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => EntryPoint()));
-            });
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                return Color(0xffE28F22); // Use the component's default.
-              },
-            ),
-          ),
-          child: Text('Confirm Clubs')),
+        onPressed: () async {
+          var clubHelper = ClubDatabase.instance;
+          List<Club> databaseClubs = await clubHelper.getAllClubs();
+          int initialClubLength = databaseClubs.length;
+          for (int i = 0;
+          i < selectedclubsList.length - initialClubLength;
+          i++) {
+            Club club = Club(
+                id: 0,
+                club: selectedclubsList[i],
+                clubCode: selectedclubCodesList[i]);
+            clubHelper.addClub(club);
+          }
+          setState(() {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => EntryPoint()));
+          });
+        },
+        child: Text('Confirm Clubs',
+            style: GoogleFonts.exo2(
+              fontWeight: FontWeight.bold,
+            )),
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xff272727),
+          minimumSize: Size(MediaQuery.of(context).size.width, 45),
+          shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(20)),
+        ),
+      ),
     );
   }
 

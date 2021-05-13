@@ -113,11 +113,12 @@ class _AttendanceState extends State<Attendance> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  alignment: Alignment.center,
-                  height: 200,
-                  child: Image.asset(
-                    'assets/attendance_placeholder.png',
-                  ),
+                  height: 50,
+                ),
+                Image.asset(
+                  'assets/attendance_placeholder.png',
+                  height: 250,
+                  width: 250,
                 ),
                 Text(
                   'Looks like you are not tracking your attendance yet. Click the + button to add a subject.',

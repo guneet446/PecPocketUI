@@ -39,11 +39,6 @@ class SignUpSubjectsState extends State<SignUpSubjects> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            color: Colors.black,
-            onPressed: () => Navigator.pop(context),
-          ),
           actions: [
             IconButton(
               icon: Icon(
@@ -114,10 +109,7 @@ class SignUpSubjectsState extends State<SignUpSubjects> {
                         ),
                       )
                     : subjectsList(context),
-                Container(
-                  height: 20,
-                ),
-
+                SizedBox(height: 20),
                 Text(
                   'Your Subjects',
                   style: GoogleFonts.exo2(

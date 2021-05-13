@@ -142,11 +142,11 @@ class _TimeTableState extends State<TimeTable> with TickerProviderStateMixin {
             CalendarView.week,
             CalendarView.day,
           ],
-          timeSlotViewSettings: TimeSlotViewSettings(
+          /*timeSlotViewSettings: TimeSlotViewSettings(
             startHour: 7,
             endHour: 20,
-            //timeIntervalHeight: 45,
-          ),
+            timeIntervalHeight: 45,
+          ),*/
         ),
       ),
       drawer: Settings(),

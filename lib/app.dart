@@ -7,6 +7,7 @@ import 'package:fend/screens/TimeTable.dart';
 import 'package:fend/screens/attendance.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/screens/signUp/SignUpAvatarChoice.dart';
+import 'package:fend/screens/signUp/SignUpClubs.dart';
 import 'package:fend/screens/signUp/SignUpSubjects.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
                 .textTheme,
           )),
       home: Scaffold(
-        body: EntryPoint(),
+        body: AddClubs(),
       ),
     );
   }

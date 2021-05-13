@@ -327,7 +327,7 @@ class AddClubsState extends State<AddClubs> {
                 context, MaterialPageRoute(builder: (context) => MainPage()));
           });
         },
-        child: Text('Confirm Subjects',
+        child: Text('Confirm Clubs',
             style: GoogleFonts.exo2(
               fontWeight: FontWeight.bold,
             )),

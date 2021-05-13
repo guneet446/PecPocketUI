@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:fend/Databases/AttendanceDB.dart';
 import 'package:fend/Databases/AvatarDB.dart';
@@ -22,6 +23,7 @@ import 'CustomFolder.dart';
 import 'HamburgerMenuOptions/AddClubs.dart';
 import 'HamburgerMenuOptions/AddSubjects.dart';
 import 'login_screen.dart';
+import 'mainPage.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -36,6 +38,11 @@ class _SettingsState extends State<Settings> {
   String instagramHandle;
   String newPassword = '';
   String pwdError;
+  bool igUpdated = false;
+  bool pwdUpdated = false;
+  bool logoutDone = false;
+  bool deleteDone = false;
+
   @override
   void initState() {
     super.initState();
@@ -109,64 +116,71 @@ class _SettingsState extends State<Settings> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Enter Instagram Handle',
-                              style: TextStyle(
-                                color: Color(0xff272727),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextField(
-                                  onChanged: (String value) {
-                                    instagramHandle = value;
-                                  },
-                                ),
-                                TextButton(
-                                  onPressed: () async {
-                                    var userHelper = UserDatabase.instance;
-                                    var userData =
-                                        await userHelper.getAllUsers();
-                                    var jsonMap = {
-                                      'SID': userData[0].sid.toString(),
-                                      'Insta': instagramHandle,
-                                    };
-                                    String jsonStr = jsonEncode(jsonMap);
-                                    var response = await http.put(
-                                      Uri.parse(
-                                          '${global.url}insta/${userData[0].sid}'),
-                                      body: jsonStr,
-                                      headers: {
-                                        "Content-Type": "application/json"
-                                      },
-                                    );
-                                    setState(() {
-                                      print(response.body);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(content: Text('Instagram Handle Updated')));
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EntryPoint()));
-                                    });
-                                  },
-                                  child: Text(
-                                    'Confirm',
+                          return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Text(
+                                    igUpdated?
+                                    'Instagram Handle Updated!':
+                                      'Enter Instagram Handle',
                                     style: TextStyle(
-                                      color: Color(0xff0B7A75),
-                                      fontSize: 16,
+                                      color: Color(
+                                        igUpdated?
+                                        0xff0B7A75:
+                                          0xff272727,
+                                      ),
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 18,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TextField(
+                                        onChanged: (String value) {
+                                          instagramHandle = value;
+                                        },
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          var userHelper = UserDatabase.instance;
+                                          var userData =
+                                          await userHelper.getAllUsers();
+                                          var jsonMap = {
+                                            'SID': userData[0].sid.toString(),
+                                            'Insta': instagramHandle,
+                                          };
+                                          String jsonStr = jsonEncode(jsonMap);
+                                          var response = await http.put(
+                                            Uri.parse(
+                                                '${global.url}insta/${userData[0].sid}'),
+                                            body: jsonStr,
+                                            headers: {
+                                              "Content-Type": "application/json"
+                                            },
+                                          );
+                                          setState(() {
+                                            igUpdated = true;
+                                            print(response.body);
+                                            Timer(Duration(seconds: 3), () {
+                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EntryPoint()));
+                                            });
+                                          });
+                                        },
+                                        child: Text(
+                                          'Confirm',
+                                          style: TextStyle(
+                                            color: Color(0xff0B7A75),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              );
                         });
                   },
                 )
@@ -225,73 +239,85 @@ class _SettingsState extends State<Settings> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Change Password',
-                              style: TextStyle(
-                                color: Color(0xff272727),
-                              ),
-                            ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Current Password',
-                                    errorText: pwdError,
-                                  ),
-                                  obscureText: true,
-                                  onChanged: (String value) {
-                                    pwdError = null;
-                                    confirmPassword = value;
-                                  },
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'New Password',
-                                  ),
-                                  obscureText: true,
-                                  onChanged: (String value) {
-                                    newPassword = value;
-                                  },
-                                ),
-                                TextButton(
-                                    onPressed: () async {
-                                      var userHelper = UserDatabase.instance;
-                                      var userData =
-                                          await userHelper.getAllUsers();
-                                      setState(() {
-                                        if (userData[0].password ==
-                                            confirmPassword) {
-                                          userHelper.deleteTable();
-                                          User user = new User(
-                                              id: 0,
-                                              sid: userData[0].sid,
-                                              password: newPassword,
-                                              auth: userData[0].auth,
-                                              login: 1);
-                                          userHelper.addUser(user);
-                                          final snackBar = SnackBar(
-                                            content: Text('Password Changed'),
-                                          );
-                                          Navigator.pop(context);
-                                        }
-                                        else{
-                                          pwdError = "Does not match records";
-                                        }
-                                      });
-                                    },
-                                    child: Text(
-                                      'Submit',
-                                      style: TextStyle(
-                                        color: Color(0xff0B7A75),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                          return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Text(
+                                    pwdUpdated?
+                                    'Password Changed!':
+                                    'Change Password',
+                                    style: TextStyle(
+                                      color: Color(
+                                        pwdUpdated?
+                                      0xff0B7A75:
+                                      0xff272727,
                                       ),
-                                    ))
-                              ],
-                            ),
-                          );
+                                    ),
+                                  ),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          hintText: 'Current Password',
+                                          errorText: pwdError,
+                                        ),
+                                        obscureText: true,
+                                        onChanged: (String value) {
+                                          pwdError = null;
+                                          confirmPassword = value;
+                                        },
+                                      ),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          hintText: 'New Password',
+                                        ),
+                                        obscureText: true,
+                                        onChanged: (String value) {
+                                          newPassword = value;
+                                        },
+                                      ),
+                                      TextButton(
+                                          onPressed: () async {
+                                            var userHelper = UserDatabase
+                                                .instance;
+                                            var userData =
+                                            await userHelper.getAllUsers();
+                                            setState(() {
+                                              if (userData[0].password ==
+                                                  confirmPassword) {
+                                                userHelper.deleteTable();
+                                                User user = new User(
+                                                    id: 0,
+                                                    sid: userData[0].sid,
+                                                    password: newPassword,
+                                                    auth: userData[0].auth,
+                                                    login: 1);
+                                                userHelper.addUser(user);
+                                                pwdUpdated = true;
+                                                Timer(Duration(seconds: 3), () {
+                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EntryPoint()));
+                                                });
+                                                //Navigator.pop(context);
+                                              }
+                                              else {
+                                                pwdError =
+                                                "Does not match records";
+                                              }
+                                            });
+                                          },
+                                          child: Text(
+                                            'Submit',
+                                            style: TextStyle(
+                                              color: Color(0xff0B7A75),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                );
+                              });
                         });
                   },
                   child: Text(
@@ -317,61 +343,73 @@ class _SettingsState extends State<Settings> {
                   onTap: () async {
                     return showDialog(
                         context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Do you want to Logout?',
-                              style: TextStyle(
-                                color: Color(0xff235790),
+                        builder: (context)
+                    {
+                      return StatefulBuilder(
+                          builder: (context, setState) {
+                            return AlertDialog(
+                              title: Text(
+                                logoutDone ?
+                                'Logging Out' :
+                                'Do you want to Logout?',
+                                style: TextStyle(
+                                  color: Color(
+                                    logoutDone ?
+                                    0xff0B7A75 :
+                                    0xff272727,
+                                  ),
+                                ),
                               ),
-                            ),
-                            content: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'No',
-                                    style: TextStyle(
-                                      color: Color(0xffE28F22),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                              content: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      'No',
+                                      style: TextStyle(
+                                        color: Color(0xff0B7A75),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                TextButton(
-                                  onPressed: () async {
-                                    var userHelper = UserDatabase.instance;
-                                    var userData =
-                                        await userHelper.getAllUsers();
-                                    setState(() {
-                                      User user = new User(
-                                          id: 0,
-                                          sid: userData[0].sid,
-                                          password: userData[0].password,
-                                          auth: userData[0].auth,
-                                          login: 0);
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Login()));
-                                    });
-                                  },
-                                  child: Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                      color: Color(0xffE28F22),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                  TextButton(
+                                    onPressed: () async {
+                                      var userHelper = UserDatabase.instance;
+                                      var userData =
+                                      await userHelper.getAllUsers();
+                                      setState(() {
+                                        User user = new User(
+                                            id: 0,
+                                            sid: userData[0].sid,
+                                            password: userData[0].password,
+                                            auth: userData[0].auth,
+                                            login: 0);
+                                        logoutDone = true;
+                                        Timer(Duration(seconds: 3), () {
+                                          Navigator.pushReplacement(context,
+                                              MaterialPageRoute(
+                                                  builder: (_) => Login()));
+                                        });
+                                      });
+                                    },
+                                    child: Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                        color: Color(0xff0B7A75),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        });
+                                ],
+                              ),
+                            );
+                          });
+                    });
                   },
                   child: Text(
                     'Log Out',
@@ -397,95 +435,109 @@ class _SettingsState extends State<Settings> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Delete Account?',
-                              style: TextStyle(
-                                color: Color(0xff235790),
-                              ),
-                            ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextField(
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter password',
+                          return StatefulBuilder(
+                              builder: (context, setState)
+                          {
+                            return AlertDialog(
+                              title: Text(
+                                deleteDone ?
+                                'Deleting account' :
+                                'Delete Account?',
+                                style: TextStyle(
+                                  color: Color(
+                                    deleteDone ?
+                                    0xff0B7A75 :
+                                    0xff272727,
                                   ),
-                                  onChanged: (String value) {
-                                    confirmPassword = value;
-                                  },
                                 ),
-                                TextButton(
-                                  onPressed: () async {
-                                    var avatarHelper = AvatarDatabase.instance;
-                                    var userHelper = UserDatabase.instance;
-                                    var databaseUser =
-                                        await userHelper.getAllUsers();
-                                    var attendanceHelper =
-                                        AttendanceDatabase.instance;
-                                    var clubHelper = ClubDatabase.instance;
-                                    var reminderHelper =
-                                        ReminderDatabase.instance;
-                                    var subjectHelper =
-                                        SubjectDatabase.instance;
-                                    var timetableHelper =
-                                        TimetableDatabase.instance;
-                                    var userData =
-                                        await userHelper.getAllUsers();
-                                    var attendanceData = await attendanceHelper
-                                        .getAllAttendance();
-                                    var clubData =
-                                        await clubHelper.getAllClubs();
-                                    var reminderData =
-                                        await reminderHelper.getAllReminders();
-                                    var subjectData =
-                                        subjectHelper.getAllSubjects();
+                              ),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextField(
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      hintText: 'Enter password',
+                                    ),
+                                    onChanged: (String value) {
+                                      confirmPassword = value;
+                                    },
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      var avatarHelper = AvatarDatabase
+                                          .instance;
+                                      var userHelper = UserDatabase.instance;
+                                      var databaseUser =
+                                      await userHelper.getAllUsers();
+                                      var attendanceHelper =
+                                          AttendanceDatabase.instance;
+                                      var clubHelper = ClubDatabase.instance;
+                                      var reminderHelper =
+                                          ReminderDatabase.instance;
+                                      var subjectHelper =
+                                          SubjectDatabase.instance;
+                                      var timetableHelper =
+                                          TimetableDatabase.instance;
+                                      var userData =
+                                      await userHelper.getAllUsers();
+                                      var attendanceData = await attendanceHelper
+                                          .getAllAttendance();
+                                      var clubData =
+                                      await clubHelper.getAllClubs();
+                                      var reminderData =
+                                      await reminderHelper.getAllReminders();
+                                      var subjectData =
+                                      subjectHelper.getAllSubjects();
 
-                                    if (confirmPassword ==
-                                        databaseUser[0].password) {
-                                      final http.Response response =
-                                          await http.delete(
-                                        Uri.parse(
-                                            '${global.url}/delete/${userData[0].sid}'),
-                                        headers: <String, String>{
-                                          'Content-Type':
-                                              'application/json; charset=UTF-8',
-                                        },
-                                      );
-                                      avatarHelper.deleteTable();
-                                      attendanceHelper.deleteTable();
-                                      clubHelper.deleteTable();
-                                      reminderHelper.deleteTable();
-                                      subjectHelper.deleteTable();
-                                      timetableHelper.deleteTable();
-                                      userHelper.deleteTable();
+                                      if (confirmPassword ==
+                                          databaseUser[0].password) {
+                                        final http.Response response =
+                                        await http.delete(
+                                          Uri.parse(
+                                              '${global
+                                                  .url}/delete/${userData[0]
+                                                  .sid}'),
+                                          headers: <String, String>{
+                                            'Content-Type':
+                                            'application/json; charset=UTF-8',
+                                          },
+                                        );
+                                        avatarHelper.deleteTable();
+                                        attendanceHelper.deleteTable();
+                                        clubHelper.deleteTable();
+                                        reminderHelper.deleteTable();
+                                        subjectHelper.deleteTable();
+                                        timetableHelper.deleteTable();
+                                        userHelper.deleteTable();
 
-                                      setState(() {
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SignUp()));
-                                      });
-                                    } else {
-                                      setState(() {
-                                        Navigator.pop(context);
-                                      });
-                                    }
-                                  },
-                                  child: Text(
-                                    'Confirm Password',
-                                    style: TextStyle(
-                                      color: Color(0xffE28F22),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                        setState(() {
+                                          deleteDone = true;
+                                          Timer(Duration(seconds: 3), () {
+                                            Navigator.pushReplacement(context,
+                                                MaterialPageRoute(
+                                                    builder: (_) => SignUp()));
+                                          });
+                                        });
+                                      } else {
+                                        setState(() {
+                                          Navigator.pop(context);
+                                        });
+                                      }
+                                    },
+                                    child: Text(
+                                      'Confirm Password',
+                                      style: TextStyle(
+                                        color: Color(0xff0B7A75),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
+                                ],
+                              ),
+                            );
+                          });
                         });
                   },
                   child: Text(

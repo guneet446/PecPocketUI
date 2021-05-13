@@ -41,6 +41,7 @@ List<String> mainPageReminderEndTimes = ['', '', ''];
 List<String> mainPageReminderDescriptions = ['', '', ''];
 
 class MainPageState extends State<MainPage> with TickerProviderStateMixin {
+  var key = GlobalKey<ScaffoldState>();
   AnimationController animationController;
   bool isPlaying = false;
   @override
@@ -55,7 +56,6 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     );
   }
 
-  var key = GlobalKey<ScaffoldState>();
   String deletePassword;
   List notifications = [
     'Enter a new notification?',
@@ -589,72 +589,76 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                               builder: (context) =>
                                                   EntryPoint()));
                                     },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff272727),
-                                          borderRadius: BorderRadius.all(Radius.circular(20))
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              'Title',
-                                              style: TextStyle(
-                                                color: Color(0xff0B7A75),
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                            Text(
-                                              notificationsList[index].title,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Description',
-                                              style: TextStyle(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff272727),
+                                            borderRadius: BorderRadius.all(Radius.circular(20))
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                'Title',
+                                                style: TextStyle(
                                                   color: Color(0xff0B7A75),
                                                   fontSize: 16,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                                notificationsList[index].description,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Date',
-                                              style: TextStyle(
-                                                  color: Color(0xff0B7A75),
+                                              Text(
+                                                notificationsList[index].title,
+                                                style: TextStyle(
+                                                  color: Colors.white,
                                                   fontSize: 16,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                                notificationsList[index].date,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
+                                              Text(
+                                                'Description',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              'Time',
-                                              style: TextStyle(
-                                                  color: Color(0xff0B7A75),
+                                              Text(
+                                                  notificationsList[index].description,
+                                                style: TextStyle(
+                                                  color: Colors.white,
                                                   fontSize: 16,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                                notificationsList[index].time,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
+                                              Text(
+                                                'Date',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                              Text(
+                                                  notificationsList[index].date,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              Text(
+                                                'Time',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                ),
+                                              ),
+                                              Text(
+                                                  notificationsList[index].time,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              Container(height: 10),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -810,77 +814,80 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                               builder: (context) =>
                                                   EntryPoint()));
                                     },
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Color(0xff272727),
-                                            borderRadius: BorderRadius.all(Radius.circular(20))
-                                        ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Title',
-                                              style: TextStyle(
-                                                  color: Color(0xff0B7A75),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Color(0xff272727),
+                                              borderRadius: BorderRadius.all(Radius.circular(20))
+                                          ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Title',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                notificationsList[index].title,
+                                                style: TextStyle(
                                                   fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              notificationsList[index].title,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white,
+                                              Text(
+                                                'Description',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              'Description',
-                                              style: TextStyle(
-                                                  color: Color(0xff0B7A75),
+                                              Text(
+                                                notificationsList[index].description,
+                                                style: TextStyle(
                                                   fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              notificationsList[index].description,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white,
+                                              Text(
+                                                'Date',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              'Date',
-                                              style: TextStyle(
-                                                  color: Color(0xff0B7A75),
+                                              Text(
+                                                notificationsList[index].date,
+                                                style: TextStyle(
                                                   fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              notificationsList[index].date,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white,
+                                              Text(
+                                                'Time',
+                                                style: TextStyle(
+                                                    color: Color(0xff0B7A75),
+                                                    fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              'Time',
-                                              style: TextStyle(
-                                                  color: Color(0xff0B7A75),
+                                              Text(
+                                                notificationsList[index].time,
+                                                style: TextStyle(
                                                   fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              notificationsList[index].time,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

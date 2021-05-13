@@ -15,8 +15,8 @@ class _LoginState extends State<Login> {
   int sidFlag = 0;
   String sid;
   String password;
-  String sidError = "";
-  String passwordError = "";
+  String sidError;
+  String passwordError;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -72,6 +72,7 @@ class _LoginState extends State<Login> {
       ),
       onChanged: (String value) {
         setState(() {
+          sidError = null;
           sid = value;
         });
       },
@@ -90,6 +91,7 @@ class _LoginState extends State<Login> {
       ),
       onChanged: (String value) {
         setState(() {
+          passwordError = null;
           password = value;
         });
       },

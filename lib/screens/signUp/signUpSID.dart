@@ -27,9 +27,9 @@ class _SignUpState extends State<SignUp> {
   String response;
   String password;
   String confirmPassword;
-  String sidError = '';
-  String otpError = '';
-  String passwordError = '';
+  String sidError;
+  String otpError;
+  String passwordError;
   bool sidCheck = false;
   bool otpCheck = false;
   final formKey = GlobalKey<FormState>();
@@ -60,6 +60,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     sidField(),
                     otpField(),
+                    resendOtp(),
                     passwordField(),
                     confirmPasswordField(),
                     toRegister(),
@@ -148,23 +149,20 @@ class _SignUpState extends State<SignUp> {
   resendOtp() {
     return Align(
       alignment: Alignment.centerRight,
-      child: RichText(
-        text: new TextSpan(
+      child: Container(
+        height: 35,
+        child: TextButton(
+          child: Text(
+            'Resend OTP',
             style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
+              color: Color(0xff272727),
+              decoration: TextDecoration.underline,
             ),
-            children: [
-              new TextSpan(
-                  text: 'Resend OTP',
-                  style: TextStyle(
-                    color: Color(0xff272727),
-                    decoration: TextDecoration.underline,
-                  ),
-                  recognizer: new TapGestureRecognizer()
-                    ..onTap = validateSID()
-              )
-            ]),
+          ),
+          onPressed: () {
+            validateSID();
+          }
+        ),
       ),
     );
   }
@@ -202,6 +200,7 @@ class _SignUpState extends State<SignUp> {
       onChanged: (String value) {
         setState(() {
           confirmPassword = value;
+          checkPasswordMatch();
         });
       },
     );
@@ -261,7 +260,7 @@ class _SignUpState extends State<SignUp> {
 
       var envelope = new Envelope()
         ..from = 'pecpocket@gmail.com'
-        ..recipients.add('theofficial.kauts@gmail.com')
+        ..recipients.add('guneet446@gmail.com')
         ..subject = 'Welcome to PecPocket'
         ..html = '<h3>$otp<h3>\n<p></p>';
 
@@ -274,6 +273,7 @@ class _SignUpState extends State<SignUp> {
         global.sid = sid;
         print(body);
         sidCheck = true;
+        sidError = null;
       });
     } else if (body[14] == '2') {
       setState(() {
@@ -291,9 +291,25 @@ class _SignUpState extends State<SignUp> {
     if (response == otp.toString()) {
       setState(() {
         otpCheck = true;
+        otpError = null;
       });
     } else {
-      otpError = 'OTP does not match the one sent on your PEC Email';
+      setState(() {
+        otpError = 'OTP does not match the one sent on your PEC Email';
+      });
+    }
+  }
+
+  checkPasswordMatch() {
+    if (password == confirmPassword) {
+      setState(() {
+        passwordError = null;
+      });
+    }
+    else {
+      setState(() {
+        passwordError = "Passwords don't match";
+      });
     }
   }
 

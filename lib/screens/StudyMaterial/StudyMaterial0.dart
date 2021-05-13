@@ -77,10 +77,6 @@ class StudyMaterial0State extends State<StudyMaterial0>
       bottomNavigationBar: bottomAppBar(),
       appBar: AppBar(
         elevation: 0,
-        title: Text(
-          'Study Material',
-          style: TextStyle(color: Colors.teal),
-        ),
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: AnimatedIcon(
@@ -93,6 +89,25 @@ class StudyMaterial0State extends State<StudyMaterial0>
       ),
       body: ListView(
         children: [
+          Container(
+            //height: 40,
+            padding: EdgeInsets.fromLTRB(25, 10, 25, 15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Study Material',
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Container(
             padding: EdgeInsets.all(12.0),
             child: GridView.builder(

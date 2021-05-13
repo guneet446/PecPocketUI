@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:fend/Databases/AttendanceDB.dart';
 import 'package:fend/Databases/AvatarDB.dart';
 import 'package:fend/Databases/ClubsDB.dart';
@@ -36,6 +35,7 @@ class _SettingsState extends State<Settings> {
   String subjectsOption = 'Add Subjects';
   String instagramHandle;
   String newPassword = '';
+  String pwdError;
   @override
   void initState() {
     super.initState();
@@ -113,7 +113,7 @@ class _SettingsState extends State<Settings> {
                             title: Text(
                               'Enter Instagram Handle',
                               style: TextStyle(
-                                color: Color(0xff235790),
+                                color: Color(0xff272727),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -146,6 +146,8 @@ class _SettingsState extends State<Settings> {
                                     );
                                     setState(() {
                                       print(response.body);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(content: Text('Instagram Handle Updated')));
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -156,7 +158,7 @@ class _SettingsState extends State<Settings> {
                                   child: Text(
                                     'Confirm',
                                     style: TextStyle(
-                                      color: Color(0xffE28F22),
+                                      color: Color(0xff0B7A75),
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -225,21 +227,29 @@ class _SettingsState extends State<Settings> {
                         builder: (context) {
                           return AlertDialog(
                             title: Text(
-                              'Enter Current Password followed by the new password',
+                              'Change Password',
                               style: TextStyle(
-                                color: Color(0xff235790),
+                                color: Color(0xff272727),
                               ),
                             ),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Current Password',
+                                    errorText: pwdError,
+                                  ),
                                   obscureText: true,
                                   onChanged: (String value) {
+                                    pwdError = null;
                                     confirmPassword = value;
                                   },
                                 ),
                                 TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'New Password',
+                                  ),
                                   obscureText: true,
                                   onChanged: (String value) {
                                     newPassword = value;
@@ -261,14 +271,20 @@ class _SettingsState extends State<Settings> {
                                               auth: userData[0].auth,
                                               login: 1);
                                           userHelper.addUser(user);
+                                          final snackBar = SnackBar(
+                                            content: Text('Password Changed'),
+                                          );
                                           Navigator.pop(context);
+                                        }
+                                        else{
+                                          pwdError = "Does not match records";
                                         }
                                       });
                                     },
                                     child: Text(
                                       'Submit',
                                       style: TextStyle(
-                                        color: Color(0xffE28F22),
+                                        color: Color(0xff0B7A75),
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                       ),

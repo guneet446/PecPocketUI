@@ -70,7 +70,7 @@ class _EntryPointState extends State<EntryPoint> {
           databaseReminder[i].minute);
       customReminders.add(CustomReminderDetails(
           0,
-          'title', //add title here
+          databaseReminder[i].title, //add title here
           databaseReminder[i].description,
           dateTime,
           databaseReminder[i].getNotified));
@@ -101,12 +101,14 @@ class _EntryPointState extends State<EntryPoint> {
           databaseReminder[i].hour,
           databaseReminder[i].minute);
 
-      customReminders.add(CustomReminderDetails(
-          0,
-          'title', //add title here
-          databaseReminder[i].description,
-          dateTime,
-          databaseReminder[i].getNotified));
+      customReminders.add(
+        CustomReminderDetails(
+            0,
+            databaseReminder[i].title, //add title here
+            databaseReminder[i].description,
+            dateTime,
+            databaseReminder[i].getNotified),
+      );
 
       mainPageReminders.add('${databaseReminder[i].title}');
       mainPageReminderDescriptions.add(databaseReminder[i].description);

@@ -157,7 +157,7 @@ class StudyMaterial0State extends State<StudyMaterial0>
                           if (uploadsList.length != 0) {
                             uploadsList.clear();
                           }
-                          if (userData[0].auth == 0) {
+                          if (userData[0].auth == 0 || userData[0].auth == 2) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(

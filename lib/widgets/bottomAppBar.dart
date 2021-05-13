@@ -185,6 +185,7 @@ class bottomAppBarState extends State<bottomAppBar> {
     var databaseSubjects = await subjectHelper.getAllSubjects();
     setState(() {
       meetings.clear();
+      timetableSubjectsList.clear();
       for (int i = 0; i < databaseTimetables.length; i++) {
         DateTime from_dt = DateTime(
             databaseTimetables[i].startYear,
@@ -205,6 +206,11 @@ class bottomAppBarState extends State<bottomAppBar> {
             Color(colorChoices[i]),
             false,
             'FREQ=DAILY;INTERVAL=${databaseTimetables[i].interval}'));
+      }
+      timetableSubjectsList.clear();
+
+      for (int i = 0; i < databaseSubjects.length; i++) {
+        timetableSubjectsList.add(databaseSubjects[i].subject);
       }
     });
     if (timetableSubjectsList.length == 1) {

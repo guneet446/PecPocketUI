@@ -17,12 +17,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
           textTheme: GoogleFonts.exo2TextTheme(
-            Theme
-                .of(context)
-                .textTheme,
-          )),
+        Theme.of(context).textTheme,
+      )),
       home: Scaffold(
-        body: MainPage(),
+        body: EntryPoint(),
       ),
     );
   }

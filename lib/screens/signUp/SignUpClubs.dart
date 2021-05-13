@@ -5,6 +5,7 @@ import 'package:fend/Databases/ClubsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/EntryPoint.dart';
 import 'package:fend/classes/Clubs.dart';
+import 'package:fend/models/Club.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
 import 'package:fend/screens/mainPage.dart';
@@ -79,48 +80,48 @@ class SignUpClubsState extends State<SignUpClubs> {
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Form(
               child: ListView(
-              children: [
-                Container(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(),
-                      ),
-                      hintText: 'Enter Club Name',
+            children: [
+              Container(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(),
                     ),
-                    onChanged: (String value) {
-                      setState(() {
-                        searchForClub = value;
-                        club();
-                      });
-                    },
+                    hintText: 'Enter Club Name',
                   ),
+                  onChanged: (String value) {
+                    setState(() {
+                      searchForClub = value;
+                      club();
+                    });
+                  },
                 ),
-                SizedBox(height: 10),
-                //dropDownList(),
-                searchForClub == null || searchForClub.length == 0
-                    ? Container(
-                        height: 280,
-                        child: Image(
-                          image: AssetImage('assets/custom_reminders.png'),
-                        ),
-                      )
-                    : clubsList(context),
-                SizedBox(height: 20),
-                Text(
-                  'Your Clubs',
-                  style: GoogleFonts.exo2(
-                    textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
-                  ),
+              ),
+              SizedBox(height: 10),
+              //dropDownList(),
+              searchForClub == null || searchForClub.length == 0
+                  ? Container(
+                      height: 280,
+                      child: Image(
+                        image: AssetImage('assets/custom_reminders.png'),
+                      ),
+                    )
+                  : clubsList(context),
+              SizedBox(height: 20),
+              Text(
+                'Your Clubs',
+                style: GoogleFonts.exo2(
+                  textStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
                 ),
-                SizedBox(height: 20),
-                selectedClubsList(context),
-                SizedBox(height: 20),
-                confirmClubsButton(),
+              ),
+              SizedBox(height: 20),
+              selectedClubsList(context),
+              SizedBox(height: 20),
+              confirmClubsButton(),
             ],
           )),
         ),
@@ -266,17 +267,40 @@ class SignUpClubsState extends State<SignUpClubs> {
           List<Club> databaseClubs = await clubHelper.getAllClubs();
           int initialClubLength = databaseClubs.length;
           for (int i = 0;
-          i < selectedclubsList.length - initialClubLength;
-          i++) {
+              i < selectedclubsList.length - initialClubLength;
+              i++) {
             Club club = Club(
                 id: 0,
                 club: selectedclubsList[i],
                 clubCode: selectedclubCodesList[i]);
             clubHelper.addClub(club);
           }
+
+          String finalClubCodeList = '';
+          for (int i = 0; i < selectedclubsList.length; i++) {
+            var response = await get(
+              Uri.parse(
+                  '${global.url}club/search?query=${selectedclubsList[i]}'),
+            );
+
+            var uploadClubs = ClubsList.fromJson(
+              json.decode(response.body),
+            );
+            finalClubCodeList += uploadClubs.clubs[0].clubCode;
+          }
+          var userHelper = UserDatabase.instance;
+          var databaseUser = await userHelper.getAllUsers();
+          var sid = databaseUser[0].sid;
+
+          Map<String, String> headers = {"Content-type": "application/json"};
+          String jsonupload =
+              '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
+
+          Response response = await post(Uri.parse('${global.url}club'),
+              headers: headers, body: jsonupload);
           setState(() {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => EntryPoint()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => EntryPoint()));
           });
         },
         child: Text('Confirm Clubs',

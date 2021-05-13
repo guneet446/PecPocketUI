@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fend/globals.dart' as global;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' show Response, get, post;
+import 'package:http/http.dart' as http;
 
 class AddClubs extends StatefulWidget {
   String title;
@@ -80,7 +81,7 @@ class AddClubsState extends State<AddClubs> {
         body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Form(
-              child: ListView(
+            child: ListView(
               children: [
                 TextFormField(
                   decoration: InputDecoration(
@@ -119,12 +120,16 @@ class AddClubsState extends State<AddClubs> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 selectedClubsList(context),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 confirmClubsButton(),
               ],
-          ),
+            ),
           ),
         ),
       ),
@@ -249,8 +254,8 @@ class AddClubsState extends State<AddClubs> {
                         child: Text(
                           selectedclubsList[index],
                           style: GoogleFonts.exo2(
-                              color: Colors.white,
-                              fontSize: 17,
+                            color: Colors.white,
+                            fontSize: 17,
                           ),
                           textAlign: TextAlign.center,
                           maxLines: 3,
@@ -281,8 +286,8 @@ class AddClubsState extends State<AddClubs> {
           List<Club> databaseClubs = await clubHelper.getAllClubs();
           int initialClubLength = databaseClubs.length;
           for (int i = 0;
-          i < selectedclubsList.length - initialClubLength;
-          i++) {
+              i < selectedclubsList.length - initialClubLength;
+              i++) {
             Club club = Club(
                 id: 0,
                 club: selectedclubsList[i],
@@ -309,7 +314,7 @@ class AddClubsState extends State<AddClubs> {
           String jsonupload =
               '{"SID": $sid, "Club_codes": "$finalClubCodeList"}';
 
-          Response response = await post(Uri.parse('${global.url}club'),
+          Response response = await http.put(Uri.parse('${global.url}club'),
               headers: headers, body: jsonupload);
 
           setState(() {

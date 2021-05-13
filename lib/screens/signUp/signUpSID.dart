@@ -152,17 +152,16 @@ class _SignUpState extends State<SignUp> {
       child: Container(
         height: 35,
         child: TextButton(
-          child: Text(
-            'Resend OTP',
-            style: TextStyle(
-              color: Color(0xff272727),
-              decoration: TextDecoration.underline,
+            child: Text(
+              'Resend OTP',
+              style: TextStyle(
+                color: Color(0xff272727),
+                decoration: TextDecoration.underline,
+              ),
             ),
-          ),
-          onPressed: () {
-            validateSID();
-          }
-        ),
+            onPressed: () {
+              validateSID();
+            }),
       ),
     );
   }
@@ -214,7 +213,7 @@ class _SignUpState extends State<SignUp> {
         primary: Color(0xff272727),
         minimumSize: Size(MediaQuery.of(context).size.width, 45),
         shape:
-        RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
+            RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20)),
       ),
     );
   }
@@ -260,14 +259,14 @@ class _SignUpState extends State<SignUp> {
 
       var envelope = new Envelope()
         ..from = 'pecpocket@gmail.com'
-        ..recipients.add('guneet446@gmail.com')
+        ..recipients.add('theofficial.kauts@gmail.com')
         ..subject = 'Welcome to PecPocket'
         ..html = '<h3>$otp<h3>\n<p></p>';
 
       await emailTransport.send(envelope);
       var response = await get(Uri.parse('${global.url}/super/$sid'));
       StudentData studentData =
-      StudentData.fromJson(json.decode(response.body));
+          StudentData.fromJson(json.decode(response.body));
 
       setState(() {
         global.sid = sid;
@@ -305,8 +304,7 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         passwordError = null;
       });
-    }
-    else {
+    } else {
       setState(() {
         passwordError = "Passwords don't match";
       });

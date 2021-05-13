@@ -14,7 +14,6 @@ import 'package:fend/models/Notifications.dart';
 import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderAddNew.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
-import 'package:fend/screens/HamburgerMenuOptions/AvatarChoice.dart';
 import 'package:fend/screens/ViewProfile.dart';
 import 'package:fend/screens/uploadNotification.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
@@ -123,31 +122,31 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 ),
                 customReminders.length == 0
                     ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 45,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 45,
+                              ),
+                              Image.asset(
+                                'assets/custom_reminder.png',
+                                height: 200,
+                                width: 200,
+                              ),
+                              Text(
+                                'Looks like you have not added a reminder. Click the + button to add one.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
                           ),
-                          Image.asset(
-                            'assets/custom_reminder.png',
-                            height: 200,
-                            width: 200,
-                          ),
-                          Text(
-                            'Looks like you have not added a reminder. Click the + button to add one.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                        ),
+                      )
                     : Expanded(
                         child: ListView.builder(
                             itemCount: customReminders.length > 3

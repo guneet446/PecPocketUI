@@ -1,15 +1,11 @@
-import 'package:fend/Databases/SubjectsDB.dart';
 import 'package:fend/Databases/UserDB.dart';
 import 'package:fend/Databases/remindersDB.dart';
-import 'package:fend/classes/subjects.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
 import 'package:fend/screens/introduction.dart';
 import 'package:fend/screens/login_screen.dart';
 import 'package:fend/screens/mainPage.dart';
-import 'package:fend/screens/signUp/signUpSID.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'Databases/AvatarDB.dart';
 import 'classes/CustomReminderDetails.dart';
 
@@ -44,18 +40,20 @@ class _EntryPointState extends State<EntryPoint> {
     var user = await dbHelper.getAllUsers();
     int count = await dbHelper.isEmpty();
     print(count);
-    setState(() {
-      if (count == 0) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => IntroScreen()));
-      } else if (user[0].login == 1) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainPage()));
-      } else if (user[0].login == 0) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login()));
-      }
-    });
+    setState(
+      () {
+        if (count == 0) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => IntroScreen()));
+        } else if (user[0].login == 1) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        } else if (user[0].login == 0) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => Login()));
+        }
+      },
+    );
   }
 
   void updateReminders() async {
@@ -102,6 +100,7 @@ class _EntryPointState extends State<EntryPoint> {
           databaseReminder[i].day,
           databaseReminder[i].hour,
           databaseReminder[i].minute);
+
       customReminders.add(CustomReminderDetails(
           0,
           'title', //add title here
@@ -109,7 +108,7 @@ class _EntryPointState extends State<EntryPoint> {
           dateTime,
           databaseReminder[i].getNotified));
 
-      mainPageReminders.add('Reminder ${i + 1}');
+      mainPageReminders.add('${databaseReminder[i].title}');
       mainPageReminderDescriptions.add(databaseReminder[i].description);
       if (databaseReminder[i].hour < 10) {
         if (databaseReminder[i].minute > 9) {

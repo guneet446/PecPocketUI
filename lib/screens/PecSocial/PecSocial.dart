@@ -5,7 +5,6 @@ import 'package:fend/models/student_json.dart';
 import 'package:fend/screens/HamburgerMenu.dart';
 import 'package:fend/screens/PecSocial/SocialViewProfile.dart';
 import 'package:fend/screens/StudyMaterial/StudyMaterial0.dart';
-import 'package:fend/screens/ViewProfile.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:fend/widgets/bottomAppBar.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +86,8 @@ class _PecSocialState extends State<PecSocial>
     'assets/neutral_girl.png'
   ];
   String searchFor;
+  int searchForLength = 0;
+  int initialSearchForLength = 0;
   List<String> names = [];
   List<String> sids = [];
   int i = 0;
@@ -153,6 +154,7 @@ class _PecSocialState extends State<PecSocial>
                 ),
                 onChanged: (String value) {
                   searchFor = value;
+                  searchForLength = value.length;
                   search();
                 },
               ),
@@ -166,20 +168,22 @@ class _PecSocialState extends State<PecSocial>
                   )
                 : Container(
                     child: Expanded(
-                      child: ListView.builder(
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 1.0,
+                          mainAxisSpacing: 1.0,
+                        ),
                         padding: EdgeInsets.only(bottom: 20),
                         itemCount: names.length ~/ 2,
                         itemBuilder: (context, index) {
-                          if (index != 0 && (index + 2) <= names.length) {
-                            i += 2;
-                          }
                           return Container(
                             child: Column(
                               children: [
                                 Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.only(left: 20),
+                                      padding: EdgeInsets.only(left: 10),
                                     ),
                                     GestureDetector(
                                       onTap: () async {
@@ -271,93 +275,6 @@ class _PecSocialState extends State<PecSocial>
                                     Container(
                                       padding: EdgeInsets.only(left: 7.5),
                                     ),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        print(sids[index]);
-                                        var response = await get(Uri.parse(
-                                            '${global.url}viewprofile/${sids[index + 1]}'));
-                                        Profile profile = Profile.fromJson(
-                                            json.decode(response.body));
-                                        socialName = profile.name;
-                                        socialSid = profile.sid.toString();
-                                        socialClubs = profile.clubs.length == 0
-                                            ? ' Not in any clubs '
-                                            : profile.clubs.toString();
-                                        socialBranch =
-                                            profile.branch.toString();
-                                        socialYear = profile.year.toString();
-                                        socialSemester =
-                                            profile.semester.toString();
-                                        socialInsta = profile.insta == null
-                                            ? 'No instagram handle'
-                                            : profile.insta;
-                                        socialAvatar =
-                                            'assets/${profile.avatar}';
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SocialViewProfile()));
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: Container(
-                                          child: Container(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  padding:
-                                                      EdgeInsets.only(top: 20),
-                                                ),
-                                                Container(
-                                                  width: 80,
-                                                  height: 80,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/${avatars[index + 1]}'),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  names[index + 1],
-                                                  style: GoogleFonts.exo2(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white),
-                                                  ),
-                                                ), //The names go here
-                                                Text(
-                                                  sids[index + 1],
-                                                  style: GoogleFonts.exo2(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.white),
-                                                  ),
-                                                ), //The SIDS go here
-                                              ],
-                                            ),
-                                          ),
-                                          height: 160,
-                                          margin: EdgeInsets.all(6),
-                                          width: 160,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey,
-                                                  blurRadius: 7,
-                                                  offset: Offset(1.0, 1.0))
-                                            ],
-                                            color: Color(getRandomListElement(
-                                                colorChoices)),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 ),
                                 Container(
@@ -400,7 +317,10 @@ class _PecSocialState extends State<PecSocial>
         avatars.clear();
         i = 0;
       });
-    } else {
+    } else if (initialSearchForLength != searchForLength) {
+      print(initialSearchForLength);
+      print(searchForLength);
+
       names.clear();
       sids.clear();
       avatars.clear();
@@ -421,6 +341,7 @@ class _PecSocialState extends State<PecSocial>
             avatars.add(socialList.social[i].avatar);
         }
       });
+      initialSearchForLength = searchForLength;
     }
   }
 

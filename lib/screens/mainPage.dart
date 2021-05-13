@@ -129,12 +129,12 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            height: 50,
+                            height: 45,
                           ),
                           Image.asset(
-                            'assets/attendance_placeholder.png',
-                            height: 250,
-                            width: 250,
+                            'assets/custom_reminder.png',
+                            height: 200,
+                            width: 200,
                           ),
                           Text(
                             'Looks like you have not added a reminder. Click the + button to add one.',

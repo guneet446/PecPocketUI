@@ -22,7 +22,7 @@ class App extends StatelessWidget {
                 .textTheme,
           )),
       home: Scaffold(
-        body: AddClubs(),
+        body: MainPage(),
       ),
     );
   }

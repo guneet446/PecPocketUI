@@ -590,14 +590,72 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                                   EntryPoint()));
                                     },
                                     child: Container(
-                                      child: Column(
-                                        children: [
-                                          Text(notificationsList[index].title),
-                                          Text(notificationsList[index]
-                                              .description),
-                                          Text(notificationsList[index].date),
-                                          Text(notificationsList[index].time),
-                                        ],
+                                      decoration: BoxDecoration(
+                                          color: Color(0xff272727),
+                                          borderRadius: BorderRadius.all(Radius.circular(20))
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'Title',
+                                              style: TextStyle(
+                                                color: Color(0xff0B7A75),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                              notificationsList[index].title,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Description',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                                notificationsList[index].description,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Date',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                                notificationsList[index].date,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Time',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                              ),
+                                            ),
+                                            Text(
+                                                notificationsList[index].time,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -696,6 +754,9 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                             content: Container(
                               height: double.maxFinite,
                               width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(20))
+                              ),
                               child: ListView.builder(
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
@@ -750,14 +811,77 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                                   EntryPoint()));
                                     },
                                     child: Container(
-                                      child: Column(
-                                        children: [
-                                          Text(notificationsList[index].title),
-                                          Text(notificationsList[index]
-                                              .description),
-                                          Text(notificationsList[index].date),
-                                          Text(notificationsList[index].time),
-                                        ],
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff272727),
+                                            borderRadius: BorderRadius.all(Radius.circular(20))
+                                        ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Title',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              notificationsList[index].title,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Description',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              notificationsList[index].description,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Date',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              notificationsList[index].date,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Time',
+                                              style: TextStyle(
+                                                  color: Color(0xff0B7A75),
+                                                  fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              notificationsList[index].time,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

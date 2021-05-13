@@ -259,7 +259,7 @@ class _SignUpState extends State<SignUp> {
 
       var envelope = new Envelope()
         ..from = 'pecpocket@gmail.com'
-        ..recipients.add('theofficial.kauts@gmail.com')
+        ..recipients.add('guneet446@gmail.com')
         ..subject = 'Welcome to PecPocket'
         ..html = '<h3>$otp<h3>\n<p></p>';
 

@@ -1,4 +1,0 @@
-#Fri May 14 08:02:31 IST 2021
-base.0=/Users/guneet/AndroidStudioProjects/PecPocketUI/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

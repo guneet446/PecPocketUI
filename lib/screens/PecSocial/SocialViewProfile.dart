@@ -217,7 +217,7 @@ class _SocialViewProfileState extends State<SocialViewProfile> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    var url = "https://www.instagram.com/$socialInsta/";
+                    var url = "https://instagram.com/$socialInsta";
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {

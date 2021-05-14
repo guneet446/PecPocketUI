@@ -20,6 +20,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'CustomFolder.dart';
+import 'DevelopersPage.dart';
 import 'HamburgerMenuOptions/AddClubs.dart';
 import 'HamburgerMenuOptions/AddSubjects.dart';
 import 'login_screen.dart';
@@ -116,71 +117,71 @@ class _SettingsState extends State<Settings> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return StatefulBuilder(
-                              builder: (context, setState) {
-                                return AlertDialog(
-                                  title: Text(
-                                    igUpdated?
-                                    'Instagram Handle Updated!':
-                                      'Enter Instagram Handle',
-                                    style: TextStyle(
-                                      color: Color(
-                                        igUpdated?
-                                        0xff0B7A75:
-                                          0xff272727,
+                          return StatefulBuilder(builder: (context, setState) {
+                            return AlertDialog(
+                              title: Text(
+                                igUpdated
+                                    ? 'Instagram Handle Updated!'
+                                    : 'Enter Instagram Handle',
+                                style: TextStyle(
+                                  color: Color(
+                                    igUpdated ? 0xff0B7A75 : 0xff272727,
+                                  ),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextField(
+                                    onChanged: (String value) {
+                                      instagramHandle = value;
+                                    },
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      var userHelper = UserDatabase.instance;
+                                      var userData =
+                                          await userHelper.getAllUsers();
+                                      var jsonMap = {
+                                        'SID': userData[0].sid.toString(),
+                                        'Insta': instagramHandle,
+                                      };
+                                      String jsonStr = jsonEncode(jsonMap);
+                                      var response = await http.put(
+                                        Uri.parse(
+                                            '${global.url}insta/${userData[0].sid}'),
+                                        body: jsonStr,
+                                        headers: {
+                                          "Content-Type": "application/json"
+                                        },
+                                      );
+                                      setState(() {
+                                        igUpdated = true;
+                                        print(response.body);
+                                        Timer(Duration(seconds: 3), () {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      EntryPoint()));
+                                        });
+                                      });
+                                    },
+                                    child: Text(
+                                      'Confirm',
+                                      style: TextStyle(
+                                        color: Color(0xff0B7A75),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
                                     ),
                                   ),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TextField(
-                                        onChanged: (String value) {
-                                          instagramHandle = value;
-                                        },
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          var userHelper = UserDatabase.instance;
-                                          var userData =
-                                          await userHelper.getAllUsers();
-                                          var jsonMap = {
-                                            'SID': userData[0].sid.toString(),
-                                            'Insta': instagramHandle,
-                                          };
-                                          String jsonStr = jsonEncode(jsonMap);
-                                          var response = await http.put(
-                                            Uri.parse(
-                                                '${global.url}insta/${userData[0].sid}'),
-                                            body: jsonStr,
-                                            headers: {
-                                              "Content-Type": "application/json"
-                                            },
-                                          );
-                                          setState(() {
-                                            igUpdated = true;
-                                            print(response.body);
-                                            Timer(Duration(seconds: 3), () {
-                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EntryPoint()));
-                                            });
-                                          });
-                                        },
-                                        child: Text(
-                                          'Confirm',
-                                          style: TextStyle(
-                                            color: Color(0xff0B7A75),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                              );
+                                ],
+                              ),
+                            );
+                          });
                         });
                   },
                 )
@@ -239,85 +240,83 @@ class _SettingsState extends State<Settings> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return StatefulBuilder(
-                              builder: (context, setState) {
-                                return AlertDialog(
-                                  title: Text(
-                                    pwdUpdated?
-                                    'Password Changed!':
-                                    'Change Password',
-                                    style: TextStyle(
-                                      color: Color(
-                                        pwdUpdated?
-                                      0xff0B7A75:
-                                      0xff272727,
-                                      ),
+                          return StatefulBuilder(builder: (context, setState) {
+                            return AlertDialog(
+                              title: Text(
+                                pwdUpdated
+                                    ? 'Password Changed!'
+                                    : 'Change Password',
+                                style: TextStyle(
+                                  color: Color(
+                                    pwdUpdated ? 0xff0B7A75 : 0xff272727,
+                                  ),
+                                ),
+                              ),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      hintText: 'Current Password',
+                                      errorText: pwdError,
                                     ),
+                                    obscureText: true,
+                                    onChanged: (String value) {
+                                      pwdError = null;
+                                      confirmPassword = value;
+                                    },
                                   ),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'Current Password',
-                                          errorText: pwdError,
-                                        ),
-                                        obscureText: true,
-                                        onChanged: (String value) {
-                                          pwdError = null;
-                                          confirmPassword = value;
-                                        },
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'New Password',
-                                        ),
-                                        obscureText: true,
-                                        onChanged: (String value) {
-                                          newPassword = value;
-                                        },
-                                      ),
-                                      TextButton(
-                                          onPressed: () async {
-                                            var userHelper = UserDatabase
-                                                .instance;
-                                            var userData =
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      hintText: 'New Password',
+                                    ),
+                                    obscureText: true,
+                                    onChanged: (String value) {
+                                      newPassword = value;
+                                    },
+                                  ),
+                                  TextButton(
+                                      onPressed: () async {
+                                        var userHelper = UserDatabase.instance;
+                                        var userData =
                                             await userHelper.getAllUsers();
-                                            setState(() {
-                                              if (userData[0].password ==
-                                                  confirmPassword) {
-                                                userHelper.deleteTable();
-                                                User user = new User(
-                                                    id: 0,
-                                                    sid: userData[0].sid,
-                                                    password: newPassword,
-                                                    auth: userData[0].auth,
-                                                    login: 1);
-                                                userHelper.addUser(user);
-                                                pwdUpdated = true;
-                                                Timer(Duration(seconds: 3), () {
-                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EntryPoint()));
-                                                });
-                                                //Navigator.pop(context);
-                                              }
-                                              else {
-                                                pwdError =
-                                                "Does not match records";
-                                              }
+                                        setState(() {
+                                          if (userData[0].password ==
+                                              confirmPassword) {
+                                            userHelper.deleteTable();
+                                            User user = new User(
+                                                id: 0,
+                                                sid: userData[0].sid,
+                                                password: newPassword,
+                                                auth: userData[0].auth,
+                                                login: 1);
+                                            userHelper.addUser(user);
+                                            pwdUpdated = true;
+                                            Timer(Duration(seconds: 3), () {
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          EntryPoint()));
                                             });
-                                          },
-                                          child: Text(
-                                            'Submit',
-                                            style: TextStyle(
-                                              color: Color(0xff0B7A75),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ))
-                                    ],
-                                  ),
-                                );
-                              });
+                                            //Navigator.pop(context);
+                                          } else {
+                                            pwdError = "Does not match records";
+                                          }
+                                        });
+                                      },
+                                      child: Text(
+                                        'Submit',
+                                        style: TextStyle(
+                                          color: Color(0xff0B7A75),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ))
+                                ],
+                              ),
+                            );
+                          });
                         });
                   },
                   child: Text(
@@ -328,6 +327,23 @@ class _SettingsState extends State<Settings> {
               ],
             ),
             SizedBox(height: 400),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DevelopersPage()));
+              },
+              child: Row(
+                children: [
+                  SizedBox(width: 5),
+                  IconButton(
+                      icon: Icon(Icons.apps, color: Colors.white),
+                      onPressed: () {}),
+                  Text('Developers',
+                      style:
+                          GoogleFonts.exo2(color: Colors.white, fontSize: 20)),
+                ],
+              ),
+            ),
             Row(
               children: [
                 SizedBox(width: 20),
@@ -343,20 +359,16 @@ class _SettingsState extends State<Settings> {
                   onTap: () async {
                     return showDialog(
                         context: context,
-                        builder: (context)
-                    {
-                      return StatefulBuilder(
-                          builder: (context, setState) {
+                        builder: (context) {
+                          return StatefulBuilder(builder: (context, setState) {
                             return AlertDialog(
                               title: Text(
-                                logoutDone ?
-                                'Logging Out' :
-                                'Do you want to Logout?',
+                                logoutDone
+                                    ? 'Logging Out'
+                                    : 'Do you want to Logout?',
                                 style: TextStyle(
                                   color: Color(
-                                    logoutDone ?
-                                    0xff0B7A75 :
-                                    0xff272727,
+                                    logoutDone ? 0xff0B7A75 : 0xff272727,
                                   ),
                                 ),
                               ),
@@ -380,7 +392,7 @@ class _SettingsState extends State<Settings> {
                                     onPressed: () async {
                                       var userHelper = UserDatabase.instance;
                                       var userData =
-                                      await userHelper.getAllUsers();
+                                          await userHelper.getAllUsers();
                                       setState(() {
                                         User user = new User(
                                             id: 0,
@@ -390,7 +402,8 @@ class _SettingsState extends State<Settings> {
                                             login: 0);
                                         logoutDone = true;
                                         Timer(Duration(seconds: 3), () {
-                                          Navigator.pushReplacement(context,
+                                          Navigator.pushReplacement(
+                                              context,
                                               MaterialPageRoute(
                                                   builder: (_) => Login()));
                                         });
@@ -409,7 +422,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             );
                           });
-                    });
+                        });
                   },
                   child: Text(
                     'Log Out',
@@ -435,19 +448,15 @@ class _SettingsState extends State<Settings> {
                     return showDialog(
                         context: context,
                         builder: (context) {
-                          return StatefulBuilder(
-                              builder: (context, setState)
-                          {
+                          return StatefulBuilder(builder: (context, setState) {
                             return AlertDialog(
                               title: Text(
-                                deleteDone ?
-                                'Deleting account' :
-                                'Delete Account?',
+                                deleteDone
+                                    ? 'Deleting account'
+                                    : 'Delete Account?',
                                 style: TextStyle(
                                   color: Color(
-                                    deleteDone ?
-                                    0xff0B7A75 :
-                                    0xff272727,
+                                    deleteDone ? 0xff0B7A75 : 0xff272727,
                                   ),
                                 ),
                               ),
@@ -465,11 +474,11 @@ class _SettingsState extends State<Settings> {
                                   ),
                                   TextButton(
                                     onPressed: () async {
-                                      var avatarHelper = AvatarDatabase
-                                          .instance;
+                                      var avatarHelper =
+                                          AvatarDatabase.instance;
                                       var userHelper = UserDatabase.instance;
                                       var databaseUser =
-                                      await userHelper.getAllUsers();
+                                          await userHelper.getAllUsers();
                                       var attendanceHelper =
                                           AttendanceDatabase.instance;
                                       var clubHelper = ClubDatabase.instance;
@@ -480,27 +489,26 @@ class _SettingsState extends State<Settings> {
                                       var timetableHelper =
                                           TimetableDatabase.instance;
                                       var userData =
-                                      await userHelper.getAllUsers();
-                                      var attendanceData = await attendanceHelper
-                                          .getAllAttendance();
+                                          await userHelper.getAllUsers();
+                                      var attendanceData =
+                                          await attendanceHelper
+                                              .getAllAttendance();
                                       var clubData =
-                                      await clubHelper.getAllClubs();
-                                      var reminderData =
-                                      await reminderHelper.getAllReminders();
+                                          await clubHelper.getAllClubs();
+                                      var reminderData = await reminderHelper
+                                          .getAllReminders();
                                       var subjectData =
-                                      subjectHelper.getAllSubjects();
+                                          subjectHelper.getAllSubjects();
 
                                       if (confirmPassword ==
                                           databaseUser[0].password) {
                                         final http.Response response =
-                                        await http.delete(
+                                            await http.delete(
                                           Uri.parse(
-                                              '${global
-                                                  .url}/delete/${userData[0]
-                                                  .sid}'),
+                                              '${global.url}/delete/${userData[0].sid}'),
                                           headers: <String, String>{
                                             'Content-Type':
-                                            'application/json; charset=UTF-8',
+                                                'application/json; charset=UTF-8',
                                           },
                                         );
                                         avatarHelper.deleteTable();
@@ -514,7 +522,8 @@ class _SettingsState extends State<Settings> {
                                         setState(() {
                                           deleteDone = true;
                                           Timer(Duration(seconds: 3), () {
-                                            Navigator.pushReplacement(context,
+                                            Navigator.pushReplacement(
+                                                context,
                                                 MaterialPageRoute(
                                                     builder: (_) => SignUp()));
                                           });

@@ -3,6 +3,7 @@ import 'package:fend/EntryPoint.dart';
 import 'package:fend/classes/CustomReminderDetails.dart';
 import 'package:fend/classes/Reminder.dart';
 import 'package:fend/screens/CustomReminders/CustomReminderView.dart';
+import 'package:fend/screens/CustomReminders/pushNotifications.dart';
 import 'package:fend/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -229,8 +230,7 @@ class _CustomReminderAddNewState extends State<CustomReminderAddNew> {
                       },
                     );
                     if (getNotif) {
-// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-
+                      pushNotification.schedulePushNotification(0, userTitle, userDescription, selectedDateTime);
                     }
 
                     Navigator.pushReplacement(context,

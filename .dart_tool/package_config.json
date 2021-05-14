@@ -158,6 +158,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_native_timezone",
+      "rootUri": "file:///Users/guneet/.pub-cache/hosted/pub.dartlang.org/flutter_native_timezone-1.0.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///Users/guneet/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.1",
       "packageUri": "lib/",
@@ -542,7 +548,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-13T23:34:04.067142Z",
+  "generated": "2021-05-14T02:29:41.099414Z",
   "generator": "pub",
   "generatorVersion": "2.13.0-211.6.beta"
 }

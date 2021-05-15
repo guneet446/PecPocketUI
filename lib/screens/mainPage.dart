@@ -122,151 +122,151 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 ),
                 customReminders.length == 0
                     ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 45,
-                        ),
-                        Image.asset(
-                          'assets/custom_reminder.png',
-                          height: 200,
-                          width: 200,
-                        ),
-                        Text(
-                          'Looks like you have not added a reminder. Click the + button to add one.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 45,
+                              ),
+                              Image.asset(
+                                'assets/custom_reminder.png',
+                                height: 200,
+                                width: 200,
+                              ),
+                              Text(
+                                'Looks like you have not added a reminder. Click the + button to add one.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                )
+                      )
                     : Expanded(
-                  child: ListView.builder(
-                      itemCount: customReminders.length > 3
-                          ? 3
-                          : customReminders.length,
-                      itemBuilder: (context, index) {
-                        reminderLength = customReminders.length;
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Color(colorChoices[index]),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  height: 120,
-                                  width: 4,
-                                ),
-                                SizedBox(
-                                  height: 100,
-                                  width: 20,
-                                ),
-                                Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          customReminders[index]
-                                              .reminderDateTime
-                                              .day
-                                              .toString() +
-                                              '-' +
-                                              customReminders[index]
-                                                  .reminderDateTime
-                                                  .month
-                                                  .toString() +
-                                              '-' +
-                                              customReminders[index]
-                                                  .reminderDateTime
-                                                  .year
-                                                  .toString(),
-                                          style: GoogleFonts.exo2(),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Container(
-                                          height: 1,
-                                          width: 215,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      mainPageReminders[index],
-                                      style: GoogleFonts.exo2(
-                                        textStyle: TextStyle(
-                                            fontWeight: FontWeight.bold),
+                        child: ListView.builder(
+                            itemCount: customReminders.length > 3
+                                ? 3
+                                : customReminders.length,
+                            itemBuilder: (context, index) {
+                              reminderLength = customReminders.length;
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(colorChoices[index]),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        height: 120,
+                                        width: 4,
                                       ),
-                                    ),
-                                    Container(
-                                      width: 325,
-                                      child: Text(
-                                        mainPageReminderDescriptions[
-                                        index],
-                                        style: GoogleFonts.exo2(),
+                                      SizedBox(
+                                        height: 100,
+                                        width: 20,
                                       ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          mainPageReminderEndTimes[index],
-                                          style: GoogleFonts.exo2(),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Container(
-                                          height: 1,
-                                          width: 240,
-                                          color: Colors.grey,
-                                        ),
-                                        IconButton(
-                                          icon:
-                                          Icon(Icons.cancel_outlined),
-                                          onPressed: () async {
-                                            var reminderHelper =
-                                                ReminderDatabase.instance;
-                                            reminderHelper.deleteReminder(
-                                                mainPageReminderDescriptions[
-                                                index]);
-                                            mainPageReminders
-                                                .removeAt(index);
-                                            mainPageReminderDescriptions
-                                                .removeAt(index);
-                                            mainPageReminderStartTimes
-                                                .removeAt(index);
-                                            mainPageReminderEndTimes
-                                                .removeAt(index);
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        EntryPoint()));
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 25,
-                            )
-                          ],
-                        );
-                      }),
-                ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                customReminders[index]
+                                                        .reminderDateTime
+                                                        .day
+                                                        .toString() +
+                                                    '-' +
+                                                    customReminders[index]
+                                                        .reminderDateTime
+                                                        .month
+                                                        .toString() +
+                                                    '-' +
+                                                    customReminders[index]
+                                                        .reminderDateTime
+                                                        .year
+                                                        .toString(),
+                                                style: GoogleFonts.exo2(),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Container(
+                                                height: 1,
+                                                width: 215,
+                                                color: Colors.grey,
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            mainPageReminders[index],
+                                            style: GoogleFonts.exo2(
+                                              textStyle: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 325,
+                                            child: Text(
+                                              mainPageReminderDescriptions[
+                                                  index],
+                                              style: GoogleFonts.exo2(),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                mainPageReminderEndTimes[index],
+                                                style: GoogleFonts.exo2(),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Container(
+                                                height: 1,
+                                                width: 240,
+                                                color: Colors.grey,
+                                              ),
+                                              IconButton(
+                                                icon:
+                                                    Icon(Icons.cancel_outlined),
+                                                onPressed: () async {
+                                                  var reminderHelper =
+                                                      ReminderDatabase.instance;
+                                                  reminderHelper.deleteReminder(
+                                                      mainPageReminderDescriptions[
+                                                          index]);
+                                                  mainPageReminders
+                                                      .removeAt(index);
+                                                  mainPageReminderDescriptions
+                                                      .removeAt(index);
+                                                  mainPageReminderStartTimes
+                                                      .removeAt(index);
+                                                  mainPageReminderEndTimes
+                                                      .removeAt(index);
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EntryPoint()));
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
+                                ],
+                              );
+                            }),
+                      ),
               ],
             ),
           ),
@@ -319,9 +319,9 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                       children: [
                                         Text(
                                           customReminders[index]
-                                              .reminderDateTime
-                                              .day
-                                              .toString() +
+                                                  .reminderDateTime
+                                                  .day
+                                                  .toString() +
                                               '-' +
                                               customReminders[index]
                                                   .reminderDateTime
@@ -376,7 +376,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                                 ReminderDatabase.instance;
                                             reminderHelper.deleteReminder(
                                                 mainPageReminderDescriptions[
-                                                index]);
+                                                    index]);
                                             mainPageReminders.removeAt(index);
                                             mainPageReminderDescriptions
                                                 .removeAt(index);
@@ -435,13 +435,13 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   setState(() {
                     if (response.body.length > 18) {
                       NotificationList jsonNotification =
-                      NotificationList.fromJson(json.decode(response.body));
+                          NotificationList.fromJson(json.decode(response.body));
 
                       notifications.clear();
 
                       for (int i = 0;
-                      i < jsonNotification.notification.length;
-                      i++) {
+                          i < jsonNotification.notification.length;
+                          i++) {
                         notifications
                             .add(jsonNotification.notification[i].topic);
                         notifications
@@ -453,7 +453,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                         NotiClass newNoti = NotiClass(
                             title: jsonNotification.notification[i].topic,
                             description:
-                            jsonNotification.notification[i].description,
+                                jsonNotification.notification[i].description,
                             date: jsonNotification.notification[i].date,
                             time: jsonNotification.notification[i].time);
                         notificationsList.add(newNoti);
@@ -487,7 +487,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                         left: 20, right: 20),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           height: 50,
@@ -517,7 +517,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  MainPage()));
+                                                  EntryPoint()));
                                     },
                                     child: Text(
                                       'Okay',
@@ -545,27 +545,24 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                       String reminderTitle =
                                           notificationsList[index].title;
                                       String reminderDescription =
-                                          notificationsList[index].title +
-                                              ' ' +
-                                              notificationsList[index]
-                                                  .description;
+                                          notificationsList[index].description;
                                       List<String> dateList =
-                                      notificationsList[index]
-                                          .date
-                                          .split('-');
+                                          notificationsList[index]
+                                              .date
+                                              .split('-');
                                       List<String> timeList =
-                                      notificationsList[index]
-                                          .time
-                                          .split(':');
+                                          notificationsList[index]
+                                              .time
+                                              .split(':');
                                       DateTime notificationDateTime =
-                                      new DateTime(
+                                          new DateTime(
                                         int.parse(dateList[2]),
                                         int.parse(dateList[1]),
                                         int.parse(dateList[0]),
                                         int.parse(timeList[0]),
                                         int.parse(timeList[1]),
                                       );
-
+                                      print(reminderTitle);
                                       customReminders.add(CustomReminderDetails(
                                           0,
                                           reminderTitle, //add title here
@@ -704,7 +701,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                         left: 20, right: 20),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           height: 50,
@@ -743,7 +740,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  MainPage()));
+                                                  EntryPoint()));
                                     },
                                     child: Text(
                                       'Okay',
@@ -766,7 +763,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               width: double.maxFinite,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                      BorderRadius.all(Radius.circular(20))),
                               child: ListView.builder(
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
@@ -776,15 +773,15 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
 
                                       notificationsList[index].description;
                                       List<String> dateList =
-                                      notificationsList[index]
-                                          .date
-                                          .split('-');
+                                          notificationsList[index]
+                                              .date
+                                              .split('-');
                                       List<String> timeList =
-                                      notificationsList[index]
-                                          .time
-                                          .split(':');
+                                          notificationsList[index]
+                                              .time
+                                              .split(':');
                                       DateTime notificationDateTime =
-                                      new DateTime(
+                                          new DateTime(
                                         int.parse(dateList[2]),
                                         int.parse(dateList[1]),
                                         int.parse(dateList[0]),
@@ -828,7 +825,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                         padding: const EdgeInsets.all(12),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Title',
@@ -915,7 +912,8 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MainPage()));
+                                            builder: (context) =>
+                                                EntryPoint()));
                                   },
                                   child: Text(
                                     'Okay',
@@ -989,7 +987,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       profileYear = profile.year.toString();
       profileSemester = profile.semester.toString();
       profileInsta =
-      profile.insta == null ? 'No instagram handle' : profile.insta;
+          profile.insta == null ? 'No instagram handle' : profile.insta;
       profileAvatar = selectedAvatar;
     });
   }

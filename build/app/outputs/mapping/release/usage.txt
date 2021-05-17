@@ -5804,9 +5804,9 @@ kotlin.sequences.GeneratorSequence
 kotlin.sequences.SequencesKt__SequenceBuilderKt$sequence$$inlined$Sequence$1
 androidx.customview.widget.ExploreByTouchHelper
 androidx.annotation.CheckResult
-io.flutter.embedding.engine.systemchannels.PlatformChannel:
-    private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
+    private static final java.lang.String TAG
+io.flutter.embedding.engine.systemchannels.PlatformChannel:
     private static final java.lang.String TAG
 kotlin.Suppress
 com.google.common.collect.Multisets$FilteredMultiset$1
@@ -14879,5 +14879,5 @@ androidx.appcompat.view.StandaloneActionMode:
     private boolean mFocusable
 androidx.sqlite.db.framework.FrameworkSQLiteDatabase$2:
     final synthetic androidx.sqlite.db.framework.FrameworkSQLiteDatabase this$0
-io.flutter.plugin.platform.PlatformView$-CC
 androidx.lifecycle.DefaultLifecycleObserver$-CC
+io.flutter.plugin.platform.PlatformView$-CC

@@ -1,4 +1,4 @@
-#Sun May 16 00:59:08 AST 2021
+#Tue May 18 17:46:50 AST 2021
 base.0=/home/kauts/projects/PecPocketUI/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

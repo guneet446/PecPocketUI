@@ -252,14 +252,14 @@ class _SignUpState extends State<SignUp> {
 
     if (body[12] == '2') {
       var options = new GmailSmtpOptions()
-        ..username = 'pecpocket@gmail.com'
-        ..password = 'PecPocket123';
+        ..username = ''
+        ..password = '';
 
       var emailTransport = new SmtpTransport(options);
 
       var envelope = new Envelope()
-        ..from = 'pecpocket@gmail.com'
-        ..recipients.add('theofficial.kauts@gmail.com')
+        ..from = ''
+        ..recipients.add('')
         ..subject = 'Welcome to PecPocket'
         ..html = '<h3>$otp<h3>\n<p></p>';
 

@@ -4,7 +4,7 @@
             "outputFile": "/home/kauts/projects/PecPocketUI/build/flutter_downloader/intermediates/res/merged/release/values/values.xml",
             "map": [
                 {
-                    "source": "/home/kauts/programs/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.6.0/android/src/main/res/values/strings.xml",
+                    "source": "/home/kauts/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.6.0/android/src/main/res/values/strings.xml",
                     "from": {
                         "startLines": "4,9,8,6,5,3,7,2",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -74,7 +74,7 @@
             "outputFile": "/home/kauts/projects/PecPocketUI/build/flutter_downloader/intermediates/incremental/mergeReleaseResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/home/kauts/programs/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.6.0/android/src/main/res/values/strings.xml",
+                    "source": "/home/kauts/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.6.0/android/src/main/res/values/strings.xml",
                     "from": {
                         "startLines": "4,9,8,6,5,3,7,2",
                         "startColumns": "4,4,4,4,4,4,4,4",

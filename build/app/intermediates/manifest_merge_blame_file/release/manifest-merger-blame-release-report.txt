@@ -159,37 +159,37 @@
 89-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:60:13-30
 90
 91        <provider
-91-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:11:9-19:20
-92            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-92-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:12:13-82
-93            android:authorities="com.example.fend.flutter.image_provider"
-93-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:13:13-74
+91-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:8:9-16:20
+92            android:name="com.sidlatau.flutteremailsender.FlutterEmailSenderFileProvider"
+92-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:9:13-90
+93            android:authorities="com.example.fend.file_provider"
+93-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:10:13-65
 94            android:exported="false"
-94-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:14:13-37
+94-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:11:13-37
 95            android:grantUriPermissions="true" >
-95-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:15:13-47
+95-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:12:13-47
 96            <meta-data
 96-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:46:12-48:56
 97                android:name="android.support.FILE_PROVIDER_PATHS"
 97-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:47:16-66
-98                android:resource="@xml/flutter_image_picker_file_paths" />
+98                android:resource="@xml/shared_file_paths" />
 98-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:48:16-54
 99        </provider>
 100        <provider
-100-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:8:9-16:20
-101            android:name="com.sidlatau.flutteremailsender.FlutterEmailSenderFileProvider"
-101-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:9:13-90
-102            android:authorities="com.example.fend.file_provider"
-102-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:10:13-65
+100-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:11:9-19:20
+101            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+101-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:12:13-82
+102            android:authorities="com.example.fend.flutter.image_provider"
+102-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:13:13-74
 103            android:exported="false"
-103-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:11:13-37
+103-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:14:13-37
 104            android:grantUriPermissions="true" >
-104-->[:flutter_email_sender] /home/kauts/projects/PecPocketUI/build/flutter_email_sender/intermediates/library_manifest/release/AndroidManifest.xml:12:13-47
+104-->[:image_picker] /home/kauts/projects/PecPocketUI/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:15:13-47
 105            <meta-data
 105-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:46:12-48:56
 106                android:name="android.support.FILE_PROVIDER_PATHS"
 106-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:47:16-66
-107                android:resource="@xml/shared_file_paths" />
+107                android:resource="@xml/flutter_image_picker_file_paths" />
 107-->/home/kauts/projects/PecPocketUI/android/app/src/main/AndroidManifest.xml:48:16-54
 108        </provider>
 109
